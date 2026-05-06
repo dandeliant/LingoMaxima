@@ -1,0 +1,30 @@
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# macOS
+.DS_Store
+
+# Editors
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Logs
+*.log
+npm-debug.log*
+
+# Build artifacts (na przyszłość, gdyby coś się pojawiło)
+node_modules/
+dist/
+build/
+
+# Lokalne zrzuty bazy (na wszelki wypadek)
+*-baza-*.json
+
+# Backup oryginalnego pliku (w Downloads)
+QuotaLingua.html

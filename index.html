@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LingoMaxima — Cytaty świata</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<script src="https://code.responsivevoice.org/responsivevoice.js?key=FREE"></script>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<nav>
+  <div class="logo" onclick="showView('home')">Lingo<span>Maxima</span></div>
+  <ul class="nav-links">
+    <li><a id="nav-home" class="active" onclick="showView('home')">Strona główna</a></li>
+    <li><a id="nav-browse" onclick="showView('browse')">Przeglądaj</a></li>
+    <li><a id="nav-favorites" onclick="showView('favorites')">Ulubione</a></li>
+    <li><a id="nav-dict" onclick="showView('dict')">Słownik</a></li>
+    <li><a id="nav-learn" onclick="showView('learn')">Nauka</a></li>
+    <li><a id="nav-admin" onclick="showView('admin')">Admin</a></li>
+  </ul>
+  <div style="display:flex;align-items:center;gap:.8rem">
+    <div class="fav-pill" onclick="showView('favorites')">♥ <span id="fav-count-num">0</span> ulubionych</div>
+  </div>
+</nav>
+
+<div class="toast" id="toast"></div>
+
+<!-- HOME -->
+<div class="view active" id="home">
+  <div class="home-top">
+    <div class="home-eyebrow">✦ Słynne słowa · Nauka przez cytaty ✦</div>
+    <div class="home-heading">Cytat dnia</div>
+    <div class="home-sub">Ten sam losowy zestaw — w każdym aktywnym języku jednocześnie.</div>
+    <button class="roll-btn" onclick="rollAll()">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+      Losuj wszystkie cytaty
+    </button>
+  </div>
+
+  <div class="lang-cards-grid" id="lang-cards-grid"></div>
+
+  <!-- Settings -->
+  <div class="settings-panel">
+    <div class="settings-toggle-row" id="settings-row" onclick="toggleSettings()">
+      <div class="settings-title">
+        <span>⚙️</span> Ustawienia języków — wybierz, które mają się losować
+      </div>
+      <div class="settings-arrow" id="settings-arrow">▼</div>
+    </div>
+    <div class="settings-body" id="settings-body">
+      <div class="lang-toggles" id="lang-toggles"></div>
+      <div class="settings-hint">Kliknij język, aby go włączyć lub wyłączyć. Wyłączone języki znikają ze strony głównej i nie biorą udziału w losowaniu.</div>
+    </div>
+  </div>
+</div>
+
+<!-- BROWSE -->
+<div class="view" id="browse">
+  <div class="browse-header">
+    <div class="page-title">Biblioteka cytatów</div>
+    <div style="display:flex;gap:.7rem;align-items:center;flex-wrap:wrap">
+      <div class="search-box">
+        <span style="color:var(--text3)">🔍</span>
+        <input type="text" id="search-input" placeholder="Szukaj cytatu lub autora…" oninput="renderBrowse()">
+      </div>
+      <button class="btn btn-ghost" onclick="openPrintModal('browse')">🖨️ Drukuj</button>
+    </div>
+  </div>
+  <div class="stats-bar" id="stats-bar"></div>
+  <div class="filter-bar">
+    <button class="filter-chip active" data-fl="all" onclick="setFilter('lang','all',this)">🌍 Wszystkie</button>
+    <button class="filter-chip" data-fl="pl" onclick="setFilter('lang','pl',this)">🇵🇱 Polski</button>
+    <button class="filter-chip" data-fl="en" onclick="setFilter('lang','en',this)">🇬🇧 English</button>
+    <button class="filter-chip" data-fl="de" onclick="setFilter('lang','de',this)">🇩🇪 Deutsch</button>
+    <button class="filter-chip" data-fl="fr" onclick="setFilter('lang','fr',this)">🇫🇷 Français</button>
+    <button class="filter-chip" data-fl="es" onclick="setFilter('lang','es',this)">🇪🇸 Español</button>
+    <button class="filter-chip" data-fl="ru" onclick="setFilter('lang','ru',this)">🇷🇺 Русский</button>
+    <div class="filter-sep">|</div>
+    <button class="filter-chip active" data-fc="all" onclick="setFilter('cat','all',this)">Wszystkie kategorie</button>
+    <button class="filter-chip" data-fc="Filozofia" onclick="setFilter('cat','Filozofia',this)">🧠 Filozofia</button>
+    <button class="filter-chip" data-fc="Miłość" onclick="setFilter('cat','Miłość',this)">❤️ Miłość</button>
+    <button class="filter-chip" data-fc="Życie" onclick="setFilter('cat','Życie',this)">🌿 Życie</button>
+    <button class="filter-chip" data-fc="Sukces" onclick="setFilter('cat','Sukces',this)">🏆 Sukces</button>
+    <button class="filter-chip" data-fc="Motywacja" onclick="setFilter('cat','Motywacja',this)">⚡ Motywacja</button>
+    <button class="filter-chip" data-fc="Mądrość" onclick="setFilter('cat','Mądrość',this)">✨ Mądrość</button>
+  </div>
+  <div class="quotes-grid" id="quotes-grid"></div>
+</div>
+
+<!-- FAVORITES -->
+<div class="view" id="favorites">
+  <div class="fav-header" style="display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;flex-wrap:wrap">
+    <div>
+      <div class="page-title">Twoje ulubione</div>
+      <div class="section-sub" id="fav-sub">Cytaty, które Cię poruszyły</div>
+    </div>
+    <button class="btn btn-ghost" onclick="openPrintModal('favorites')">🖨️ Drukuj</button>
+  </div>
+  <div class="quotes-grid" id="fav-grid"></div>
+  <div class="empty-state" id="fav-empty" style="display:none">
+    <div class="empty-icon">♡</div>
+    <div>Brak ulubionych cytatów</div>
+    <div style="color:var(--text3);font-size:.78rem">Kliknij ♥ na karcie, aby dodać do kolekcji</div>
+    <button class="btn btn-ghost" onclick="showView('browse')" style="margin-top:1rem">Przeglądaj cytaty</button>
+  </div>
+</div>
+
+<!-- DICTIONARY -->
+<div class="view" id="dict">
+  <div class="dict-header">
+    <div>
+      <div class="page-title">Słownik</div>
+      <div class="section-sub">Tłumaczenia słów i cytaty zawierające szukane słowo</div>
+    </div>
+    <div style="display:flex;gap:.6rem;align-items:center;flex-wrap:wrap">
+      <select id="dict-source" style="width:auto;padding:10px 13px">
+        <option value="pl">🇵🇱 Polski</option>
+        <option value="en">🇬🇧 English</option>
+        <option value="de">🇩🇪 Deutsch</option>
+        <option value="fr">🇫🇷 Français</option>
+        <option value="es">🇪🇸 Español</option>
+        <option value="ru">🇷🇺 Русский</option>
+      </select>
+      <div class="search-box">
+        <span style="color:var(--text3)">🔍</span>
+        <input type="text" id="dict-search" placeholder="Wpisz słowo i Enter…" onkeydown="if(event.key==='Enter')dictSearch()">
+      </div>
+    </div>
+  </div>
+  <div id="dict-empty" class="empty-state">
+    <div class="empty-icon">📖</div>
+    <div>Wpisz słowo lub kliknij dowolne słowo w cytacie</div>
+    <div style="color:var(--text3);font-size:.78rem">Zobaczysz tłumaczenie i wszystkie cytaty z tym słowem</div>
+  </div>
+  <div id="dict-content" style="display:none">
+    <div class="dict-word-header">
+      <div class="dict-word" id="dict-word">—</div>
+      <div class="dict-source-lang" id="dict-source-lang"></div>
+      <div style="margin-top:1rem">
+        <button class="star-btn" id="dict-star-btn" onclick="dictToggleStar()" title="Dodaj do listy 'Do nauki'">⭐ Dodaj do nauki</button>
+      </div>
+    </div>
+    <div class="dict-section">
+      <div class="dict-section-title" style="display:flex;align-items:center;justify-content:space-between;gap:.7rem;flex-wrap:wrap">
+        <span>🌐 Tłumaczenia na inne języki <span id="dict-edit-badge" style="display:none;color:#f4a261;font-weight:normal;text-transform:none;letter-spacing:.04em;font-size:.7rem;margin-left:.4rem">· ręcznie poprawione</span></span>
+        <button class="edit-tr-btn" onclick="openTranslationsEditor(dictCurrent.word,dictCurrent.lang)">✎ Popraw</button>
+      </div>
+      <div id="dict-translations"></div>
+    </div>
+    <div class="dict-section">
+      <div class="dict-section-title">📜 Cytaty zawierające „<span id="dict-word-2"></span>" <span style="color:var(--text3);font-weight:normal;text-transform:none;letter-spacing:0">(<span id="dict-quotes-count">0</span>)</span></div>
+      <div class="quotes-grid" id="dict-quotes-grid" style="padding:0"></div>
+      <div id="dict-no-quotes" style="font-family:var(--ff-u);font-size:.85rem;color:var(--text3);padding:1rem 0;display:none">Brak cytatów z tym słowem w bazie.</div>
+    </div>
+  </div>
+</div>
+
+<!-- NAUKA -->
+<div class="view" id="learn">
+  <div class="learn-header">
+    <div class="page-title">Nauka</div>
+    <div class="section-sub">Twoje słownictwo, quizy i analiza bazy</div>
+    <div class="learn-tabs">
+      <button class="learn-tab active" data-panel="vocab" onclick="switchLearnTab('vocab')">⭐ Słownictwo</button>
+      <button class="learn-tab" data-panel="quiz" onclick="switchLearnTab('quiz')">🎯 Quiz</button>
+      <button class="learn-tab" data-panel="cloze" onclick="switchLearnTab('cloze')">📝 Cytat z luką</button>
+      <button class="learn-tab" data-panel="freq" onclick="switchLearnTab('freq')">☁️ Częstość słów</button>
+    </div>
+  </div>
+
+  <!-- Słownictwo -->
+  <div class="learn-panel" id="learn-vocab">
+    <div class="vocab-toolbar">
+      <select id="vocab-lang-filter" onchange="renderVocab()">
+        <option value="all">🌍 Wszystkie języki</option>
+        <option value="pl">🇵🇱 Polski</option>
+        <option value="en">🇬🇧 English</option>
+        <option value="de">🇩🇪 Deutsch</option>
+        <option value="fr">🇫🇷 Français</option>
+        <option value="es">🇪🇸 Español</option>
+        <option value="ru">🇷🇺 Русский</option>
+      </select>
+      <select id="vocab-status-filter" onchange="renderVocab()">
+        <option value="all">Wszystkie</option>
+        <option value="learning">🟠 Do nauki</option>
+        <option value="known">🟢 Znane</option>
+      </select>
+      <button class="btn btn-ghost" onclick="openPrintModal('vocab')">🖨️ Drukuj jako fiszki</button>
+    </div>
+    <div class="vocab-stats" id="vocab-stats"></div>
+    <div class="vocab-grid" id="vocab-grid"></div>
+    <div class="empty-state" id="vocab-empty" style="display:none">
+      <div class="empty-icon">⭐</div>
+      <div>Brak słówek na liście</div>
+      <div style="color:var(--text3);font-size:.78rem">Otwórz dowolne słowo w Słowniku i kliknij ⭐, aby je dodać</div>
+      <button class="btn btn-ghost" onclick="showView('browse')" style="margin-top:1rem">Przeglądaj cytaty</button>
+    </div>
+  </div>
+
+  <!-- Quiz -->
+  <div class="learn-panel" id="learn-quiz" style="display:none">
+    <div id="quiz-config" class="quiz-config">
+      <div class="quiz-config-row">
+        <label style="min-width:130px">Pytanie w języku:</label>
+        <select id="quiz-from"></select>
+      </div>
+      <div class="quiz-config-row">
+        <label style="min-width:130px">Odpowiedź w:</label>
+        <select id="quiz-to"></select>
+      </div>
+      <div class="quiz-config-row">
+        <label style="min-width:130px">Tryb:</label>
+        <div class="quiz-radios">
+          <label><input type="radio" name="quiz-mode" value="multi" checked> 4 opcje do wyboru</label>
+          <label><input type="radio" name="quiz-mode" value="text"> Wpisz odpowiedź</label>
+        </div>
+      </div>
+      <div class="quiz-config-row">
+        <label style="min-width:130px">Z listy:</label>
+        <div class="quiz-radios">
+          <label><input type="radio" name="quiz-set" value="all" checked> Wszystkie</label>
+          <label><input type="radio" name="quiz-set" value="learning"> Tylko „do nauki"</label>
+        </div>
+      </div>
+      <div class="quiz-config-row">
+        <label style="min-width:130px">Liczba pytań:</label>
+        <select id="quiz-count">
+          <option>5</option><option selected>10</option><option>20</option><option>50</option>
+        </select>
+      </div>
+      <div style="margin-top:1.5rem">
+        <button class="btn btn-primary" onclick="startQuiz()">🎯 Rozpocznij quiz</button>
+      </div>
+      <div id="quiz-warn" style="margin-top:1rem;font-family:var(--ff-u);font-size:.8rem;color:var(--text3)"></div>
+    </div>
+
+    <div id="quiz-session" style="display:none">
+      <div class="quiz-progress">
+        Pytanie <strong id="qq-num">1</strong> z <strong id="qq-total">10</strong> · Poprawnie: <strong id="qq-correct" style="color:#7fc890">0</strong>
+        <div class="quiz-progress-bar"><div id="qq-bar" style="width:0%"></div></div>
+      </div>
+      <div class="quiz-question">
+        <div class="qq-source" id="qq-source"></div>
+        <div class="qq-word" id="qq-word"></div>
+        <div class="qq-target" id="qq-target"></div>
+      </div>
+      <div class="quiz-options" id="qq-options"></div>
+      <input type="text" id="qq-input" class="quiz-text-input" placeholder="Wpisz tłumaczenie i Enter…" style="display:none" onkeydown="if(event.key==='Enter')submitQuizText()">
+      <div id="qq-feedback" style="display:none"></div>
+      <div style="margin-top:1.2rem;text-align:center">
+        <button class="btn btn-ghost" onclick="resetQuiz()">↩️ Przerwij</button>
+      </div>
+    </div>
+
+    <div id="quiz-results" style="display:none">
+      <div class="quiz-results">
+        <div style="font-family:var(--ff-u);font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gold)">Wynik</div>
+        <div class="qr-score"><span id="qr-correct">0</span> / <span id="qr-total">0</span></div>
+        <div class="qr-percent" id="qr-percent">0%</div>
+        <div style="margin-top:1.5rem;display:flex;gap:.7rem;justify-content:center;flex-wrap:wrap">
+          <button class="btn btn-primary" onclick="resetQuiz()">🎯 Jeszcze raz</button>
+          <button class="btn btn-ghost" onclick="switchLearnTab('vocab')">⭐ Wróć do słownictwa</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Cloze -->
+  <div class="learn-panel" id="learn-cloze" style="display:none">
+    <div class="cloze-toolbar">
+      <select id="cloze-lang">
+        <option value="pl">🇵🇱 Polski</option>
+        <option value="en">🇬🇧 English</option>
+        <option value="de">🇩🇪 Deutsch</option>
+        <option value="fr">🇫🇷 Français</option>
+        <option value="es">🇪🇸 Español</option>
+        <option value="ru">🇷🇺 Русский</option>
+      </select>
+      <button class="btn btn-primary" onclick="startCloze()">📝 Losuj cytat</button>
+      <div class="vocab-stats" style="margin:0;margin-left:auto" id="cloze-stats"></div>
+    </div>
+    <div id="cloze-session" style="display:none">
+      <div class="cloze-quote" id="cloze-quote"></div>
+      <div class="cloze-author" id="cloze-author"></div>
+      <div style="margin:1.5rem 0">
+        <div class="cloze-options" id="cloze-options"></div>
+      </div>
+      <div id="cloze-feedback" style="display:none;text-align:center;margin:1rem auto;max-width:560px"></div>
+      <div style="text-align:center;margin-top:1rem">
+        <button class="btn btn-primary" id="cloze-next" onclick="startCloze()" style="display:none">➡️ Następny cytat</button>
+      </div>
+    </div>
+    <div class="empty-state" id="cloze-empty">
+      <div class="empty-icon">📝</div>
+      <div>Wybierz język i kliknij „Losuj cytat"</div>
+      <div style="color:var(--text3);font-size:.78rem">Z cytatu zniknie jedno słowo — zgadnij, które</div>
+    </div>
+  </div>
+
+  <!-- Frequency -->
+  <div class="learn-panel" id="learn-freq" style="display:none">
+    <div class="freq-toolbar">
+      <label style="margin:0">Język:</label>
+      <select id="freq-lang" onchange="renderFreq()">
+        <option value="pl">🇵🇱 Polski</option>
+        <option value="en">🇬🇧 English</option>
+        <option value="de">🇩🇪 Deutsch</option>
+        <option value="fr">🇫🇷 Français</option>
+        <option value="es">🇪🇸 Español</option>
+        <option value="ru">🇷🇺 Русский</option>
+      </select>
+      <label style="margin:0">Top:</label>
+      <select id="freq-top" onchange="renderFreq()">
+        <option>30</option><option selected>50</option><option>100</option><option>200</option>
+      </select>
+      <div class="vocab-stats" style="margin:0;margin-left:auto" id="freq-stats"></div>
+    </div>
+    <div class="freq-cloud" id="freq-cloud"></div>
+    <div style="font-family:var(--ff-u);font-size:.72rem;color:var(--text3);margin-top:.8rem;text-align:center">
+      Rozmiar tagu zależy od częstości słowa · klik = wyszukaj w Słowniku
+    </div>
+  </div>
+</div>
+
+<!-- ADMIN -->
+<div class="view" id="admin">
+  <div class="admin-login" id="admin-login">
+    <div style="text-align:center">
+      <div style="font-family:var(--ff-d);font-size:2.2rem;font-style:italic;color:var(--gold3);margin-bottom:.4rem">Panel Administratora</div>
+      <div style="font-family:var(--ff-u);font-size:.78rem;color:var(--text3)">Wprowadź hasło dostępu</div>
+    </div>
+    <div class="form-group" style="width:300px">
+      <label>Login</label>
+      <input type="text" id="admin-user" placeholder="Nazwa użytkownika" onkeydown="if(event.key==='Enter')adminLogin()">
+    </div>
+    <div class="form-group" style="width:300px">
+      <label>Hasło</label>
+      <input type="password" id="admin-pass" placeholder="••••••••" onkeydown="if(event.key==='Enter')adminLogin()">
+    </div>
+    <button class="btn btn-primary" onclick="adminLogin()">Zaloguj się</button>
+  </div>
+  <div class="admin-panel" id="admin-panel" style="display:none">
+    <div class="admin-title">⚙️ Panel Administratora</div>
+    <div class="form-grid">
+      <div class="form-group full">
+        <label>Treść cytatu</label>
+        <textarea id="nq-text" placeholder="Wpisz treść cytatu…"></textarea>
+      </div>
+      <div class="form-group">
+        <label>Autor</label>
+        <input type="text" id="nq-author" placeholder="Imię i nazwisko">
+      </div>
+      <div class="form-group">
+        <label>Język</label>
+        <select id="nq-lang">
+          <option value="pl">🇵🇱 Polski</option>
+          <option value="en">🇬🇧 English</option>
+          <option value="de">🇩🇪 Deutsch</option>
+          <option value="fr">🇫🇷 Français</option>
+          <option value="es">🇪🇸 Español</option>
+          <option value="ru">🇷🇺 Русский</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Kategoria</label>
+        <select id="nq-cat">
+          <option value="Filozofia">🧠 Filozofia</option>
+          <option value="Miłość">❤️ Miłość</option>
+          <option value="Życie">🌿 Życie</option>
+          <option value="Sukces">🏆 Sukces</option>
+          <option value="Motywacja">⚡ Motywacja</option>
+          <option value="Mądrość">✨ Mądrość</option>
+        </select>
+      </div>
+      <div class="form-group full">
+        <label>🌐 ID tłumaczenia <span style="text-transform:none;letter-spacing:0;color:var(--text3);font-size:.7rem">(opcjonalne — cytaty z tym samym ID są tłumaczeniami siebie nawzajem)</span></label>
+        <input type="number" id="nq-tid" placeholder="np. 1, 2, 3… (puste = cytat unikalny)">
+        <div id="nq-tid-hint" style="font-family:var(--ff-u);font-size:.7rem;color:var(--text3);margin-top:.3rem"></div>
+      </div>
+      <div class="full">
+        <button class="btn btn-primary" onclick="adminAdd()">✦ Dodaj cytat do bazy</button>
+      </div>
+    </div>
+    <div style="margin-top:2.5rem">
+      <div style="font-family:var(--ff-u);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);margin-bottom:.9rem">Wszystkie cytaty (<span id="admin-count">0</span>)</div>
+      <div id="admin-list"></div>
+    </div>
+    <div style="margin-top:2rem;padding-top:1.5rem;border-top:1px solid var(--border)">
+      <div style="font-family:var(--ff-u);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);margin-bottom:.9rem">📦 Baza danych</div>
+      <div style="display:flex;gap:.7rem;flex-wrap:wrap">
+        <button class="btn btn-ghost" onclick="adminExportJson()">⬇️ Eksport JSON</button>
+        <button class="btn btn-ghost" onclick="document.getElementById('import-file').click()">⬆️ Import JSON</button>
+        <input type="file" id="import-file" accept="application/json" style="display:none" onchange="adminImportJson(this.files[0]);this.value=''">
+      </div>
+      <div style="font-family:var(--ff-u);font-size:.7rem;color:var(--text3);margin-top:.5rem">Eksport pobiera całą bazę (z polami <code style="color:var(--gold)">tid</code>) jako plik JSON. Import zastępuje obecną bazę.</div>
+    </div>
+    <div style="margin-top:1.8rem"><button class="btn btn-ghost" onclick="adminLogout()">Wyloguj się</button></div>
+  </div>
+</div>
+
+<!-- PRINT MODAL -->
+<div class="modal-overlay" id="print-modal">
+  <div class="modal" style="width:520px">
+    <div class="modal-title">🖨️ Wydruk cytatów</div>
+    <div class="form-group" style="margin-bottom:1.2rem">
+      <label>Tryb wydruku</label>
+      <div class="print-modes">
+        <label class="print-mode-opt">
+          <input type="radio" name="print-mode" value="cards" checked>
+          <div>
+            <div class="pmo-title">📜 Karty ozdobne</div>
+            <div class="pmo-desc">Jeden cytat na stronie, dekoracyjna ramka — do oprawienia</div>
+          </div>
+        </label>
+        <label class="print-mode-opt">
+          <input type="radio" name="print-mode" value="cards2">
+          <div>
+            <div class="pmo-title">📜 Karty ozdobne 2</div>
+            <div class="pmo-desc">Cytaty w różnych językach pod sobą, jedna wspólna złota ramka</div>
+          </div>
+        </label>
+        <label class="print-mode-opt">
+          <input type="radio" name="print-mode" value="compact">
+          <div>
+            <div class="pmo-title">📋 Lista kompaktowa</div>
+            <div class="pmo-desc">Wiele cytatów na stronie, oszczędnie — do segregatora</div>
+          </div>
+        </label>
+        <label class="print-mode-opt">
+          <input type="radio" name="print-mode" value="flashcards">
+          <div>
+            <div class="pmo-title">🃏 Fiszki</div>
+            <div class="pmo-desc">2 kolumny × 3 rzędy do wycięcia — do nauki</div>
+          </div>
+        </label>
+        <label class="print-mode-opt">
+          <input type="radio" name="print-mode" value="flashcards2">
+          <div>
+            <div class="pmo-title">🃏 Fiszki 2</div>
+            <div class="pmo-desc">3 kolumny × 6 rzędów (18 na stronę) — gęsto, do intensywnej nauki</div>
+          </div>
+        </label>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Języki</label>
+      <div class="print-langs" id="print-langs"></div>
+      <div class="print-count" id="print-count">Do wydruku: <strong>0</strong> cytatów</div>
+    </div>
+    <div class="form-group" style="margin-top:1rem">
+      <label style="display:flex;align-items:center;gap:.5rem;cursor:pointer;text-transform:none;letter-spacing:0;color:var(--text);font-size:.85rem">
+        <input type="checkbox" id="print-grouped" style="accent-color:var(--gold);cursor:pointer" onchange="updatePrintCount()">
+        🌐 Drukuj jako grupy tłumaczeń
+      </label>
+      <div style="font-family:var(--ff-u);font-size:.7rem;color:var(--text3);margin-top:.3rem;padding-left:1.6rem">
+        Cytaty z tym samym ID tłumaczenia trafią do wspólnej karty. Najlepiej działa z trybem „Karty ozdobne 2".
+      </div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-primary" onclick="doPrint()">🖨️ Drukuj</button>
+      <button class="btn btn-ghost" onclick="document.getElementById('print-modal').classList.remove('open')">Anuluj</button>
+    </div>
+  </div>
+</div>
+
+<!-- PRINT VIEW (renderowany do wydruku) -->
+<div id="print-view"></div>
+
+<!-- TRANSLATIONS EDITOR MODAL -->
+<div class="modal-overlay" id="tre-modal">
+  <div class="modal" style="width:560px">
+    <div class="modal-title">✎ Popraw tłumaczenia</div>
+    <div style="margin-bottom:1.4rem;text-align:center">
+      <div style="font-family:var(--ff-d);font-style:italic;font-size:2.2rem;color:var(--gold3);line-height:1.1" id="tre-word">—</div>
+      <div style="font-family:var(--ff-u);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--text3);margin-top:.4rem" id="tre-source-lang"></div>
+    </div>
+    <div class="form-group">
+      <label>Tłumaczenia</label>
+      <div id="tre-fields" style="display:flex;flex-direction:column;gap:.6rem;margin-top:.5rem"></div>
+      <div style="font-family:var(--ff-u);font-size:.7rem;color:var(--text3);margin-top:.8rem;line-height:1.5">
+        Puste pole = brak tłumaczenia w tym języku.<br>
+        Twoje poprawki nadpisują tłumaczenia z API i są używane wszędzie (Słownik, fiszki, quiz).
+      </div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-primary" onclick="saveTranslationsEdit()">Zapisz poprawki</button>
+      <button class="btn btn-ghost" onclick="resetTranslationsEdit()" title="Usuń ręczne poprawki dla tego słowa, wróć do API">↺ Reset do API</button>
+      <button class="btn btn-ghost" onclick="document.getElementById('tre-modal').classList.remove('open')">Anuluj</button>
+    </div>
+  </div>
+</div>
+
+<!-- TRANSLATIONS MODAL -->
+<div class="modal-overlay" id="tr-modal">
+  <div class="modal" style="width:560px">
+    <div class="modal-title" id="tr-modal-title">🌐 Tłumaczenia</div>
+    <div class="tr-list" id="tr-list"></div>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" onclick="document.getElementById('tr-modal').classList.remove('open')">Zamknij</button>
+    </div>
+  </div>
+</div>
+
+<!-- EDIT MODAL -->
+<div class="modal-overlay" id="edit-modal">
+  <div class="modal">
+    <div class="modal-title">✎ Edytuj cytat</div>
+    <input type="hidden" id="eq-id">
+    <div class="form-grid">
+      <div class="form-group full">
+        <label>Treść cytatu</label>
+        <textarea id="eq-text"></textarea>
+      </div>
+      <div class="form-group full">
+        <label>Autor</label>
+        <input type="text" id="eq-author">
+      </div>
+      <div class="form-group">
+        <label>Język</label>
+        <select id="eq-lang">
+          <option value="pl">🇵🇱 Polski</option>
+          <option value="en">🇬🇧 English</option>
+          <option value="de">🇩🇪 Deutsch</option>
+          <option value="fr">🇫🇷 Français</option>
+          <option value="es">🇪🇸 Español</option>
+          <option value="ru">🇷🇺 Русский</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Kategoria</label>
+        <select id="eq-cat">
+          <option value="Filozofia">🧠 Filozofia</option>
+          <option value="Miłość">❤️ Miłość</option>
+          <option value="Życie">🌿 Życie</option>
+          <option value="Sukces">🏆 Sukces</option>
+          <option value="Motywacja">⚡ Motywacja</option>
+          <option value="Mądrość">✨ Mądrość</option>
+        </select>
+      </div>
+      <div class="form-group full">
+        <label>🌐 ID tłumaczenia <span style="text-transform:none;letter-spacing:0;color:var(--text3);font-size:.7rem">(puste = cytat unikalny)</span></label>
+        <input type="number" id="eq-tid" placeholder="np. 1, 2, 3…">
+        <div id="eq-tid-hint" style="font-family:var(--ff-u);font-size:.7rem;color:var(--text3);margin-top:.3rem"></div>
+      </div>
+    </div>
+    <div class="modal-actions" style="flex-wrap:wrap">
+      <button class="btn btn-primary" onclick="adminSaveEdit()">Zapisz zmiany</button>
+      <button class="btn btn-ghost" onclick="adminDuplicateForTranslation()" title="Kopiuje cytat, łączy tym samym ID tłumaczenia, otwiera edycję pustego pola">🌐 Powiel do innego języka</button>
+      <button class="btn btn-ghost" onclick="document.getElementById('edit-modal').classList.remove('open')">Anuluj</button>
+    </div>
+  </div>
+</div>
+
+<!-- PROMO MODAL -->
+<div class="modal-overlay" id="promo-modal">
+  <div class="modal">
+    <div class="modal-title">✦ Funkcje Premium</div>
+    <p style="font-family:var(--ff-u);font-size:.83rem;color:var(--text2);line-height:1.7">Odkryj pełen potencjał <strong style="color:var(--gold)">LingoMaxima Premium</strong>.</p>
+    <div style="margin-top:1.4rem;display:flex;flex-direction:column;gap:.75rem">
+      <div style="display:flex;gap:1rem;align-items:center;font-family:var(--ff-u);font-size:.82rem;color:var(--text)"><span style="color:var(--gold)">🃏</span> Fiszki z cytatów do nauki słownictwa</div>
+      <div style="display:flex;gap:1rem;align-items:center;font-family:var(--ff-u);font-size:.82rem;color:var(--text)"><span style="color:var(--gold)">📊</span> Quizy — zgadnij autora lub przetłumacz</div>
+      <div style="display:flex;gap:1rem;align-items:center;font-family:var(--ff-u);font-size:.82rem;color:var(--text)"><span style="color:var(--gold)">🎙️</span> Nagrywaj wymowę — AI ocenia akcent</div>
+      <div style="display:flex;gap:1rem;align-items:center;font-family:var(--ff-u);font-size:.82rem;color:var(--text)"><span style="color:var(--gold)">🖨️</span> Eksport ulubionych do PDF i druk</div>
+      <div style="display:flex;gap:1rem;align-items:center;font-family:var(--ff-u);font-size:.82rem;color:var(--text)"><span style="color:var(--gold)">📱</span> Aplikacja mobilna z cytatem dnia</div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-primary">Wypróbuj 14 dni za darmo</button>
+      <button class="btn btn-ghost" onclick="document.getElementById('promo-modal').classList.remove('open')">Może później</button>
+    </div>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
