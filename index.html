@@ -96,7 +96,12 @@
       <div class="page-title">Twoje ulubione</div>
       <div class="section-sub" id="fav-sub">Cytaty, które Cię poruszyły</div>
     </div>
-    <button class="btn btn-ghost" onclick="openPrintModal('favorites')">🖨️ Drukuj</button>
+    <div style="display:flex;gap:.5rem;flex-wrap:wrap">
+      <button class="btn btn-ghost" onclick="openPrintModal('favorites')">🖨️ Drukuj</button>
+      <button class="btn btn-ghost" onclick="exportSettings()" title="Pobierz Twoje ulubione, słownictwo, korekty tłumaczeń i aktywne języki jako plik JSON">📥 Eksport ustawień</button>
+      <button class="btn btn-ghost" onclick="document.getElementById('settings-import-file').click()" title="Wczytaj ustawienia z pliku JSON">📤 Import ustawień</button>
+      <input type="file" id="settings-import-file" accept="application/json" style="display:none" onchange="importSettings(this.files[0]);this.value=''">
+    </div>
   </div>
   <div class="quotes-grid" id="fav-grid"></div>
   <div class="empty-state" id="fav-empty" style="display:none">

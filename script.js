@@ -1769,6 +1769,100 @@ function adminDuplicateForTranslation(){
   setTimeout(function(){adminEdit(newQ.id);showToast("✦ Powielono — uzupełnij treść po "+nextLang.label.toLowerCase())},150);
 }
 
+// === EKSPORT/IMPORT USTAWIEŃ UŻYTKOWNIKA ===
+// Bez logowania admina — to dane osobiste użytkownika.
+// Zawiera: ulubione, słownictwo, ręczne korekty tłumaczeń, aktywne języki.
+// NIE zawiera: bazy cytatów (to robi adminExportJson), hasła admina, modal-promo flagi.
+function exportSettings(){
+  var data={
+    app:"LingoMaxima",
+    version:1,
+    exported:new Date().toISOString(),
+    favorites:favorites,
+    vocab:vocab,
+    dictEdits:dictEdits,
+    activeLangs:activeLangs
+  };
+  var json=JSON.stringify(data,null,2);
+  var blob=new Blob([json],{type:"application/json"});
+  var url=URL.createObjectURL(blob);
+  var a=document.createElement("a");
+  a.href=url;
+  a.download="lingomaxima-ustawienia-"+new Date().toISOString().slice(0,10)+".json";
+  document.body.appendChild(a);a.click();document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+  var summary=favorites.length+" ulubionych · "+vocab.length+" słów · "+Object.keys(dictEdits).length+" korekt · "+activeLangs.length+" języków";
+  showToast("✦ Eksport: "+summary);
+}
+
+function importSettings(file){
+  if(!file)return;
+  var reader=new FileReader();
+  reader.onload=function(e){
+    try{
+      var data=JSON.parse(e.target.result);
+      // Sprawdzenie pochodzenia (delikatne ostrzeżenie, nie blokujące)
+      if(data.app&&data.app!=="LingoMaxima"){
+        if(!confirm("Plik pochodzi z aplikacji „"+data.app+"”, nie LingoMaxima.\nKontynuować?"))return;
+      }
+      // Podgląd zmian — pokaż użytkownikowi co zostanie nadpisane
+      var msg="Import zastąpi Twoje obecne ustawienia:\n\n";
+      if(Array.isArray(data.favorites))
+        msg+="• Ulubione: "+favorites.length+" → "+data.favorites.length+"\n";
+      if(Array.isArray(data.vocab))
+        msg+="• Słownictwo: "+vocab.length+" → "+data.vocab.length+"\n";
+      if(data.dictEdits&&typeof data.dictEdits==="object")
+        msg+="• Korekty tłumaczeń: "+Object.keys(dictEdits).length+" → "+Object.keys(data.dictEdits).length+"\n";
+      if(Array.isArray(data.activeLangs)&&data.activeLangs.length)
+        msg+="• Aktywne języki: "+activeLangs.length+" → "+data.activeLangs.length+"\n";
+      msg+="\nKontynuować?";
+      if(!confirm(msg))return;
+      // Aplikacja zmian — każde pole niezależnie (jeśli nie ma w pliku, lokalne zostają)
+      var changed=[];
+      if(Array.isArray(data.favorites)){
+        favorites=data.favorites.slice();
+        localStorage.setItem("ql_fav",JSON.stringify(favorites));
+        changed.push(favorites.length+" ulubionych");
+      }
+      if(Array.isArray(data.vocab)){
+        vocab=data.vocab.slice();
+        saveVocab();
+        changed.push(vocab.length+" słów");
+      }
+      if(data.dictEdits&&typeof data.dictEdits==="object"&&!Array.isArray(data.dictEdits)){
+        dictEdits=Object.assign({},data.dictEdits);
+        saveDictEdits();
+        // wyczyść cache pamięciowy, żeby nowe edycje były aktywne natychmiast
+        dictCache={};
+        changed.push(Object.keys(dictEdits).length+" korekt");
+      }
+      if(Array.isArray(data.activeLangs)&&data.activeLangs.length){
+        // bezpieczeństwo: tylko znane kody języków
+        var knownCodes=LANGS.map(function(L){return L.code});
+        activeLangs=data.activeLangs.filter(function(c){return knownCodes.indexOf(c)!==-1});
+        if(!activeLangs.length)activeLangs=["pl"];
+        localStorage.setItem("ql_langs",JSON.stringify(activeLangs));
+        changed.push(activeLangs.length+" języków");
+      }
+      // Odśwież wszystkie widoki
+      updateFavCount();
+      buildLangCards();
+      buildLangToggles();
+      var v=document.querySelector(".view.active");
+      if(v){
+        if(v.id==="favorites")renderFavorites();
+        else if(v.id==="browse")renderBrowse();
+        else if(v.id==="learn")renderLearn();
+        else if(v.id==="dict"&&dictCurrent.word)fetchTranslations(dictCurrent.word,dictCurrent.lang);
+      }
+      showToast("✦ Zaimportowano: "+(changed.length?changed.join(" · "):"brak danych"));
+    }catch(err){
+      showToast("❌ Błąd importu: "+err.message);
+    }
+  };
+  reader.readAsText(file);
+}
+
 function adminExportJson(){
   var data=JSON.stringify(quotes,null,2);
   var blob=new Blob([data],{type:"application/json"});
