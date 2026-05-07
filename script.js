@@ -1,9 +1,9 @@
 var DEFAULT_QUOTES=[
   {id:1,text:"Nie ma nic trwałego oprócz zmiany.",author:"Heraklit",lang:"pl",cat:"Filozofia",tid:154},
-  {id:2,text:"Żyj tak, jakbyś miał umrzeć jutro. Ucz się tak, jakbyś miał żyć wiecznie.",author:"Mahatma Gandhi",lang:"pl",cat:"Motywacja"},
-  {id:3,text:"Jedyna droga do odkrycia granic możliwości jest próba przekroczenia tego, co niemożliwe.",author:"Arthur C. Clarke",lang:"pl",cat:"Sukces"},
-  {id:4,text:"Miłość jest jedyną siłą zdolną zmienić wroga w przyjaciela.",author:"Martin Luther King Jr.",lang:"pl",cat:"Miłość"},
-  {id:5,text:"Szczęście zależy wyłącznie od tego, co myślisz.",author:"Dale Carnegie",lang:"pl",cat:"Mądrość"},
+  {id:2,text:"Żyj tak, jakbyś miał umrzeć jutro. Ucz się tak, jakbyś miał żyć wiecznie.",author:"Mahatma Gandhi",lang:"pl",cat:"Motywacja",tid:155},
+  {id:3,text:"Jedyna droga do odkrycia granic możliwości jest próba przekroczenia tego, co niemożliwe.",author:"Arthur C. Clarke",lang:"pl",cat:"Sukces",tid:156},
+  {id:4,text:"Miłość jest jedyną siłą zdolną zmienić wroga w przyjaciela.",author:"Martin Luther King Jr.",lang:"pl",cat:"Miłość",tid:157},
+  {id:5,text:"Szczęście zależy wyłącznie od tego, co myślisz.",author:"Dale Carnegie",lang:"pl",cat:"Mądrość",tid:158},
   {id:6,text:"Życie jest tym, co się nam przydarza, gdy jesteśmy zajęci robieniem innych planów.",author:"John Lennon",lang:"pl",cat:"Życie",tid:1},
   {id:7,text:"Bądź zmianą, którą chcesz widzieć w świecie.",author:"Mahatma Gandhi",lang:"pl",cat:"Motywacja",tid:4},
   {id:8,text:"Jedynym sposobem na wielką pracę jest kochanie tego, co się robi.",author:"Steve Jobs",lang:"pl",cat:"Sukces",tid:3},
@@ -1107,12 +1107,36 @@ var DEFAULT_QUOTES=[
   {id:956,text:"Nichts ist beständig als der Wechsel.",author:"Heraklit",lang:"de",cat:"Filozofia",tid:154},
   {id:957,text:"Rien n'est permanent, sauf le changement.",author:"Héraclite",lang:"fr",cat:"Filozofia",tid:154},
   {id:958,text:"Nada perdura sino el cambio.",author:"Heráclito",lang:"es",cat:"Filozofia",tid:154},
-  {id:959,text:"Ничто не вечно, кроме перемен.",author:"Гераклит",lang:"ru",cat:"Filozofia",tid:154}
+  {id:959,text:"Ничто не вечно, кроме перемен.",author:"Гераклит",lang:"ru",cat:"Filozofia",tid:154},
+  // Grupa 155 — Mahatma Gandhi, „Żyj tak, jakbyś miał umrzeć jutro…" (PL już jest jako id:2)
+  {id:960,text:"Live as if you were to die tomorrow. Learn as if you were to live forever.",author:"Mahatma Gandhi",lang:"en",cat:"Motywacja",tid:155},
+  {id:961,text:"Lebe, als ob du morgen sterben würdest. Lerne, als ob du ewig leben würdest.",author:"Mahatma Gandhi",lang:"de",cat:"Motywacja",tid:155},
+  {id:962,text:"Vis comme si tu devais mourir demain. Apprends comme si tu devais vivre éternellement.",author:"Mahatma Gandhi",lang:"fr",cat:"Motywacja",tid:155},
+  {id:963,text:"Vive como si fueras a morir mañana. Aprende como si fueras a vivir para siempre.",author:"Mahatma Gandhi",lang:"es",cat:"Motywacja",tid:155},
+  {id:964,text:"Живи так, словно умрёшь завтра. Учись так, словно будешь жить вечно.",author:"Махатма Ганди",lang:"ru",cat:"Motywacja",tid:155},
+  // Grupa 156 — Arthur C. Clarke, „Jedyna droga do odkrycia granic…" (PL już jest jako id:3)
+  {id:965,text:"The only way of discovering the limits of the possible is to venture a little way past them into the impossible.",author:"Arthur C. Clarke",lang:"en",cat:"Sukces",tid:156},
+  {id:966,text:"Der einzige Weg, die Grenzen des Möglichen zu entdecken, ist, ein wenig über sie hinaus ins Unmögliche zu wagen.",author:"Arthur C. Clarke",lang:"de",cat:"Sukces",tid:156},
+  {id:967,text:"La seule façon de découvrir les limites du possible est de s'aventurer un peu au-delà, dans l'impossible.",author:"Arthur C. Clarke",lang:"fr",cat:"Sukces",tid:156},
+  {id:968,text:"La única forma de descubrir los límites de lo posible es aventurarse un poco más allá, hacia lo imposible.",author:"Arthur C. Clarke",lang:"es",cat:"Sukces",tid:156},
+  {id:969,text:"Единственный способ узнать границы возможного — это решиться зайти немного за них, в невозможное.",author:"Артур Кларк",lang:"ru",cat:"Sukces",tid:156},
+  // Grupa 157 — Martin Luther King Jr., „Miłość jest jedyną siłą…" (PL już jest jako id:4)
+  {id:970,text:"Love is the only force capable of transforming an enemy into a friend.",author:"Martin Luther King Jr.",lang:"en",cat:"Miłość",tid:157},
+  {id:971,text:"Liebe ist die einzige Kraft, die einen Feind in einen Freund verwandeln kann.",author:"Martin Luther King Jr.",lang:"de",cat:"Miłość",tid:157},
+  {id:972,text:"L'amour est la seule force capable de transformer un ennemi en ami.",author:"Martin Luther King Jr.",lang:"fr",cat:"Miłość",tid:157},
+  {id:973,text:"El amor es la única fuerza capaz de transformar un enemigo en amigo.",author:"Martin Luther King Jr.",lang:"es",cat:"Miłość",tid:157},
+  {id:974,text:"Любовь — единственная сила, способная превратить врага в друга.",author:"Мартин Лютер Кинг — мл.",lang:"ru",cat:"Miłość",tid:157},
+  // Grupa 158 — Dale Carnegie, „Szczęście zależy wyłącznie od tego, co myślisz." (PL już jest jako id:5)
+  {id:975,text:"Happiness depends solely on what you think.",author:"Dale Carnegie",lang:"en",cat:"Mądrość",tid:158},
+  {id:976,text:"Glück hängt allein davon ab, was du denkst.",author:"Dale Carnegie",lang:"de",cat:"Mądrość",tid:158},
+  {id:977,text:"Le bonheur dépend uniquement de ce que tu penses.",author:"Dale Carnegie",lang:"fr",cat:"Mądrość",tid:158},
+  {id:978,text:"La felicidad depende únicamente de lo que piensas.",author:"Dale Carnegie",lang:"es",cat:"Mądrość",tid:158},
+  {id:979,text:"Счастье зависит исключительно от того, что вы думаете.",author:"Дейл Карнеги",lang:"ru",cat:"Mądrość",tid:158}
 ];
 
 // Wersja seed-bazy. Bump przy KAŻDYM dodaniu cytatów do DEFAULT_QUOTES.
 // loadQuotes używa tego, by dosiać brakujące cytaty istniejącym użytkownikom.
-var DB_SEED_VERSION=27;
+var DB_SEED_VERSION=28;
 
 // Punktowe poprawki istniejących cytatów (np. literówki). Klucz = wersja, w której patch został wprowadzony.
 // loadQuotes aplikuje tylko patche z zakresu (savedVer, DB_SEED_VERSION], więc każda poprawka pójdzie raz.
@@ -1126,6 +1150,14 @@ var DB_TEXT_PATCHES={
     // Dopięcie tid:154 do Heraklita (id:1 — „Nie ma nic trwałego oprócz zmiany"),
     // żeby istniejący użytkownicy zobaczyli powiązanie z nowymi tłumaczeniami (ID 955–959).
     {id:1,field:"tid",value:154}
+  ],
+  28:[
+    // Dopięcie tid do 4 istniejących cytatów polskich, żeby istniejący użytkownicy
+    // zobaczyli powiązanie z nowymi tłumaczeniami (ID 960–979).
+    {id:2,field:"tid",value:155},  // Gandhi
+    {id:3,field:"tid",value:156},  // Clarke
+    {id:4,field:"tid",value:157},  // MLK Jr.
+    {id:5,field:"tid",value:158}   // Carnegie
   ]
 };
 
