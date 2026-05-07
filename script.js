@@ -821,12 +821,19 @@ var DEFAULT_QUOTES=[
   {id:711,text:"Wir müssen ausreichend schlafen, sonst zerfallen wir.",author:"Daniel Ostrowski",lang:"de",cat:"Mądrość",tid:113},
   {id:712,text:"Il faut bien dormir, sinon nous allons nous effondrer.",author:"Daniel Ostrowski",lang:"fr",cat:"Mądrość",tid:113},
   {id:713,text:"Hay que dormir lo suficiente, o nos vendremos abajo.",author:"Daniel Ostrowski",lang:"es",cat:"Mądrość",tid:113},
-  {id:714,text:"Нужно высыпаться, иначе мы рассыплемся.",author:"Даниэль Островский",lang:"ru",cat:"Mądrość",tid:113}
+  {id:714,text:"Нужно высыпаться, иначе мы рассыплемся.",author:"Даниэль Островский",lang:"ru",cat:"Mądrość",tid:113},
+  // Grupa 114 — Salma Hayek, „If I start insulting you in another language…"
+  {id:715,text:"Jeśli zacznę cię obrażać w innym języku, nic nie poczujesz. Te słowa nic dla ciebie nie znaczą, bo to ty nadajesz im znaczenie. Ja wiem, co znaczą. Ale nie ma znaczenia, jak głośno będę je do ciebie wykrzykiwać — możesz zacząć się śmiać. Weź ich słowa, odbierz im wartość i upuść je na podłogę. Jeśli to zrobisz, opadną na ziemię. Nigdy cię nie dotkną. Są niczym.",author:"Salma Hayek",lang:"pl",cat:"Mądrość",tid:114},
+  {id:716,text:"If I start insulting you in another language, you feel nothing. They don't mean anything to you because it's you who puts the meaning to it. Me, I know what it means. But it doesn't matter how hard I scream them to you, you might start laughing. Take their words, take away the value of the words and drop them to the floor. If you take that away, they fall to the ground. They never get to touch you. They are nothing.",author:"Salma Hayek",lang:"en",cat:"Mądrość",tid:114},
+  {id:717,text:"Wenn ich anfange, dich in einer anderen Sprache zu beleidigen, fühlst du nichts. Sie bedeuten dir nichts, denn du bist es, der ihnen Bedeutung verleiht. Ich weiß, was sie bedeuten. Aber egal, wie laut ich sie dir entgegenschreie — du könntest anfangen zu lachen. Nimm ihre Worte, nimm ihnen den Wert und lass sie auf den Boden fallen. Wenn du das tust, fallen sie zu Boden. Sie können dich nie berühren. Sie sind nichts.",author:"Salma Hayek",lang:"de",cat:"Mądrość",tid:114},
+  {id:718,text:"Si je commence à t'insulter dans une autre langue, tu ne ressens rien. Ces mots ne signifient rien pour toi, parce que c'est toi qui leur donnes du sens. Moi, je sais ce qu'ils veulent dire. Mais peu importe avec quelle force je te les hurle — tu pourrais te mettre à rire. Prends leurs mots, retire-leur leur valeur et laisse-les tomber au sol. Si tu fais cela, ils tombent à terre. Ils ne peuvent jamais t'atteindre. Ils ne sont rien.",author:"Salma Hayek",lang:"fr",cat:"Mądrość",tid:114},
+  {id:719,text:"Si empiezo a insultarte en otro idioma, no sientes nada. Esas palabras no significan nada para ti, porque eres tú quien les da significado. Yo sé lo que significan. Pero no importa con qué fuerza te las grite — podrías empezar a reír. Toma sus palabras, quítales su valor y déjalas caer al suelo. Si haces eso, caen al suelo. Nunca pueden tocarte. No son nada.",author:"Salma Hayek",lang:"es",cat:"Mądrość",tid:114},
+  {id:720,text:"Если я начну оскорблять тебя на другом языке, ты ничего не почувствуешь. Эти слова для тебя ничего не значат, потому что именно ты придаёшь им значение. Я знаю, что они значат. Но неважно, как громко я буду их тебе кричать — ты можешь начать смеяться. Возьми их слова, отбери у них ценность и урони их на пол. Если ты это сделаешь, они упадут на землю. Они никогда не смогут тебя коснуться. Они ничто.",author:"Сальма Хайек",lang:"ru",cat:"Mądrość",tid:114}
 ];
 
 // Wersja seed-bazy. Bump przy KAŻDYM dodaniu cytatów do DEFAULT_QUOTES.
 // loadQuotes używa tego, by dosiać brakujące cytaty istniejącym użytkownikom.
-var DB_SEED_VERSION=21;
+var DB_SEED_VERSION=22;
 
 // Punktowe poprawki istniejących cytatów (np. literówki). Klucz = wersja, w której patch został wprowadzony.
 // loadQuotes aplikuje tylko patche z zakresu (savedVer, DB_SEED_VERSION], więc każda poprawka pójdzie raz.
