@@ -1,5 +1,5 @@
 var DEFAULT_QUOTES=[
-  {id:1,text:"Nie ma nic trwałego oprócz zmiany.",author:"Heraklit",lang:"pl",cat:"Filozofia"},
+  {id:1,text:"Nie ma nic trwałego oprócz zmiany.",author:"Heraklit",lang:"pl",cat:"Filozofia",tid:154},
   {id:2,text:"Żyj tak, jakbyś miał umrzeć jutro. Ucz się tak, jakbyś miał żyć wiecznie.",author:"Mahatma Gandhi",lang:"pl",cat:"Motywacja"},
   {id:3,text:"Jedyna droga do odkrycia granic możliwości jest próba przekroczenia tego, co niemożliwe.",author:"Arthur C. Clarke",lang:"pl",cat:"Sukces"},
   {id:4,text:"Miłość jest jedyną siłą zdolną zmienić wroga w przyjaciela.",author:"Martin Luther King Jr.",lang:"pl",cat:"Miłość"},
@@ -1101,12 +1101,18 @@ var DEFAULT_QUOTES=[
   {id:951,text:"Um herauszufinden, wer über dich herrscht, schau einfach, wen du nicht kritisieren darfst.",author:"Voltaire",lang:"de",cat:"Filozofia",tid:153},
   {id:952,text:"Pour découvrir qui te gouverne, vérifie simplement qui tu n'as pas le droit de critiquer.",author:"Voltaire",lang:"fr",cat:"Filozofia",tid:153},
   {id:953,text:"Para descubrir quién te gobierna, simplemente averigua a quién no se te permite criticar.",author:"Voltaire",lang:"es",cat:"Filozofia",tid:153},
-  {id:954,text:"Чтобы понять, кто тобой правит, просто проверь, кого тебе нельзя критиковать.",author:"Вольтер",lang:"ru",cat:"Filozofia",tid:153}
+  {id:954,text:"Чтобы понять, кто тобой правит, просто проверь, кого тебе нельзя критиковать.",author:"Вольтер",lang:"ru",cat:"Filozofia",tid:153},
+  // Grupa 154 — Heraklit, „Nie ma nic trwałego oprócz zmiany." (PL już jest jako id:1)
+  {id:955,text:"Nothing endures but change.",author:"Heraclitus",lang:"en",cat:"Filozofia",tid:154},
+  {id:956,text:"Nichts ist beständig als der Wechsel.",author:"Heraklit",lang:"de",cat:"Filozofia",tid:154},
+  {id:957,text:"Rien n'est permanent, sauf le changement.",author:"Héraclite",lang:"fr",cat:"Filozofia",tid:154},
+  {id:958,text:"Nada perdura sino el cambio.",author:"Heráclito",lang:"es",cat:"Filozofia",tid:154},
+  {id:959,text:"Ничто не вечно, кроме перемен.",author:"Гераклит",lang:"ru",cat:"Filozofia",tid:154}
 ];
 
 // Wersja seed-bazy. Bump przy KAŻDYM dodaniu cytatów do DEFAULT_QUOTES.
 // loadQuotes używa tego, by dosiać brakujące cytaty istniejącym użytkownikom.
-var DB_SEED_VERSION=26;
+var DB_SEED_VERSION=27;
 
 // Punktowe poprawki istniejących cytatów (np. literówki). Klucz = wersja, w której patch został wprowadzony.
 // loadQuotes aplikuje tylko patche z zakresu (savedVer, DB_SEED_VERSION], więc każda poprawka pójdzie raz.
@@ -1115,6 +1121,11 @@ var DB_TEXT_PATCHES={
     // typo "leków" → "lęków" + dopięcie tid grupy tłumaczeń dla cytatu #67
     {id:67,field:"text",value:"Każde serce może skrywać iskrę, zdolną rozświetlić najciemniejsze zakątki. W życiu warto otaczać się ludźmi, którzy przecinają mrok naszych lęków i wątpliwości, stają się promieniem światła, który wskrzesza nadzieję i przynosi ulgę."},
     {id:67,field:"tid",value:6}
+  ],
+  27:[
+    // Dopięcie tid:154 do Heraklita (id:1 — „Nie ma nic trwałego oprócz zmiany"),
+    // żeby istniejący użytkownicy zobaczyli powiązanie z nowymi tłumaczeniami (ID 955–959).
+    {id:1,field:"tid",value:154}
   ]
 };
 
