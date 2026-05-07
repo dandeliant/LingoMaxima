@@ -1448,7 +1448,7 @@ var DEFAULT_QUOTES=[
   {id:1246,text:"Habt Mut! Nicht jenen Mut für einen Tag, der in verzweifeltem Vorhaben zerschellt, sondern jenen, der stets erhobenen Hauptes sich nicht von seinem Posten verdrängen lässt.",author:"Adam Asnyk",lang:"de",cat:"Motywacja",tid:201},
   {id:1247,text:"Ayez du courage ! Pas le courage d'un jour qui éclate dans une entreprise désespérée, mais celui qui, la tête toujours haute, refuse d'être chassé de sa position.",author:"Adam Asnyk",lang:"fr",cat:"Motywacja",tid:201},
   {id:1248,text:"¡Tened coraje! No el coraje de un día que estalla en una empresa desesperada, sino aquel que, con la cabeza siempre en alto, se niega a ser empujado de su posición.",author:"Adam Asnyk",lang:"es",cat:"Motywacja",tid:201},
-  {id:1249,text:"Имейте мужество!.. Не однодневное, что в отчаянном порыве разбивается, но то, что вечно с поднятой головой не даёт себя сбросить со своей позиции.",author:"Адам Асныка",lang:"ru",cat:"Motywacja",tid:201},
+  {id:1249,text:"Имейте мужество!.. Не однодневное, что в отчаянном порыве разбивается, но то, что вечно с поднятой головой не даёт себя сбросить со своей позиции.",author:"Адам Аснык",lang:"ru",cat:"Motywacja",tid:201},
   // Grupa 202 — William Shakespeare, „There are more things in heaven and earth, Horatio…" (Hamlet)
   {id:1250,text:"Więcej jest rzeczy na ziemi i w niebie, niż się ich śniło waszym filozofom.",author:"William Shakespeare",lang:"pl",cat:"Filozofia",tid:202},
   {id:1251,text:"There are more things in heaven and earth, Horatio, than are dreamt of in your philosophy.",author:"William Shakespeare",lang:"en",cat:"Filozofia",tid:202},
