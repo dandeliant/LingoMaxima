@@ -1162,12 +1162,19 @@ var DEFAULT_QUOTES=[
   {id:1001,text:"Sei du selbst; alle anderen sind schon vergeben.",author:"Oscar Wilde",lang:"de",cat:"Mądrość",tid:160},
   {id:1002,text:"Sois toi-même ; tous les autres sont déjà pris.",author:"Oscar Wilde",lang:"fr",cat:"Mądrość",tid:160},
   {id:1003,text:"Sé tú mismo; todos los demás ya están ocupados.",author:"Oscar Wilde",lang:"es",cat:"Mądrość",tid:160},
-  {id:1004,text:"Будь собой; все остальные уже заняты.",author:"Оскар Уайльд",lang:"ru",cat:"Mądrość",tid:160}
+  {id:1004,text:"Будь собой; все остальные уже заняты.",author:"Оскар Уайльд",lang:"ru",cat:"Mądrość",tid:160},
+  // Grupa 161 — Wojciech Młynarski, fragment piosenki „Idź swoją drogą"
+  {id:1005,text:"Bo chociaż jest niejeden szlak, po którym trudniej iść, lecz idąc tak nie musisz brnąć w pochlebstwa dym i karku giąć przed byle kim. Rozważ tę myśl, a potem idź — idź swoją drogą.",author:"Wojciech Młynarski",lang:"pl",cat:"Mądrość",tid:161},
+  {id:1006,text:"Though there is more than one path that is harder to walk, by going so you do not have to wade through the smoke of flattery nor bend your neck to anyone. Consider this thought — and then go, go your own way.",author:"Wojciech Młynarski",lang:"en",cat:"Mądrość",tid:161},
+  {id:1007,text:"Denn obwohl es manchen Pfad gibt, auf dem es schwerer zu gehen ist, musst du auf diesem Weg nicht durch den Rauch der Schmeicheleien waten noch vor irgendwem den Nacken beugen. Bedenke diesen Gedanken — und dann geh, geh deinen eigenen Weg.",author:"Wojciech Młynarski",lang:"de",cat:"Mądrość",tid:161},
+  {id:1008,text:"Bien qu'il existe plus d'un chemin par lequel il est plus difficile de marcher, en allant ainsi tu n'as pas à patauger dans la fumée des flatteries ni à courber la tête devant n'importe qui. Réfléchis à cette pensée — puis va, va ton propre chemin.",author:"Wojciech Młynarski",lang:"fr",cat:"Mądrość",tid:161},
+  {id:1009,text:"Aunque hay más de un camino por el que es más difícil andar, yendo así no tienes que vadear el humo de las adulaciones ni inclinar la cabeza ante cualquiera. Reflexiona sobre este pensamiento — y luego ve, ve por tu propio camino.",author:"Wojciech Młynarski",lang:"es",cat:"Mądrość",tid:161},
+  {id:1010,text:"Ибо хоть и не один есть путь, по которому идти труднее, но идя так, тебе не нужно брести сквозь дым лести и склонять голову перед кем попало. Обдумай эту мысль — а потом иди, иди своей дорогой.",author:"Войцех Млынарский",lang:"ru",cat:"Mądrość",tid:161}
 ];
 
 // Wersja seed-bazy. Bump przy KAŻDYM dodaniu cytatów do DEFAULT_QUOTES.
 // loadQuotes używa tego, by dosiać brakujące cytaty istniejącym użytkownikom.
-var DB_SEED_VERSION=29;
+var DB_SEED_VERSION=30;
 
 // Punktowe poprawki istniejących cytatów (np. literówki). Klucz = wersja, w której patch został wprowadzony.
 // loadQuotes aplikuje tylko patche z zakresu (savedVer, DB_SEED_VERSION], więc każda poprawka pójdzie raz.
