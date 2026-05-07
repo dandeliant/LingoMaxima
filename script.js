@@ -919,12 +919,117 @@ var DEFAULT_QUOTES=[
   {id:795,text:"Wenn du ein Buch mit auf eine Reise nimmst (...) wird etwas Seltsames geschehen: Das Buch wird anfangen, deine Erinnerungen zu sammeln. Dann musst du es nur aufschlagen und du findest dich wieder dort, wo du es damals gelesen hast. Kaum liest du die ersten Worte, kommen dir die Bilder zurück, die Gerüche, der Geschmack des Eises, das du damals gegessen hast... Glaub mir, ein Buch ist wie ein Fliegenfänger. Erinnerungen halten sich am besten an Seiten voller Druck.",author:"Cornelia Funke",lang:"de",cat:"Mądrość",tid:127},
   {id:796,text:"Si tu emportes un livre en voyage (...) il se passera quelque chose d'étrange : le livre commencera à recueillir tes souvenirs. Ensuite, il te suffira de l'ouvrir et tu te retrouveras à l'endroit où tu le lisais alors. À peine auras-tu lu les premiers mots que les images te reviendront, les odeurs, le goût de la glace que tu mangeais alors... Crois-moi, un livre est comme un papier tue-mouches. Les souvenirs s'accrochent le mieux aux pages couvertes d'imprimés.",author:"Cornelia Funke",lang:"fr",cat:"Mądrość",tid:127},
   {id:797,text:"Si te llevas un libro de viaje (...) sucederá algo extraño: el libro empezará a recopilar tus recuerdos. Luego solo tendrás que abrirlo y volverás a estar donde lo leías entonces. En cuanto leas las primeras palabras, te volverán las imágenes, los olores, el sabor del helado que comías entonces... Créeme, un libro es como un papel matamoscas. Los recuerdos se aferran mejor a las páginas cubiertas de imprenta.",author:"Cornelia Funke",lang:"es",cat:"Mądrość",tid:127},
-  {id:798,text:"Если ты возьмёшь в путешествие книгу (...) произойдёт нечто странное: книга начнёт собирать твои воспоминания. Потом достаточно её открыть — и снова окажешься там, где её тогда читала. Едва прочитаешь первые слова, к тебе вернутся образы, запахи, вкус мороженого, которое ты тогда ела... Поверь мне, книга — как липкая лента для мух. Воспоминания лучше всего держатся на страницах, покрытых печатью.",author:"Корнелия Функе",lang:"ru",cat:"Mądrość",tid:127}
+  {id:798,text:"Если ты возьмёшь в путешествие книгу (...) произойдёт нечто странное: книга начнёт собирать твои воспоминания. Потом достаточно её открыть — и снова окажешься там, где её тогда читала. Едва прочитаешь первые слова, к тебе вернутся образы, запахи, вкус мороженого, которое ты тогда ела... Поверь мне, книга — как липкая лента для мух. Воспоминания лучше всего держатся на страницах, покрытых печатью.",author:"Корнелия Функе",lang:"ru",cat:"Mądrość",tid:127},
+  // Grupa 128 — Twyla Tharp, „Art is the only way to run away without leaving home"
+  {id:799,text:"Sztuka to jedyny sposób, by uciec z domu, nie wychodząc z niego.",author:"Twyla Tharp",lang:"pl",cat:"Filozofia",tid:128},
+  {id:800,text:"Art is the only way to run away without leaving home.",author:"Twyla Tharp",lang:"en",cat:"Filozofia",tid:128},
+  {id:801,text:"Kunst ist die einzige Möglichkeit, davonzulaufen, ohne das Zuhause zu verlassen.",author:"Twyla Tharp",lang:"de",cat:"Filozofia",tid:128},
+  {id:802,text:"L'art est le seul moyen de fuir sans quitter la maison.",author:"Twyla Tharp",lang:"fr",cat:"Filozofia",tid:128},
+  {id:803,text:"El arte es la única forma de escapar sin salir de casa.",author:"Twyla Tharp",lang:"es",cat:"Filozofia",tid:128},
+  {id:804,text:"Искусство — единственный способ убежать, не покидая дома.",author:"Туайла Тарп",lang:"ru",cat:"Filozofia",tid:128},
+  // Grupa 129 — George Orwell, „Ludzie, którzy głosują na nieudaczników…"
+  {id:805,text:"Ludzie, którzy głosują na nieudaczników, złodziei, zdrajców i oszustów, nie są ich ofiarami. Są ich wspólnikami.",author:"George Orwell",lang:"pl",cat:"Mądrość",tid:129},
+  {id:806,text:"People who vote for losers, thieves, traitors and frauds are not their victims. They are their accomplices.",author:"George Orwell",lang:"en",cat:"Mądrość",tid:129},
+  {id:807,text:"Menschen, die für Versager, Diebe, Verräter und Betrüger stimmen, sind nicht deren Opfer. Sie sind deren Komplizen.",author:"George Orwell",lang:"de",cat:"Mądrość",tid:129},
+  {id:808,text:"Les gens qui votent pour des ratés, des voleurs, des traîtres et des escrocs n'en sont pas les victimes. Ils en sont les complices.",author:"George Orwell",lang:"fr",cat:"Mądrość",tid:129},
+  {id:809,text:"Las personas que votan por fracasados, ladrones, traidores y estafadores no son sus víctimas. Son sus cómplices.",author:"George Orwell",lang:"es",cat:"Mądrość",tid:129},
+  {id:810,text:"Люди, которые голосуют за неудачников, воров, предателей и мошенников, — не их жертвы. Они их сообщники.",author:"Джордж Оруэлл",lang:"ru",cat:"Mądrość",tid:129},
+  // Grupa 130 — Andrzej Grabowski, „Oprócz wyższego wykształcenia…"
+  {id:811,text:"Oprócz wyższego wykształcenia, dobrze byłoby posiadać jakieś średnie wyobrażenie. I co najmniej podstawowe wychowanie.",author:"Andrzej Grabowski",lang:"pl",cat:"Mądrość",tid:130},
+  {id:812,text:"In addition to higher education, it would be good to have some average imagination. And at least primary upbringing.",author:"Andrzej Grabowski",lang:"en",cat:"Mądrość",tid:130},
+  {id:813,text:"Neben einer höheren Bildung wäre es gut, eine gewisse mittlere Vorstellungskraft zu besitzen. Und zumindest eine grundlegende Erziehung.",author:"Andrzej Grabowski",lang:"de",cat:"Mądrość",tid:130},
+  {id:814,text:"En plus de l'enseignement supérieur, il serait bon d'avoir quelque imagination moyenne. Et au moins une éducation primaire.",author:"Andrzej Grabowski",lang:"fr",cat:"Mądrość",tid:130},
+  {id:815,text:"Además de la educación superior, sería bueno tener cierta imaginación media. Y al menos educación primaria.",author:"Andrzej Grabowski",lang:"es",cat:"Mądrość",tid:130},
+  {id:816,text:"Помимо высшего образования, неплохо было бы иметь хоть какое-то среднее воображение. И как минимум начальное воспитание.",author:"Анджей Грабовский",lang:"ru",cat:"Mądrość",tid:130},
+  // Grupa 131 — Wojciech Smarzowski, „Tak często wstydzę się za swój kraj…"
+  {id:817,text:"Tak często wstydzę się za swój kraj, że na pewno jestem patriotą.",author:"Wojciech Smarzowski",lang:"pl",cat:"Filozofia",tid:131},
+  {id:818,text:"I am so often ashamed of my country that I am surely a patriot.",author:"Wojciech Smarzowski",lang:"en",cat:"Filozofia",tid:131},
+  {id:819,text:"Ich schäme mich so oft für mein Land, dass ich sicher ein Patriot bin.",author:"Wojciech Smarzowski",lang:"de",cat:"Filozofia",tid:131},
+  {id:820,text:"J'ai si souvent honte de mon pays que je suis sûrement un patriote.",author:"Wojciech Smarzowski",lang:"fr",cat:"Filozofia",tid:131},
+  {id:821,text:"Me avergüenzo tan a menudo de mi país que seguramente soy un patriota.",author:"Wojciech Smarzowski",lang:"es",cat:"Filozofia",tid:131},
+  {id:822,text:"Я так часто стыжусь за свою страну, что наверняка я патриот.",author:"Войцех Смажовский",lang:"ru",cat:"Filozofia",tid:131},
+  // Grupa 132 — ojciec Ludwik Wiśniewski, „Oto na naszych oczach umiera w Polsce chrześcijaństwo…"
+  {id:823,text:"Oto na naszych oczach umiera w Polsce chrześcijaństwo. I nie jest to wynik propagandy libertyńskiej, zabiegów kół masońskich czy międzynarodowych spisków. Chrześcijaństwo wykorzeniamy my sami, duchowni i najgorliwsi członkowie Kościoła, własnymi rękami i na własne życzenie.",author:"ojciec Ludwik Wiśniewski",lang:"pl",cat:"Filozofia",tid:132},
+  {id:824,text:"Here, before our eyes, Christianity is dying in Poland. And it is not the result of libertine propaganda, the manoeuvres of Masonic circles, or international conspiracies. Christianity is being uprooted by ourselves — clergy and the most zealous members of the Church — with our own hands and by our own request.",author:"Father Ludwik Wiśniewski",lang:"en",cat:"Filozofia",tid:132},
+  {id:825,text:"Hier, vor unseren Augen, stirbt das Christentum in Polen. Und es ist nicht das Ergebnis libertärer Propaganda, der Bemühungen freimaurerischer Zirkel oder internationaler Verschwörungen. Das Christentum entwurzeln wir selbst — Geistliche und die eifrigsten Mitglieder der Kirche — mit eigenen Händen und auf eigenen Wunsch.",author:"Pater Ludwik Wiśniewski",lang:"de",cat:"Filozofia",tid:132},
+  {id:826,text:"Voici sous nos yeux le christianisme qui meurt en Pologne. Et ce n'est pas le résultat d'une propagande libertine, des manœuvres des cercles maçonniques ou de complots internationaux. Le christianisme, nous le déracinons nous-mêmes — clergé et membres les plus zélés de l'Église — de nos propres mains et à notre propre demande.",author:"père Ludwik Wiśniewski",lang:"fr",cat:"Filozofia",tid:132},
+  {id:827,text:"He aquí que ante nuestros ojos muere el cristianismo en Polonia. Y no es el resultado de propaganda libertina, de acciones de círculos masónicos o de conspiraciones internacionales. El cristianismo lo desarraigamos nosotros mismos — clérigos y los más fervorosos miembros de la Iglesia — con nuestras propias manos y por nuestro propio deseo.",author:"padre Ludwik Wiśniewski",lang:"es",cat:"Filozofia",tid:132},
+  {id:828,text:"Вот на наших глазах умирает в Польше христианство. И это не результат либертинской пропаганды, действий масонских лож или международных заговоров. Христианство искореняем мы сами — духовенство и самые ревностные члены Церкви — собственными руками и по собственному желанию.",author:"отец Людвик Вишневский",lang:"ru",cat:"Filozofia",tid:132},
+  // Grupa 133 — ojciec Ludwik Wiśniewski, „Co to są wartości chrześcijańskie?…"
+  {id:829,text:"Co to są wartości chrześcijańskie? Ja nie wiem. Jeżeli chcemy budować świat, nie tylko naszą ojczyznę, ale świat — to nie możemy budować go ani na wartościach chrześcijańskich, ani na wartościach buddyjskich, ani na wartościach islamskich — tylko ludzkich, ogólnoludzkich.",author:"ojciec Ludwik Wiśniewski",lang:"pl",cat:"Filozofia",tid:133},
+  {id:830,text:"What are Christian values? I don't know. If we want to build a world — not only our homeland, but the world — we cannot build it on Christian values, nor on Buddhist values, nor on Islamic values — only on human, universal values.",author:"Father Ludwik Wiśniewski",lang:"en",cat:"Filozofia",tid:133},
+  {id:831,text:"Was sind christliche Werte? Ich weiß es nicht. Wenn wir die Welt bauen wollen — nicht nur unser Vaterland, sondern die Welt — dann können wir sie weder auf christlichen Werten, noch auf buddhistischen Werten, noch auf islamischen Werten errichten — sondern nur auf menschlichen, allgemeinmenschlichen Werten.",author:"Pater Ludwik Wiśniewski",lang:"de",cat:"Filozofia",tid:133},
+  {id:832,text:"Que sont les valeurs chrétiennes ? Je ne sais pas. Si nous voulons construire un monde — pas seulement notre patrie, mais le monde — nous ne pouvons le construire ni sur les valeurs chrétiennes, ni sur les valeurs bouddhistes, ni sur les valeurs islamiques — mais seulement sur des valeurs humaines, universelles.",author:"père Ludwik Wiśniewski",lang:"fr",cat:"Filozofia",tid:133},
+  {id:833,text:"¿Qué son los valores cristianos? No lo sé. Si queremos construir un mundo — no solo nuestra patria, sino el mundo — no podemos construirlo ni sobre valores cristianos, ni sobre valores budistas, ni sobre valores islámicos — sino solo sobre valores humanos, universales.",author:"padre Ludwik Wiśniewski",lang:"es",cat:"Filozofia",tid:133},
+  {id:834,text:"Что такое христианские ценности? Я не знаю. Если мы хотим построить мир — не только нашу родину, но весь мир — мы не можем строить его ни на христианских ценностях, ни на буддийских ценностях, ни на исламских ценностях — а только на человеческих, общечеловеческих.",author:"отец Людвик Вишневский",lang:"ru",cat:"Filozofia",tid:133},
+  // Grupa 134 — ojciec Ludwik Wiśniewski, „Kochać to znaczy…"
+  {id:835,text:"Kochać to znaczy objawiać danemu człowiekowi, że jest wartościowy, jest godny miłości, jest piękny.",author:"ojciec Ludwik Wiśniewski",lang:"pl",cat:"Miłość",tid:134},
+  {id:836,text:"To love is to reveal to a given person that they are valuable, worthy of love, beautiful.",author:"Father Ludwik Wiśniewski",lang:"en",cat:"Miłość",tid:134},
+  {id:837,text:"Lieben heißt, einem Menschen zu offenbaren, dass er wertvoll ist, der Liebe würdig ist, schön ist.",author:"Pater Ludwik Wiśniewski",lang:"de",cat:"Miłość",tid:134},
+  {id:838,text:"Aimer, c'est révéler à une personne donnée qu'elle a de la valeur, qu'elle est digne d'amour, qu'elle est belle.",author:"père Ludwik Wiśniewski",lang:"fr",cat:"Miłość",tid:134},
+  {id:839,text:"Amar es revelar a una persona dada que es valiosa, digna de amor, hermosa.",author:"padre Ludwik Wiśniewski",lang:"es",cat:"Miłość",tid:134},
+  {id:840,text:"Любить — это значит являть данному человеку, что он ценен, достоин любви, прекрасен.",author:"отец Людвик Вишневский",lang:"ru",cat:"Miłość",tid:134},
+  // Grupa 135 — Daniel Ostrowski, „Natura maluje najpiękniejsze obrazy…"
+  {id:841,text:"Natura maluje najpiękniejsze obrazy. Zawsze inne, niepowtarzalne, jedyne w swoim rodzaju, bez żadnych narzuconych ram ludzkiej ułomności.",author:"Daniel Ostrowski",lang:"pl",cat:"Życie",tid:135},
+  {id:842,text:"Nature paints the most beautiful pictures. Always different, unique, one-of-a-kind, without any imposed limits of human imperfections.",author:"Daniel Ostrowski",lang:"en",cat:"Życie",tid:135},
+  {id:843,text:"Die Natur malt die schönsten Bilder. Immer andere, unverwechselbare, einzigartige, ohne irgendwelche aufgezwungenen Schranken menschlicher Unvollkommenheit.",author:"Daniel Ostrowski",lang:"de",cat:"Życie",tid:135},
+  {id:844,text:"La nature peint les plus beaux tableaux. Toujours différents, inimitables, uniques en leur genre, sans aucune contrainte imposée par l'imperfection humaine.",author:"Daniel Ostrowski",lang:"fr",cat:"Życie",tid:135},
+  {id:845,text:"La naturaleza pinta los cuadros más bellos. Siempre diferentes, irrepetibles, únicos en su género, sin ningún marco impuesto por la imperfección humana.",author:"Daniel Ostrowski",lang:"es",cat:"Życie",tid:135},
+  {id:846,text:"Природа рисует самые прекрасные картины. Всегда разные, неповторимые, единственные в своём роде, без всяких навязанных рамок человеческой ущербности.",author:"Даниэль Островский",lang:"ru",cat:"Życie",tid:135},
+  // Grupa 136 — Martin Luther King, „Wierzę, że ostatnie słowo będzie należeć…"
+  {id:847,text:"Wierzę, że ostatnie słowo będzie należeć do nieuzbrojonej prawdy i bezwarunkowej miłości.",author:"Martin Luther King",lang:"pl",cat:"Filozofia",tid:136},
+  {id:848,text:"I believe that unarmed truth and unconditional love will have the final word in reality.",author:"Martin Luther King",lang:"en",cat:"Filozofia",tid:136},
+  {id:849,text:"Ich glaube, dass die unbewaffnete Wahrheit und die bedingungslose Liebe das letzte Wort in der Wirklichkeit haben werden.",author:"Martin Luther King",lang:"de",cat:"Filozofia",tid:136},
+  {id:850,text:"Je crois que la vérité non armée et l'amour inconditionnel auront le dernier mot dans la réalité.",author:"Martin Luther King",lang:"fr",cat:"Filozofia",tid:136},
+  {id:851,text:"Creo que la verdad desarmada y el amor incondicional tendrán la última palabra en la realidad.",author:"Martin Luther King",lang:"es",cat:"Filozofia",tid:136},
+  {id:852,text:"Я верю, что безоружная правда и безусловная любовь возьмут последнее слово в реальности.",author:"Мартин Лютер Кинг",lang:"ru",cat:"Filozofia",tid:136},
+  // Grupa 137 — Przysłowie chińskie, „Zapomnieć o przodkach…"
+  {id:853,text:"Zapomnieć o przodkach to jak być strumykiem bez źródła, drzewem bez korzeni.",author:"Przysłowie chińskie",lang:"pl",cat:"Mądrość",tid:137},
+  {id:854,text:"To forget one's ancestors is to be a brook without a source, a tree without a root.",author:"Chinese proverb",lang:"en",cat:"Mądrość",tid:137},
+  {id:855,text:"Seine Vorfahren zu vergessen ist, wie ein Bach ohne Quelle zu sein, ein Baum ohne Wurzel.",author:"Chinesisches Sprichwort",lang:"de",cat:"Mądrość",tid:137},
+  {id:856,text:"Oublier ses ancêtres, c'est être un ruisseau sans source, un arbre sans racine.",author:"Proverbe chinois",lang:"fr",cat:"Mądrość",tid:137},
+  {id:857,text:"Olvidar a los antepasados es ser un arroyo sin fuente, un árbol sin raíz.",author:"Proverbio chino",lang:"es",cat:"Mądrość",tid:137},
+  {id:858,text:"Забыть о предках — это как быть ручьём без источника, деревом без корня.",author:"Китайская поговорка",lang:"ru",cat:"Mądrość",tid:137},
+  // Grupa 138 — Lucy Larcom (NIE Laroom — typo), „He who plants a tree plants hope."
+  {id:859,text:"Kto sadzi drzewo, ten sadzi nadzieję.",author:"Lucy Larcom",lang:"pl",cat:"Mądrość",tid:138},
+  {id:860,text:"He who plants a tree plants hope.",author:"Lucy Larcom",lang:"en",cat:"Mądrość",tid:138},
+  {id:861,text:"Wer einen Baum pflanzt, pflanzt Hoffnung.",author:"Lucy Larcom",lang:"de",cat:"Mądrość",tid:138},
+  {id:862,text:"Celui qui plante un arbre plante l'espoir.",author:"Lucy Larcom",lang:"fr",cat:"Mądrość",tid:138},
+  {id:863,text:"Quien planta un árbol planta esperanza.",author:"Lucy Larcom",lang:"es",cat:"Mądrość",tid:138},
+  {id:864,text:"Кто сажает дерево, тот сажает надежду.",author:"Люси Ларком",lang:"ru",cat:"Mądrość",tid:138},
+  // Grupa 139 — Magdalena Kozak, „Traktuj ludzi lepiej, niż na to zasługują…"
+  {id:865,text:"Traktuj ludzi lepiej, niż na to zasługują, a zrobią wszystko, żeby sprostać swemu nowemu wizerunkowi.",author:"Magdalena Kozak",lang:"pl",cat:"Mądrość",tid:139},
+  {id:866,text:"Treat people better than they deserve, and they will do everything to live up to their new image.",author:"Magdalena Kozak",lang:"en",cat:"Mądrość",tid:139},
+  {id:867,text:"Behandle die Menschen besser, als sie es verdienen, und sie werden alles tun, um ihrem neuen Bild gerecht zu werden.",author:"Magdalena Kozak",lang:"de",cat:"Mądrość",tid:139},
+  {id:868,text:"Traite les gens mieux qu'ils ne le méritent, et ils feront tout pour être à la hauteur de leur nouvelle image.",author:"Magdalena Kozak",lang:"fr",cat:"Mądrość",tid:139},
+  {id:869,text:"Trata a las personas mejor de lo que merecen, y harán todo para estar a la altura de su nueva imagen.",author:"Magdalena Kozak",lang:"es",cat:"Mądrość",tid:139},
+  {id:870,text:"Относись к людям лучше, чем они того заслуживают, и они сделают всё, чтобы соответствовать своему новому образу.",author:"Магдалена Козак",lang:"ru",cat:"Mądrość",tid:139},
+  // Grupa 140 — Gretchen Rubin, „Bądź skarbnicą szczęśliwych wspomnień."
+  {id:871,text:"Bądź skarbnicą szczęśliwych wspomnień.",author:"Gretchen Rubin",lang:"pl",cat:"Życie",tid:140},
+  {id:872,text:"Be a storehouse of happy memories.",author:"Gretchen Rubin",lang:"en",cat:"Życie",tid:140},
+  {id:873,text:"Sei ein Speicher glücklicher Erinnerungen.",author:"Gretchen Rubin",lang:"de",cat:"Życie",tid:140},
+  {id:874,text:"Sois un réservoir de souvenirs heureux.",author:"Gretchen Rubin",lang:"fr",cat:"Życie",tid:140},
+  {id:875,text:"Sé un depósito de recuerdos felices.",author:"Gretchen Rubin",lang:"es",cat:"Życie",tid:140},
+  {id:876,text:"Будь сокровищницей счастливых воспоминаний.",author:"Гретхен Рубин",lang:"ru",cat:"Życie",tid:140},
+  // Grupa 141 — Michael Levine, „Having children makes you no more a parent…"
+  {id:877,text:"Posiadanie dzieci nie czyni cię rodzicem, tak jak posiadanie fortepianu nie czyni cię pianistą.",author:"Michael Levine",lang:"pl",cat:"Mądrość",tid:141},
+  {id:878,text:"Having children makes you no more a parent than having a piano makes you a pianist.",author:"Michael Levine",lang:"en",cat:"Mądrość",tid:141},
+  {id:879,text:"Kinder zu haben macht dich genauso wenig zu einem Elternteil, wie ein Klavier zu besitzen dich zum Pianisten macht.",author:"Michael Levine",lang:"de",cat:"Mądrość",tid:141},
+  {id:880,text:"Avoir des enfants ne fait pas plus de toi un parent qu'avoir un piano fait de toi un pianiste.",author:"Michael Levine",lang:"fr",cat:"Mądrość",tid:141},
+  {id:881,text:"Tener hijos no te convierte más en padre que tener un piano te convierte en pianista.",author:"Michael Levine",lang:"es",cat:"Mądrość",tid:141},
+  {id:882,text:"Иметь детей не делает тебя родителем точно так же, как наличие фортепиано не делает тебя пианистом.",author:"Майкл Левин",lang:"ru",cat:"Mądrość",tid:141},
+  // Grupa 142 — Mitch Albom, „Everyone knows they're going to die…"
+  {id:883,text:"Każdy wie, że umrze, ale nikt w to nie wierzy. Gdybyśmy wierzyli, robilibyśmy rzeczy inaczej.",author:"Mitch Albom",lang:"pl",cat:"Filozofia",tid:142},
+  {id:884,text:"Everyone knows they're going to die, but nobody believes it. If we did, we would do things differently.",author:"Mitch Albom",lang:"en",cat:"Filozofia",tid:142},
+  {id:885,text:"Jeder weiß, dass er sterben wird, aber niemand glaubt es. Würden wir es glauben, würden wir die Dinge anders machen.",author:"Mitch Albom",lang:"de",cat:"Filozofia",tid:142},
+  {id:886,text:"Tout le monde sait qu'il va mourir, mais personne ne le croit. Si nous y croyions, nous ferions les choses différemment.",author:"Mitch Albom",lang:"fr",cat:"Filozofia",tid:142},
+  {id:887,text:"Todo el mundo sabe que va a morir, pero nadie lo cree. Si lo creyéramos, haríamos las cosas de otra manera.",author:"Mitch Albom",lang:"es",cat:"Filozofia",tid:142},
+  {id:888,text:"Каждый знает, что умрёт, но никто в это не верит. Если бы мы верили, мы делали бы всё по-другому.",author:"Митч Элбом",lang:"ru",cat:"Filozofia",tid:142}
 ];
 
 // Wersja seed-bazy. Bump przy KAŻDYM dodaniu cytatów do DEFAULT_QUOTES.
 // loadQuotes używa tego, by dosiać brakujące cytaty istniejącym użytkownikom.
-var DB_SEED_VERSION=24;
+var DB_SEED_VERSION=25;
 
 // Punktowe poprawki istniejących cytatów (np. literówki). Klucz = wersja, w której patch został wprowadzony.
 // loadQuotes aplikuje tylko patche z zakresu (savedVer, DB_SEED_VERSION], więc każda poprawka pójdzie raz.
