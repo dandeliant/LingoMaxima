@@ -1169,12 +1169,180 @@ var DEFAULT_QUOTES=[
   {id:1007,text:"Denn obwohl es manchen Pfad gibt, auf dem es schwerer zu gehen ist, musst du auf diesem Weg nicht durch den Rauch der Schmeicheleien waten noch vor irgendwem den Nacken beugen. Bedenke diesen Gedanken — und dann geh, geh deinen eigenen Weg.",author:"Wojciech Młynarski",lang:"de",cat:"Mądrość",tid:161},
   {id:1008,text:"Bien qu'il existe plus d'un chemin par lequel il est plus difficile de marcher, en allant ainsi tu n'as pas à patauger dans la fumée des flatteries ni à courber la tête devant n'importe qui. Réfléchis à cette pensée — puis va, va ton propre chemin.",author:"Wojciech Młynarski",lang:"fr",cat:"Mądrość",tid:161},
   {id:1009,text:"Aunque hay más de un camino por el que es más difícil andar, yendo así no tienes que vadear el humo de las adulaciones ni inclinar la cabeza ante cualquiera. Reflexiona sobre este pensamiento — y luego ve, ve por tu propio camino.",author:"Wojciech Młynarski",lang:"es",cat:"Mądrość",tid:161},
-  {id:1010,text:"Ибо хоть и не один есть путь, по которому идти труднее, но идя так, тебе не нужно брести сквозь дым лести и склонять голову перед кем попало. Обдумай эту мысль — а потом иди, иди своей дорогой.",author:"Войцех Млынарский",lang:"ru",cat:"Mądrość",tid:161}
+  {id:1010,text:"Ибо хоть и не один есть путь, по которому идти труднее, но идя так, тебе не нужно брести сквозь дым лести и склонять голову перед кем попало. Обдумай эту мысль — а потом иди, иди своей дорогой.",author:"Войцех Млынарский",lang:"ru",cat:"Mądrość",tid:161},
+  // Grupa 162 — John Connolly, „W każdym dorosłym mieszka dziecko…"
+  {id:1011,text:"W każdym bowiem dorosłym mieszka dziecko, którym kiedyś był, a w każdym dziecku — dorosły, którym kiedyś będzie.",author:"John Connolly",lang:"pl",cat:"Filozofia",tid:162},
+  {id:1012,text:"In every adult there dwells the child he once was, and in every child — the adult he will one day be.",author:"John Connolly",lang:"en",cat:"Filozofia",tid:162},
+  {id:1013,text:"Denn in jedem Erwachsenen wohnt das Kind, das er einst war, und in jedem Kind — der Erwachsene, der er eines Tages sein wird.",author:"John Connolly",lang:"de",cat:"Filozofia",tid:162},
+  {id:1014,text:"Car dans chaque adulte demeure l'enfant qu'il fut autrefois, et dans chaque enfant — l'adulte qu'il sera un jour.",author:"John Connolly",lang:"fr",cat:"Filozofia",tid:162},
+  {id:1015,text:"Porque en cada adulto habita el niño que una vez fue, y en cada niño — el adulto que algún día será.",author:"John Connolly",lang:"es",cat:"Filozofia",tid:162},
+  {id:1016,text:"Ибо в каждом взрослом живёт ребёнок, которым он когда-то был, а в каждом ребёнке — взрослый, которым он когда-нибудь станет.",author:"Джон Коннолли",lang:"ru",cat:"Filozofia",tid:162},
+  // Grupa 163 — David Attenborough, „Jeżeli znikną pszczoły…"
+  {id:1017,text:"Jeżeli znikną pszczoły z naszego świata, ludziom pozostanie 4 lata życia.",author:"David Attenborough",lang:"pl",cat:"Filozofia",tid:163},
+  {id:1018,text:"If bees disappear from our world, humans will have 4 years of life left.",author:"David Attenborough",lang:"en",cat:"Filozofia",tid:163},
+  {id:1019,text:"Wenn die Bienen aus unserer Welt verschwinden, bleiben den Menschen 4 Jahre Leben.",author:"David Attenborough",lang:"de",cat:"Filozofia",tid:163},
+  {id:1020,text:"Si les abeilles disparaissent de notre monde, il restera aux humains 4 années à vivre.",author:"David Attenborough",lang:"fr",cat:"Filozofia",tid:163},
+  {id:1021,text:"Si las abejas desaparecen de nuestro mundo, a los humanos les quedarán 4 años de vida.",author:"David Attenborough",lang:"es",cat:"Filozofia",tid:163},
+  {id:1022,text:"Если пчёлы исчезнут из нашего мира, людям останется 4 года жизни.",author:"Дэвид Аттенборо",lang:"ru",cat:"Filozofia",tid:163},
+  // Grupa 164 — Alejandro Jodorowsky, „Ptaki urodzone w klatce…"
+  {id:1023,text:"Ptaki urodzone w klatce myślą, że latanie to choroba.",author:"Alejandro Jodorowsky",lang:"pl",cat:"Filozofia",tid:164},
+  {id:1024,text:"Birds born in a cage think flying is an illness.",author:"Alejandro Jodorowsky",lang:"en",cat:"Filozofia",tid:164},
+  {id:1025,text:"Vögel, die in einem Käfig geboren werden, denken, dass Fliegen eine Krankheit ist.",author:"Alejandro Jodorowsky",lang:"de",cat:"Filozofia",tid:164},
+  {id:1026,text:"Les oiseaux nés en cage pensent que voler est une maladie.",author:"Alejandro Jodorowsky",lang:"fr",cat:"Filozofia",tid:164},
+  {id:1027,text:"Los pájaros nacidos en una jaula creen que volar es una enfermedad.",author:"Alejandro Jodorowsky",lang:"es",cat:"Filozofia",tid:164},
+  {id:1028,text:"Птицы, рождённые в клетке, думают, что полёт — это болезнь.",author:"Алехандро Ходоровский",lang:"ru",cat:"Filozofia",tid:164},
+  // Grupa 165 — Autor nieznany, „Lepiej mieć nos wetknięty w książkę…"
+  {id:1029,text:"Lepiej mieć nos wetknięty w książkę niż w cudze sprawy.",author:"Autor nieznany",lang:"pl",cat:"Mądrość",tid:165},
+  {id:1030,text:"It's better to have your nose stuck in a book than in someone else's business.",author:"Unknown author",lang:"en",cat:"Mądrość",tid:165},
+  {id:1031,text:"Es ist besser, die Nase in einem Buch zu stecken als in fremden Angelegenheiten.",author:"Unbekannter Autor",lang:"de",cat:"Mądrość",tid:165},
+  {id:1032,text:"Mieux vaut avoir le nez plongé dans un livre que dans les affaires des autres.",author:"Auteur inconnu",lang:"fr",cat:"Mądrość",tid:165},
+  {id:1033,text:"Es mejor tener la nariz metida en un libro que en los asuntos de los demás.",author:"Autor desconocido",lang:"es",cat:"Mądrość",tid:165},
+  {id:1034,text:"Лучше уткнуться носом в книгу, чем в чужие дела.",author:"Автор неизвестен",lang:"ru",cat:"Mądrość",tid:165},
+  // Grupa 166 — Gilbert Keith Chesterton, „Pokój bez książek…" (atrybucja sporna — patrz Cicero)
+  {id:1035,text:"Pokój bez książek to jak ciało bez duszy.",author:"Gilbert Keith Chesterton",lang:"pl",cat:"Mądrość",tid:166},
+  {id:1036,text:"A room without books is like a body without a soul.",author:"Gilbert Keith Chesterton",lang:"en",cat:"Mądrość",tid:166},
+  {id:1037,text:"Ein Raum ohne Bücher ist wie ein Körper ohne Seele.",author:"Gilbert Keith Chesterton",lang:"de",cat:"Mądrość",tid:166},
+  {id:1038,text:"Une pièce sans livres est comme un corps sans âme.",author:"Gilbert Keith Chesterton",lang:"fr",cat:"Mądrość",tid:166},
+  {id:1039,text:"Una habitación sin libros es como un cuerpo sin alma.",author:"Gilbert Keith Chesterton",lang:"es",cat:"Mądrość",tid:166},
+  {id:1040,text:"Комната без книг — как тело без души.",author:"Гилберт Кит Честертон",lang:"ru",cat:"Mądrość",tid:166},
+  // Grupa 167 — Emilia Clarke, „Mój ojciec zawsze mówił…"
+  {id:1041,text:"Mój ojciec zawsze mówił: nigdy nie ufaj ludziom, których telewizor jest większy niż półka na książki.",author:"Emilia Clarke",lang:"pl",cat:"Mądrość",tid:167},
+  {id:1042,text:"My father always said: never trust people whose television is bigger than their bookshelf.",author:"Emilia Clarke",lang:"en",cat:"Mądrość",tid:167},
+  {id:1043,text:"Mein Vater sagte immer: Trau niemals Menschen, deren Fernseher größer ist als ihr Bücherregal.",author:"Emilia Clarke",lang:"de",cat:"Mądrość",tid:167},
+  {id:1044,text:"Mon père disait toujours : ne fais jamais confiance aux gens dont la télévision est plus grande que leur bibliothèque.",author:"Emilia Clarke",lang:"fr",cat:"Mądrość",tid:167},
+  {id:1045,text:"Mi padre siempre decía: nunca confíes en personas cuya televisión es más grande que su estantería de libros.",author:"Emilia Clarke",lang:"es",cat:"Mądrość",tid:167},
+  {id:1046,text:"Мой отец всегда говорил: никогда не доверяй людям, у которых телевизор больше, чем книжная полка.",author:"Эмилия Кларк",lang:"ru",cat:"Mądrość",tid:167},
+  // Grupa 168 — Andy Biersack, „Stań w obronie tego, w co wierzysz…"
+  {id:1047,text:"Stań w obronie tego, w co wierzysz, nawet jeśli to oznacza, że będziesz stać samotnie.",author:"Andy Biersack",lang:"pl",cat:"Motywacja",tid:168},
+  {id:1048,text:"Stand up, for what you believe in, even if it means standing alone.",author:"Andy Biersack",lang:"en",cat:"Motywacja",tid:168},
+  {id:1049,text:"Stehe ein für das, woran du glaubst, auch wenn es bedeutet, allein dazustehen.",author:"Andy Biersack",lang:"de",cat:"Motywacja",tid:168},
+  {id:1050,text:"Défends ce en quoi tu crois, même si cela signifie te tenir debout seul.",author:"Andy Biersack",lang:"fr",cat:"Motywacja",tid:168},
+  {id:1051,text:"Defiende aquello en lo que crees, incluso si significa estar solo.",author:"Andy Biersack",lang:"es",cat:"Motywacja",tid:168},
+  {id:1052,text:"Встань за то, во что веришь, даже если это значит, что ты будешь стоять один.",author:"Энди Биерсак",lang:"ru",cat:"Motywacja",tid:168},
+  // Grupa 169 — anonim, „Każdy ma prawo do bycia kretynem…"
+  {id:1053,text:"Każdy ma prawo do bycia kretynem. Ale po co się z tym obnosić?",author:"Autor nieznany",lang:"pl",cat:"Mądrość",tid:169},
+  {id:1054,text:"Everyone has the right to be a fool. But why flaunt it?",author:"Unknown author",lang:"en",cat:"Mądrość",tid:169},
+  {id:1055,text:"Jeder hat das Recht, ein Idiot zu sein. Aber warum damit prahlen?",author:"Unbekannter Autor",lang:"de",cat:"Mądrość",tid:169},
+  {id:1056,text:"Chacun a le droit d'être un idiot. Mais pourquoi s'en vanter ?",author:"Auteur inconnu",lang:"fr",cat:"Mądrość",tid:169},
+  {id:1057,text:"Todos tienen derecho a ser idiotas. Pero ¿por qué presumir de ello?",author:"Autor desconocido",lang:"es",cat:"Mądrość",tid:169},
+  {id:1058,text:"У каждого есть право быть кретином. Но зачем этим хвастать?",author:"Автор неизвестен",lang:"ru",cat:"Mądrość",tid:169},
+  // Grupa 170 — Józef Piłsudski, „Kto nie szanuje i nie ceni swojej przeszłości…"
+  {id:1059,text:"Kto nie szanuje i nie ceni swojej przeszłości, ten nie jest godzien szacunku teraźniejszości, ani nie ma prawa do przyszłości.",author:"Józef Piłsudski",lang:"pl",cat:"Filozofia",tid:170},
+  {id:1060,text:"He who does not respect and value his past is not worthy of the respect of the present, nor has any right to the future.",author:"Józef Piłsudski",lang:"en",cat:"Filozofia",tid:170},
+  {id:1061,text:"Wer seine Vergangenheit nicht achtet und schätzt, ist der Achtung der Gegenwart nicht würdig und hat kein Recht auf die Zukunft.",author:"Józef Piłsudski",lang:"de",cat:"Filozofia",tid:170},
+  {id:1062,text:"Celui qui ne respecte et ne valorise pas son passé n'est pas digne du respect du présent, et n'a aucun droit à l'avenir.",author:"Józef Piłsudski",lang:"fr",cat:"Filozofia",tid:170},
+  {id:1063,text:"Quien no respeta ni valora su pasado, no es digno del respeto del presente, ni tiene derecho al futuro.",author:"Józef Piłsudski",lang:"es",cat:"Filozofia",tid:170},
+  {id:1064,text:"Тот, кто не уважает и не ценит своё прошлое, не достоин уважения настоящего и не имеет права на будущее.",author:"Юзеф Пилсудский",lang:"ru",cat:"Filozofia",tid:170},
+  // Grupa 171 — ks. Jan Twardowski, „Śpieszmy się kochać ludzi…"
+  {id:1065,text:"Śpieszmy się kochać ludzi, tak szybko odchodzą…",author:"ks. Jan Twardowski",lang:"pl",cat:"Miłość",tid:171},
+  {id:1066,text:"Let us hurry to love people, they leave so quickly…",author:"Father Jan Twardowski",lang:"en",cat:"Miłość",tid:171},
+  {id:1067,text:"Beeilen wir uns, die Menschen zu lieben — sie gehen so schnell fort…",author:"Pater Jan Twardowski",lang:"de",cat:"Miłość",tid:171},
+  {id:1068,text:"Hâtons-nous d'aimer les gens — ils s'en vont si vite…",author:"père Jan Twardowski",lang:"fr",cat:"Miłość",tid:171},
+  {id:1069,text:"Apresurémonos a amar a la gente — se van tan rápido…",author:"padre Jan Twardowski",lang:"es",cat:"Miłość",tid:171},
+  {id:1070,text:"Поспешим любить людей, они так быстро уходят…",author:"ксёндз Ян Твардовский",lang:"ru",cat:"Miłość",tid:171},
+  // Grupa 172 — Autor nieznany, „Rodzina jest jak gałęzie drzewa…"
+  {id:1071,text:"Rodzina jest jak gałęzie drzewa, wszyscy rośniemy w różnych kierunkach, ale korzenie mamy wspólne.",author:"Autor nieznany",lang:"pl",cat:"Miłość",tid:172},
+  {id:1072,text:"Family is like the branches of a tree — we all grow in different directions, but our roots are the same.",author:"Unknown author",lang:"en",cat:"Miłość",tid:172},
+  {id:1073,text:"Familie ist wie die Äste eines Baumes — wir wachsen alle in verschiedene Richtungen, aber unsere Wurzeln sind dieselben.",author:"Unbekannter Autor",lang:"de",cat:"Miłość",tid:172},
+  {id:1074,text:"La famille est comme les branches d'un arbre — nous grandissons tous dans des directions différentes, mais nos racines sont les mêmes.",author:"Auteur inconnu",lang:"fr",cat:"Miłość",tid:172},
+  {id:1075,text:"La familia es como las ramas de un árbol — todos crecemos en diferentes direcciones, pero nuestras raíces son las mismas.",author:"Autor desconocido",lang:"es",cat:"Miłość",tid:172},
+  {id:1076,text:"Семья — как ветви дерева: все мы растём в разных направлениях, но корни у нас общие.",author:"Автор неизвестен",lang:"ru",cat:"Miłość",tid:172},
+  // Grupa 173 — Robert Heinlein, „Never attempt to teach a pig to sing…"
+  {id:1077,text:"Nigdy nie próbuj uczyć świni śpiewać; tracisz czas i denerwujesz świnię.",author:"Robert Heinlein",lang:"pl",cat:"Mądrość",tid:173},
+  {id:1078,text:"Never attempt to teach a pig to sing; it wastes your time and annoys the pig.",author:"Robert Heinlein",lang:"en",cat:"Mądrość",tid:173},
+  {id:1079,text:"Versuche niemals, einem Schwein das Singen beizubringen; es verschwendet deine Zeit und ärgert das Schwein.",author:"Robert Heinlein",lang:"de",cat:"Mądrość",tid:173},
+  {id:1080,text:"N'essaye jamais d'apprendre à chanter à un cochon ; tu perds ton temps et tu énerves le cochon.",author:"Robert Heinlein",lang:"fr",cat:"Mądrość",tid:173},
+  {id:1081,text:"Nunca intentes enseñar a un cerdo a cantar; pierdes tu tiempo y molestas al cerdo.",author:"Robert Heinlein",lang:"es",cat:"Mądrość",tid:173},
+  {id:1082,text:"Никогда не пытайся научить свинью петь: ты тратишь своё время и раздражаешь свинью.",author:"Роберт Хайнлайн",lang:"ru",cat:"Mądrość",tid:173},
+  // Grupa 174 — W.E.B. Du Bois, „Children learn more from what you are than what you teach."
+  {id:1083,text:"Dzieci uczą się więcej z tego, kim jesteś, niż z tego, czego je uczysz.",author:"W.E.B. Du Bois",lang:"pl",cat:"Mądrość",tid:174},
+  {id:1084,text:"Children learn more from what you are than what you teach.",author:"W.E.B. Du Bois",lang:"en",cat:"Mądrość",tid:174},
+  {id:1085,text:"Kinder lernen mehr daraus, wer du bist, als aus dem, was du lehrst.",author:"W.E.B. Du Bois",lang:"de",cat:"Mądrość",tid:174},
+  {id:1086,text:"Les enfants apprennent plus de ce que tu es que de ce que tu enseignes.",author:"W.E.B. Du Bois",lang:"fr",cat:"Mądrość",tid:174},
+  {id:1087,text:"Los niños aprenden más de lo que eres que de lo que enseñas.",author:"W.E.B. Du Bois",lang:"es",cat:"Mądrość",tid:174},
+  {id:1088,text:"Дети учатся больше из того, кто ты есть, чем из того, чему ты учишь.",author:"У. Э. Б. Дюбуа",lang:"ru",cat:"Mądrość",tid:174},
+  // Grupa 175 — Benjamin Franklin (atrybucja sporna — oryginalnie konfucjańskie), „Tell me and I forget…"
+  {id:1089,text:"Powiedz mi, a zapomnę. Naucz mnie, a może zapamiętam. Zaangażuj mnie, a nauczę się.",author:"Benjamin Franklin",lang:"pl",cat:"Mądrość",tid:175},
+  {id:1090,text:"Tell me and I forget, teach me and I may remember, involve me and I learn.",author:"Benjamin Franklin",lang:"en",cat:"Mądrość",tid:175},
+  {id:1091,text:"Sag es mir und ich vergesse, lehre mich und ich werde mich vielleicht erinnern, beteilige mich und ich lerne.",author:"Benjamin Franklin",lang:"de",cat:"Mądrość",tid:175},
+  {id:1092,text:"Dis-moi et j'oublie, enseigne-moi et je m'en souviendrai peut-être, implique-moi et j'apprendrai.",author:"Benjamin Franklin",lang:"fr",cat:"Mądrość",tid:175},
+  {id:1093,text:"Dímelo y lo olvido, enséñame y puede que lo recuerde, implícame y lo aprenderé.",author:"Benjamin Franklin",lang:"es",cat:"Mądrość",tid:175},
+  {id:1094,text:"Скажи мне — и я забуду, научи меня — и я, возможно, запомню, вовлеки меня — и я научусь.",author:"Бенджамин Франклин",lang:"ru",cat:"Mądrość",tid:175},
+  // Grupa 176 — Autor nieznany, „Trust is like a matchstick…"
+  {id:1095,text:"Zaufanie jest jak zapałka — raz spalona zamienia się w popiół i nie da się jej już naprawić…",author:"Autor nieznany",lang:"pl",cat:"Mądrość",tid:176},
+  {id:1096,text:"Trust is like a matchstick — once burnt, turns into ashes and cannot be reformed…",author:"Unknown author",lang:"en",cat:"Mądrość",tid:176},
+  {id:1097,text:"Vertrauen ist wie ein Streichholz — einmal verbrannt, verwandelt es sich in Asche und kann nicht wiederhergestellt werden…",author:"Unbekannter Autor",lang:"de",cat:"Mądrość",tid:176},
+  {id:1098,text:"La confiance est comme une allumette — une fois brûlée, elle se transforme en cendres et ne peut être reformée…",author:"Auteur inconnu",lang:"fr",cat:"Mądrość",tid:176},
+  {id:1099,text:"La confianza es como una cerilla — una vez quemada, se convierte en cenizas y ya no puede recomponerse…",author:"Autor desconocido",lang:"es",cat:"Mądrość",tid:176},
+  {id:1100,text:"Доверие — как спичка: один раз сгорев, превращается в пепел, и его уже не восстановить…",author:"Автор неизвестен",lang:"ru",cat:"Mądrość",tid:176},
+  // Grupa 177 — Autor nieznany, „You're never fully dressed without a smile." (z musicalu „Annie")
+  {id:1101,text:"Nigdy nie jesteś w pełni ubrany bez uśmiechu.",author:"Autor nieznany",lang:"pl",cat:"Życie",tid:177},
+  {id:1102,text:"You're never fully dressed without a smile.",author:"Unknown author",lang:"en",cat:"Życie",tid:177},
+  {id:1103,text:"Du bist nie vollständig angezogen ohne ein Lächeln.",author:"Unbekannter Autor",lang:"de",cat:"Życie",tid:177},
+  {id:1104,text:"Tu n'es jamais complètement habillé sans un sourire.",author:"Auteur inconnu",lang:"fr",cat:"Życie",tid:177},
+  {id:1105,text:"Nunca estás completamente vestido sin una sonrisa.",author:"Autor desconocido",lang:"es",cat:"Życie",tid:177},
+  {id:1106,text:"Ты никогда не одет полностью без улыбки.",author:"Автор неизвестен",lang:"ru",cat:"Życie",tid:177},
+  // Grupa 178 — Paweł Adamowicz (Pride 2017), „Jak słyszycie, że ktoś jest zboczony…"
+  {id:1107,text:"Jak słyszycie, że ktoś jest zboczony, że ktoś jest zepsuty, to powiem tak: ten jest zboczony, który sieje nienawiść; ten jest zepsuty, który odnosi się do drugiego z wrogością, trzyma rękę wyciągniętą w nienawiści, chce rzucić kamieniem, chce potraktować go pałką; ten, który mówi złe słowa, złą energię wysyła do drugiego człowieka — ten jest, przepraszam, zboczony.",author:"Paweł Adamowicz",lang:"pl",cat:"Filozofia",tid:178},
+  {id:1108,text:"If you're ever called perverted or broken, I have this to say: the real perverts are the ones who sow hatred, broken are those who raise their hands in hatred, ready to cast stones or hit you. Those who send bad words and energy are truly perverted.",author:"Paweł Adamowicz",lang:"en",cat:"Filozofia",tid:178},
+  {id:1109,text:"Wenn man dich je als pervers oder kaputt bezeichnet, dann sage ich Folgendes: Die wahren Perversen sind diejenigen, die Hass säen; kaputt sind diejenigen, die ihre Hände im Hass erheben, bereit, Steine zu werfen oder zuzuschlagen. Diejenigen, die schlechte Worte und Energie senden, sind wirklich pervers.",author:"Paweł Adamowicz",lang:"de",cat:"Filozofia",tid:178},
+  {id:1110,text:"Si l'on vous traite jamais de pervers ou de brisé, voici ce que je dis : les vrais pervers sont ceux qui sèment la haine ; brisés sont ceux qui lèvent les mains dans la haine, prêts à jeter des pierres ou à frapper. Ceux qui envoient de mauvais mots et de la mauvaise énergie sont vraiment pervers.",author:"Paweł Adamowicz",lang:"fr",cat:"Filozofia",tid:178},
+  {id:1111,text:"Si alguna vez te llaman pervertido o roto, esto es lo que digo: los verdaderos pervertidos son los que siembran odio; rotos son los que alzan las manos con odio, dispuestos a tirar piedras o golpear. Quienes envían palabras y energía negativas son los verdaderamente pervertidos.",author:"Paweł Adamowicz",lang:"es",cat:"Filozofia",tid:178},
+  {id:1112,text:"Если когда-нибудь вас назовут извращенцем или сломанным, я скажу так: настоящие извращенцы — это те, кто сеет ненависть; сломаны те, кто поднимает руки в ненависти, готовый бросать камни или бить. Те, кто посылает плохие слова и плохую энергию, — действительно извращенцы.",author:"Павел Адамович",lang:"ru",cat:"Filozofia",tid:178},
+  // Grupa 179 — Daniel Ostrowski, „Czasem najlepszą zemstą jest okazanie dobroci…"
+  {id:1113,text:"Czasem najlepszą zemstą jest okazanie dobroci największemu wrogowi.",author:"Daniel Ostrowski",lang:"pl",cat:"Mądrość",tid:179},
+  {id:1114,text:"Sometimes the best revenge is showing kindness to one's greatest enemy.",author:"Daniel Ostrowski",lang:"en",cat:"Mądrość",tid:179},
+  {id:1115,text:"Manchmal ist die beste Rache, dem größten Feind Freundlichkeit zu zeigen.",author:"Daniel Ostrowski",lang:"de",cat:"Mądrość",tid:179},
+  {id:1116,text:"Parfois la meilleure vengeance est de montrer de la bonté à son plus grand ennemi.",author:"Daniel Ostrowski",lang:"fr",cat:"Mądrość",tid:179},
+  {id:1117,text:"A veces la mejor venganza es mostrar amabilidad al mayor enemigo.",author:"Daniel Ostrowski",lang:"es",cat:"Mądrość",tid:179},
+  {id:1118,text:"Иногда лучшая месть — это проявить доброту к своему злейшему врагу.",author:"Даниэль Островский",lang:"ru",cat:"Mądrość",tid:179},
+  // Grupa 180 — Przysłowie chińskie, „Nauczyciele mogą otworzyć drzwi…"
+  {id:1119,text:"Nauczyciele mogą otworzyć drzwi, ale my sami musimy przez nie przejść.",author:"Przysłowie chińskie",lang:"pl",cat:"Mądrość",tid:180},
+  {id:1120,text:"Teachers can open the door, but you must enter it yourself.",author:"Chinese proverb",lang:"en",cat:"Mądrość",tid:180},
+  {id:1121,text:"Lehrer können die Tür öffnen, aber du musst selbst eintreten.",author:"Chinesisches Sprichwort",lang:"de",cat:"Mądrość",tid:180},
+  {id:1122,text:"Les enseignants peuvent ouvrir la porte, mais vous devez y entrer vous-même.",author:"Proverbe chinois",lang:"fr",cat:"Mądrość",tid:180},
+  {id:1123,text:"Los maestros pueden abrir la puerta, pero tú debes entrar por ti mismo.",author:"Proverbio chino",lang:"es",cat:"Mądrość",tid:180},
+  {id:1124,text:"Учителя могут открыть дверь, но вам нужно войти сами.",author:"Китайская поговорка",lang:"ru",cat:"Mądrość",tid:180},
+  // Grupa 181 — Autor nieznany, „If you want to be somebody, somebody really special, be yourself!"
+  {id:1125,text:"Jeśli chcesz być kimś, kimś naprawdę wyjątkowym — bądź sobą!",author:"Autor nieznany",lang:"pl",cat:"Motywacja",tid:181},
+  {id:1126,text:"If you want to be somebody, somebody really special, be yourself!",author:"Unknown author",lang:"en",cat:"Motywacja",tid:181},
+  {id:1127,text:"Wenn du jemand sein willst, jemand wirklich Besonderes — sei du selbst!",author:"Unbekannter Autor",lang:"de",cat:"Motywacja",tid:181},
+  {id:1128,text:"Si tu veux être quelqu'un, quelqu'un de vraiment spécial — sois toi-même !",author:"Auteur inconnu",lang:"fr",cat:"Motywacja",tid:181},
+  {id:1129,text:"Si quieres ser alguien, alguien realmente especial — ¡sé tú mismo!",author:"Autor desconocido",lang:"es",cat:"Motywacja",tid:181},
+  {id:1130,text:"Хочешь быть кем-то, кем-то действительно особенным — будь собой!",author:"Автор неизвестен",lang:"ru",cat:"Motywacja",tid:181},
+  // Grupa 182 — Jonathan Swift, „A wise man should have money in his head, but not in his heart."
+  {id:1131,text:"Mądry człowiek powinien mieć pieniądze w głowie, ale nie w sercu.",author:"Jonathan Swift",lang:"pl",cat:"Mądrość",tid:182},
+  {id:1132,text:"A wise man should have money in his head, but not in his heart.",author:"Jonathan Swift",lang:"en",cat:"Mądrość",tid:182},
+  {id:1133,text:"Ein weiser Mann sollte Geld im Kopf haben, aber nicht im Herzen.",author:"Jonathan Swift",lang:"de",cat:"Mądrość",tid:182},
+  {id:1134,text:"Un homme sage devrait avoir de l'argent dans la tête, mais pas dans le cœur.",author:"Jonathan Swift",lang:"fr",cat:"Mądrość",tid:182},
+  {id:1135,text:"Un hombre sabio debería tener dinero en la cabeza, pero no en el corazón.",author:"Jonathan Swift",lang:"es",cat:"Mądrość",tid:182},
+  {id:1136,text:"Мудрый человек должен иметь деньги в своей голове, но не в сердце.",author:"Джонатан Свифт",lang:"ru",cat:"Mądrość",tid:182},
+  // Grupa 183 — Charlie Chaplin, „Nothing is permanent in this wicked world…"
+  {id:1137,text:"Nic nie jest trwałe w tym przewrotnym świecie — nawet nasze kłopoty.",author:"Charlie Chaplin",lang:"pl",cat:"Filozofia",tid:183},
+  {id:1138,text:"Nothing is permanent in this wicked world — not even our troubles.",author:"Charlie Chaplin",lang:"en",cat:"Filozofia",tid:183},
+  {id:1139,text:"Nichts ist dauerhaft in dieser bösen Welt — nicht einmal unsere Probleme.",author:"Charlie Chaplin",lang:"de",cat:"Filozofia",tid:183},
+  {id:1140,text:"Rien n'est permanent dans ce monde méchant — pas même nos ennuis.",author:"Charlie Chaplin",lang:"fr",cat:"Filozofia",tid:183},
+  {id:1141,text:"Nada es permanente en este mundo perverso — ni siquiera nuestras dificultades.",author:"Charlie Chaplin",lang:"es",cat:"Filozofia",tid:183},
+  {id:1142,text:"Ничто не вечно в нашем грешном мире, даже наши неприятности.",author:"Чарли Чаплин",lang:"ru",cat:"Filozofia",tid:183},
+  // Grupa 184 — Ludwig Wittgenstein, „Uttering a word is like striking a note on the keyboard of the imagination."
+  {id:1143,text:"Wypowiedzieć słowo to jak nacisnąć klawisz na klawiaturze wyobraźni.",author:"Ludwig Wittgenstein",lang:"pl",cat:"Filozofia",tid:184},
+  {id:1144,text:"Uttering a word is like striking a note on the keyboard of the imagination.",author:"Ludwig Wittgenstein",lang:"en",cat:"Filozofia",tid:184},
+  {id:1145,text:"Ein Wort auszusprechen ist wie das Anschlagen einer Taste auf der Klaviatur der Vorstellungskraft.",author:"Ludwig Wittgenstein",lang:"de",cat:"Filozofia",tid:184},
+  {id:1146,text:"Prononcer un mot, c'est comme appuyer sur une touche du clavier de l'imagination.",author:"Ludwig Wittgenstein",lang:"fr",cat:"Filozofia",tid:184},
+  {id:1147,text:"Pronunciar una palabra es como tocar una tecla del teclado de la imaginación.",author:"Ludwig Wittgenstein",lang:"es",cat:"Filozofia",tid:184},
+  {id:1148,text:"Произнести слово — это всё равно что нажать клавишу на клавиатуре воображения.",author:"Людвиг Витгенштейн",lang:"ru",cat:"Filozofia",tid:184},
+  // Grupa 185 — Autor nieznany, „Ludzie, którzy próbują uczynić ten świat gorszym…"
+  {id:1149,text:"Ludzie, którzy próbują uczynić ten świat gorszym, nie biorą sobie wolnego dnia. Dlaczego ja miałbym brać?",author:"Autor nieznany",lang:"pl",cat:"Motywacja",tid:185},
+  {id:1150,text:"The people who were trying to make this world worse are not taking the day off. Why should I?",author:"Unknown author",lang:"en",cat:"Motywacja",tid:185},
+  {id:1151,text:"Die Menschen, die versuchen, diese Welt schlechter zu machen, nehmen sich keinen Tag frei. Warum sollte ich es tun?",author:"Unbekannter Autor",lang:"de",cat:"Motywacja",tid:185},
+  {id:1152,text:"Les gens qui essaient de rendre ce monde pire ne prennent pas leur journée. Pourquoi devrais-je le faire ?",author:"Auteur inconnu",lang:"fr",cat:"Motywacja",tid:185},
+  {id:1153,text:"Las personas que intentan empeorar este mundo no se toman el día libre. ¿Por qué debería hacerlo yo?",author:"Autor desconocido",lang:"es",cat:"Motywacja",tid:185},
+  {id:1154,text:"Люди, которые пытаются сделать этот мир хуже, не берут себе выходных. Почему я должен брать?",author:"Автор неизвестен",lang:"ru",cat:"Motywacja",tid:185}
 ];
 
 // Wersja seed-bazy. Bump przy KAŻDYM dodaniu cytatów do DEFAULT_QUOTES.
 // loadQuotes używa tego, by dosiać brakujące cytaty istniejącym użytkownikom.
-var DB_SEED_VERSION=30;
+var DB_SEED_VERSION=31;
 
 // Punktowe poprawki istniejących cytatów (np. literówki). Klucz = wersja, w której patch został wprowadzony.
 // loadQuotes aplikuje tylko patche z zakresu (savedVer, DB_SEED_VERSION], więc każda poprawka pójdzie raz.
