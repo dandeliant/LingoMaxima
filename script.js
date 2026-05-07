@@ -58,7 +58,7 @@ var DEFAULT_QUOTES=[
   {id:57,text:"Жизнь прожить — не поле перейти.",author:"Русская пословица",lang:"ru",cat:"Życie"},
   {id:58,text:"Смелость — это не отсутствие страха, а победа над ним.",author:"Нельсон Мандела",lang:"ru",cat:"Motywacja"},
   {id:59,text:"Все счастливые семьи похожи друг на друга, каждая несчастливая — по-своему.",author:"Лев Толстой",lang:"ru",cat:"Życie"},
-  {id:60,text:"Великие умы обсуждают идеи, средние — события, мелкие — людей.",author:"Элеонора Рузвельт",lang:"ru",cat:"Mądrość"},
+  {id:60,text:"Великие умы обсуждают идеи, средние — события, мелкие — людей.",author:"Элеонора Рузвельт",lang:"ru",cat:"Mądrość",tid:196},
   // Grupa 5 — Nietzsche, „A ci, którzy tańczyli…"
   {id:61,text:"A ci, którzy tańczyli, zostali uznani za szalonych przez tych, którzy nie słyszeli muzyki.",author:"Friedrich Nietzsche",lang:"pl",cat:"Filozofia",tid:5},
   {id:62,text:"And those who were seen dancing were thought to be insane by those who could not hear the music.",author:"Friedrich Nietzsche",lang:"en",cat:"Filozofia",tid:5},
@@ -1379,12 +1379,109 @@ var DEFAULT_QUOTES=[
   {id:1187,text:"Mit großer Kraft kommt große Verantwortung.",author:"Stan Lee (Onkel Ben)",lang:"de",cat:"Mądrość",tid:191},
   {id:1188,text:"Un grand pouvoir implique de grandes responsabilités.",author:"Stan Lee (Oncle Ben)",lang:"fr",cat:"Mądrość",tid:191},
   {id:1189,text:"Un gran poder conlleva una gran responsabilidad.",author:"Stan Lee (Tío Ben)",lang:"es",cat:"Mądrość",tid:191},
-  {id:1190,text:"С большой силой приходит большая ответственность.",author:"Стэн Ли (Дядя Бен)",lang:"ru",cat:"Mądrość",tid:191}
+  {id:1190,text:"С большой силой приходит большая ответственность.",author:"Стэн Ли (Дядя Бен)",lang:"ru",cat:"Mądrość",tid:191},
+  // Grupa 192 — Markus Herz (UWAGA: klasycznie atrybuowane Markowi Twainowi), „Be careful about reading health books…"
+  {id:1191,text:"Uważaj z czytaniem książek o zdrowiu. Któregoś pięknego dnia umrzesz z powodu literówki.",author:"Markus Herz",lang:"pl",cat:"Mądrość",tid:192},
+  {id:1192,text:"Be careful about reading health books. Some fine day you'll die of a misprint.",author:"Markus Herz",lang:"en",cat:"Mądrość",tid:192},
+  {id:1193,text:"Sei vorsichtig beim Lesen von Gesundheitsbüchern. An einem schönen Tag wirst du an einem Druckfehler sterben.",author:"Markus Herz",lang:"de",cat:"Mądrość",tid:192},
+  {id:1194,text:"Sois prudent avec les livres de santé. Un beau jour, tu mourras d'une faute d'impression.",author:"Markus Herz",lang:"fr",cat:"Mądrość",tid:192},
+  {id:1195,text:"Ten cuidado al leer libros de salud. Algún día morirás de una errata.",author:"Markus Herz",lang:"es",cat:"Mądrość",tid:192},
+  {id:1196,text:"Будьте осторожны при чтении книг о здоровье. В один прекрасный день вы умрёте от опечатки.",author:"Маркус Герц",lang:"ru",cat:"Mądrość",tid:192},
+  // Grupa 193 — James Bond, „Shaken, not stirred." (kultowy zwrot z filmów 007)
+  {id:1197,text:"Wstrząśnięte, niezmieszane.",author:"James Bond",lang:"pl",cat:"Życie",tid:193},
+  {id:1198,text:"Shaken, not stirred.",author:"James Bond",lang:"en",cat:"Życie",tid:193},
+  {id:1199,text:"Geschüttelt, nicht gerührt.",author:"James Bond",lang:"de",cat:"Życie",tid:193},
+  {id:1200,text:"Au shaker, pas à la cuillère.",author:"James Bond",lang:"fr",cat:"Życie",tid:193},
+  {id:1201,text:"Agitado, no revuelto.",author:"James Bond",lang:"es",cat:"Życie",tid:193},
+  {id:1202,text:"Взболтать, но не смешивать.",author:"Джеймс Бонд",lang:"ru",cat:"Życie",tid:193},
+  // Grupa 194 — William Shakespeare, „Hell is empty and all the devils are here." (z „Burzy")
+  {id:1203,text:"Piekło jest puste, a wszystkie diabły są tutaj.",author:"William Shakespeare",lang:"pl",cat:"Filozofia",tid:194},
+  {id:1204,text:"Hell is empty and all the devils are here.",author:"William Shakespeare",lang:"en",cat:"Filozofia",tid:194},
+  {id:1205,text:"Die Hölle ist leer, und alle Teufel sind hier.",author:"William Shakespeare",lang:"de",cat:"Filozofia",tid:194},
+  {id:1206,text:"L'enfer est vide, et tous les diables sont ici.",author:"William Shakespeare",lang:"fr",cat:"Filozofia",tid:194},
+  {id:1207,text:"El infierno está vacío y todos los diablos están aquí.",author:"William Shakespeare",lang:"es",cat:"Filozofia",tid:194},
+  {id:1208,text:"Ад пуст, а все черти здесь.",author:"Уильям Шекспир",lang:"ru",cat:"Filozofia",tid:194},
+  // Grupa 195 — Lao Tzu, „Nature does not hurry, yet everything is accomplished."
+  {id:1209,text:"Natura się nie spieszy, a wszystko zostaje dokonane.",author:"Laozi",lang:"pl",cat:"Filozofia",tid:195},
+  {id:1210,text:"Nature does not hurry, yet everything is accomplished.",author:"Laozi",lang:"en",cat:"Filozofia",tid:195},
+  {id:1211,text:"Die Natur eilt nicht, und doch wird alles vollbracht.",author:"Laozi",lang:"de",cat:"Filozofia",tid:195},
+  {id:1212,text:"La nature ne se hâte pas, et pourtant tout s'accomplit.",author:"Laozi",lang:"fr",cat:"Filozofia",tid:195},
+  {id:1213,text:"La naturaleza no se apresura, y sin embargo todo se cumple.",author:"Laozi",lang:"es",cat:"Filozofia",tid:195},
+  {id:1214,text:"Природа не спешит, и всё же всё свершается.",author:"Лао-цзы",lang:"ru",cat:"Filozofia",tid:195},
+  // Grupa 196 — Eleanor Roosevelt, „Great minds discuss ideas…" (RU już istnieje jako id:60)
+  {id:1215,text:"Wielkie umysły rozmawiają o ideach; przeciętne umysły rozmawiają o wydarzeniach; małe umysły rozmawiają o ludziach.",author:"Eleanor Roosevelt",lang:"pl",cat:"Mądrość",tid:196},
+  {id:1216,text:"Great minds discuss ideas; average minds discuss events; small minds discuss people.",author:"Eleanor Roosevelt",lang:"en",cat:"Mądrość",tid:196},
+  {id:1217,text:"Große Geister diskutieren Ideen; mittelmäßige Geister diskutieren Ereignisse; kleine Geister diskutieren Menschen.",author:"Eleanor Roosevelt",lang:"de",cat:"Mądrość",tid:196},
+  {id:1218,text:"Les grands esprits discutent d'idées ; les esprits moyens discutent d'événements ; les petits esprits discutent des gens.",author:"Eleanor Roosevelt",lang:"fr",cat:"Mądrość",tid:196},
+  {id:1219,text:"Las mentes grandes hablan de ideas; las mentes medianas hablan de eventos; las mentes pequeñas hablan de personas.",author:"Eleanor Roosevelt",lang:"es",cat:"Mądrość",tid:196},
+  // Grupa 197 — Autor nieznany, „Sukces ma wielu ojców, porażka zawsze jest sierotą."
+  {id:1220,text:"Sukces ma wielu ojców, porażka zawsze jest sierotą.",author:"Autor nieznany",lang:"pl",cat:"Sukces",tid:197},
+  {id:1221,text:"Success has many fathers, while failure is an orphan.",author:"Unknown author",lang:"en",cat:"Sukces",tid:197},
+  {id:1222,text:"Der Erfolg hat viele Väter, der Misserfolg ist immer ein Waisenkind.",author:"Unbekannter Autor",lang:"de",cat:"Sukces",tid:197},
+  {id:1223,text:"Le succès a beaucoup de pères, l'échec est toujours orphelin.",author:"Auteur inconnu",lang:"fr",cat:"Sukces",tid:197},
+  {id:1224,text:"El éxito tiene muchos padres, el fracaso siempre es huérfano.",author:"Autor desconocido",lang:"es",cat:"Sukces",tid:197},
+  {id:1225,text:"У успеха много отцов, поражение всегда сирота.",author:"Автор неизвестен",lang:"ru",cat:"Sukces",tid:197},
+  // Grupa 198 — Mae West, „You only live once, but if you do it right, once is enough."
+  {id:1226,text:"Żyjemy tylko raz, ale jeśli zrobimy to dobrze, raz wystarczy.",author:"Mae West",lang:"pl",cat:"Życie",tid:198},
+  {id:1227,text:"You only live once, but if you do it right, once is enough.",author:"Mae West",lang:"en",cat:"Życie",tid:198},
+  {id:1228,text:"Man lebt nur einmal, aber wenn man es richtig macht, reicht einmal.",author:"Mae West",lang:"de",cat:"Życie",tid:198},
+  {id:1229,text:"On ne vit qu'une fois, mais si on le fait bien, une fois suffit.",author:"Mae West",lang:"fr",cat:"Życie",tid:198},
+  {id:1230,text:"Solo se vive una vez, pero si lo haces bien, una vez basta.",author:"Mae West",lang:"es",cat:"Życie",tid:198},
+  {id:1231,text:"Мы живём один раз, но если правильно распорядиться жизнью, то и одного раза достаточно.",author:"Мэй Уэст",lang:"ru",cat:"Życie",tid:198},
+  // Grupa 199 — Mae West, „Good girls go to heaven, bad girls go everywhere."
+  {id:1232,text:"Dobre dziewczyny idą do nieba, złe dziewczyny idą wszędzie.",author:"Mae West",lang:"pl",cat:"Życie",tid:199},
+  {id:1233,text:"Good girls go to heaven, bad girls go everywhere.",author:"Mae West",lang:"en",cat:"Życie",tid:199},
+  {id:1234,text:"Gute Mädchen kommen in den Himmel, böse Mädchen kommen überall hin.",author:"Mae West",lang:"de",cat:"Życie",tid:199},
+  {id:1235,text:"Les bonnes filles vont au paradis, les mauvaises filles vont partout.",author:"Mae West",lang:"fr",cat:"Życie",tid:199},
+  {id:1236,text:"Las chicas buenas van al cielo, las chicas malas van a todas partes.",author:"Mae West",lang:"es",cat:"Życie",tid:199},
+  {id:1237,text:"Хорошие девочки попадают на небеса, плохие — повсюду.",author:"Мэй Уэст",lang:"ru",cat:"Życie",tid:199},
+  // Grupa 200 — Philip Pullman, „But you cannot change what you are, only what you do."
+  {id:1238,text:"Ale nie możesz zmienić tego, kim jesteś, tylko to, co robisz.",author:"Philip Pullman",lang:"pl",cat:"Filozofia",tid:200},
+  {id:1239,text:"But you cannot change what you are, only what you do.",author:"Philip Pullman",lang:"en",cat:"Filozofia",tid:200},
+  {id:1240,text:"Aber du kannst nicht ändern, was du bist, nur was du tust.",author:"Philip Pullman",lang:"de",cat:"Filozofia",tid:200},
+  {id:1241,text:"Mais tu ne peux pas changer ce que tu es, seulement ce que tu fais.",author:"Philip Pullman",lang:"fr",cat:"Filozofia",tid:200},
+  {id:1242,text:"Pero no puedes cambiar lo que eres, solo lo que haces.",author:"Philip Pullman",lang:"es",cat:"Filozofia",tid:200},
+  {id:1243,text:"Но ты не можешь изменить то, кем ты являешься, только то, что ты делаешь.",author:"Филип Пулман",lang:"ru",cat:"Filozofia",tid:200},
+  // Grupa 201 — Adam Asnyk, „Miejcie odwagę!..."
+  {id:1244,text:"Miejcie odwagę!... Nie tę jednodniową, co w rozpaczliwym przedsięwzięciu pryska, lecz tę, co wiecznie z podniesioną głową nie da się zepchnąć ze swego stanowiska.",author:"Adam Asnyk",lang:"pl",cat:"Motywacja",tid:201},
+  {id:1245,text:"Have courage! Not the one-day kind that bursts in a desperate venture, but the kind that always with head held high refuses to be pushed from its position.",author:"Adam Asnyk",lang:"en",cat:"Motywacja",tid:201},
+  {id:1246,text:"Habt Mut! Nicht jenen Mut für einen Tag, der in verzweifeltem Vorhaben zerschellt, sondern jenen, der stets erhobenen Hauptes sich nicht von seinem Posten verdrängen lässt.",author:"Adam Asnyk",lang:"de",cat:"Motywacja",tid:201},
+  {id:1247,text:"Ayez du courage ! Pas le courage d'un jour qui éclate dans une entreprise désespérée, mais celui qui, la tête toujours haute, refuse d'être chassé de sa position.",author:"Adam Asnyk",lang:"fr",cat:"Motywacja",tid:201},
+  {id:1248,text:"¡Tened coraje! No el coraje de un día que estalla en una empresa desesperada, sino aquel que, con la cabeza siempre en alto, se niega a ser empujado de su posición.",author:"Adam Asnyk",lang:"es",cat:"Motywacja",tid:201},
+  {id:1249,text:"Имейте мужество!.. Не однодневное, что в отчаянном порыве разбивается, но то, что вечно с поднятой головой не даёт себя сбросить со своей позиции.",author:"Адам Асныка",lang:"ru",cat:"Motywacja",tid:201},
+  // Grupa 202 — William Shakespeare, „There are more things in heaven and earth, Horatio…" (Hamlet)
+  {id:1250,text:"Więcej jest rzeczy na ziemi i w niebie, niż się ich śniło waszym filozofom.",author:"William Shakespeare",lang:"pl",cat:"Filozofia",tid:202},
+  {id:1251,text:"There are more things in heaven and earth, Horatio, than are dreamt of in your philosophy.",author:"William Shakespeare",lang:"en",cat:"Filozofia",tid:202},
+  {id:1252,text:"Es gibt mehr Dinge zwischen Himmel und Erde, Horatio, als eure Schulweisheit sich träumen lässt.",author:"William Shakespeare",lang:"de",cat:"Filozofia",tid:202},
+  {id:1253,text:"Il y a plus de choses au ciel et sur la terre, Horatio, que n'en rêve votre philosophie.",author:"William Shakespeare",lang:"fr",cat:"Filozofia",tid:202},
+  {id:1254,text:"Hay más cosas en el cielo y en la tierra, Horacio, que las que sueña tu filosofía.",author:"William Shakespeare",lang:"es",cat:"Filozofia",tid:202},
+  {id:1255,text:"Есть многое на свете, друг Горацио, что и не снилось нашим мудрецам.",author:"Уильям Шекспир",lang:"ru",cat:"Filozofia",tid:202},
+  // Grupa 203 — Autor nieznany, „Remember that the most dangerous prison is the one in your head."
+  {id:1256,text:"Pamiętaj, że najgroźniejsze więzienie jest w twojej głowie.",author:"Autor nieznany",lang:"pl",cat:"Mądrość",tid:203},
+  {id:1257,text:"Remember that the most dangerous prison is the one in your head.",author:"Unknown author",lang:"en",cat:"Mądrość",tid:203},
+  {id:1258,text:"Denk daran, dass das gefährlichste Gefängnis das in deinem Kopf ist.",author:"Unbekannter Autor",lang:"de",cat:"Mądrość",tid:203},
+  {id:1259,text:"Souviens-toi que la prison la plus dangereuse est celle dans ta tête.",author:"Auteur inconnu",lang:"fr",cat:"Mądrość",tid:203},
+  {id:1260,text:"Recuerda que la prisión más peligrosa es la de tu cabeza.",author:"Autor desconocido",lang:"es",cat:"Mądrość",tid:203},
+  {id:1261,text:"Помни, что нет тюрьмы, страшнее чем в голове.",author:"Автор неизвестен",lang:"ru",cat:"Mądrość",tid:203},
+  // Grupa 204 — Autor nieznany, „Be careful with your thoughts — they are the beginning of deeds."
+  {id:1262,text:"Uważaj na swoje myśli — to początek czynów.",author:"Autor nieznany",lang:"pl",cat:"Mądrość",tid:204},
+  {id:1263,text:"Be careful with your thoughts — they are the beginning of deeds.",author:"Unknown author",lang:"en",cat:"Mądrość",tid:204},
+  {id:1264,text:"Sei vorsichtig mit deinen Gedanken — sie sind der Anfang von Taten.",author:"Unbekannter Autor",lang:"de",cat:"Mądrość",tid:204},
+  {id:1265,text:"Sois prudent avec tes pensées — elles sont le début des actes.",author:"Auteur inconnu",lang:"fr",cat:"Mądrość",tid:204},
+  {id:1266,text:"Cuida tus pensamientos — son el comienzo de las acciones.",author:"Autor desconocido",lang:"es",cat:"Mądrość",tid:204},
+  {id:1267,text:"Будьте внимательны к своим мыслям — они начало поступков.",author:"Автор неизвестен",lang:"ru",cat:"Mądrość",tid:204},
+  // Grupa 205 — John Lennon, „Jeśli marnowanie czasu daje Ci radość…"
+  {id:1268,text:"Jeśli marnowanie czasu daje Ci radość, to nie jest to czas zmarnowany.",author:"John Lennon",lang:"pl",cat:"Życie",tid:205},
+  {id:1269,text:"If wasting time gives you joy, then it is not wasted time.",author:"John Lennon",lang:"en",cat:"Życie",tid:205},
+  {id:1270,text:"Wenn Zeit zu verschwenden dir Freude bereitet, dann ist sie nicht verschwendet.",author:"John Lennon",lang:"de",cat:"Życie",tid:205},
+  {id:1271,text:"Si perdre du temps te procure de la joie, alors ce n'est pas du temps perdu.",author:"John Lennon",lang:"fr",cat:"Życie",tid:205},
+  {id:1272,text:"Si perder el tiempo te da alegría, entonces no es tiempo perdido.",author:"John Lennon",lang:"es",cat:"Życie",tid:205},
+  {id:1273,text:"Если трата времени приносит тебе радость, то это не потраченное впустую время.",author:"Джон Леннон",lang:"ru",cat:"Życie",tid:205}
 ];
 
 // Wersja seed-bazy. Bump przy KAŻDYM dodaniu cytatów do DEFAULT_QUOTES.
 // loadQuotes używa tego, by dosiać brakujące cytaty istniejącym użytkownikom.
-var DB_SEED_VERSION=32;
+var DB_SEED_VERSION=33;
 
 // Punktowe poprawki istniejących cytatów (np. literówki). Klucz = wersja, w której patch został wprowadzony.
 // loadQuotes aplikuje tylko patche z zakresu (savedVer, DB_SEED_VERSION], więc każda poprawka pójdzie raz.
@@ -1412,6 +1509,11 @@ var DB_TEXT_PATCHES={
     // zobaczyli powiązanie z nowymi tłumaczeniami (ID 995–1004).
     {id:9,field:"tid",value:159},  // Appius Claudius Caecus
     {id:11,field:"tid",value:160}  // Oscar Wilde
+  ],
+  33:[
+    // Dopięcie tid:196 do Eleanor Roosevelt (id:60) — by istniejący użytkownicy
+    // zobaczyli powiązanie z 5 nowymi tłumaczeniami (ID 1215–1219).
+    {id:60,field:"tid",value:196}  // Eleanor Roosevelt
   ]
 };
 
