@@ -828,12 +828,68 @@ var DEFAULT_QUOTES=[
   {id:717,text:"Wenn ich anfange, dich in einer anderen Sprache zu beleidigen, fühlst du nichts. Sie bedeuten dir nichts, denn du bist es, der ihnen Bedeutung verleiht. Ich weiß, was sie bedeuten. Aber egal, wie laut ich sie dir entgegenschreie — du könntest anfangen zu lachen. Nimm ihre Worte, nimm ihnen den Wert und lass sie auf den Boden fallen. Wenn du das tust, fallen sie zu Boden. Sie können dich nie berühren. Sie sind nichts.",author:"Salma Hayek",lang:"de",cat:"Mądrość",tid:114},
   {id:718,text:"Si je commence à t'insulter dans une autre langue, tu ne ressens rien. Ces mots ne signifient rien pour toi, parce que c'est toi qui leur donnes du sens. Moi, je sais ce qu'ils veulent dire. Mais peu importe avec quelle force je te les hurle — tu pourrais te mettre à rire. Prends leurs mots, retire-leur leur valeur et laisse-les tomber au sol. Si tu fais cela, ils tombent à terre. Ils ne peuvent jamais t'atteindre. Ils ne sont rien.",author:"Salma Hayek",lang:"fr",cat:"Mądrość",tid:114},
   {id:719,text:"Si empiezo a insultarte en otro idioma, no sientes nada. Esas palabras no significan nada para ti, porque eres tú quien les da significado. Yo sé lo que significan. Pero no importa con qué fuerza te las grite — podrías empezar a reír. Toma sus palabras, quítales su valor y déjalas caer al suelo. Si haces eso, caen al suelo. Nunca pueden tocarte. No son nada.",author:"Salma Hayek",lang:"es",cat:"Mądrość",tid:114},
-  {id:720,text:"Если я начну оскорблять тебя на другом языке, ты ничего не почувствуешь. Эти слова для тебя ничего не значат, потому что именно ты придаёшь им значение. Я знаю, что они значат. Но неважно, как громко я буду их тебе кричать — ты можешь начать смеяться. Возьми их слова, отбери у них ценность и урони их на пол. Если ты это сделаешь, они упадут на землю. Они никогда не смогут тебя коснуться. Они ничто.",author:"Сальма Хайек",lang:"ru",cat:"Mądrość",tid:114}
+  {id:720,text:"Если я начну оскорблять тебя на другом языке, ты ничего не почувствуешь. Эти слова для тебя ничего не значат, потому что именно ты придаёшь им значение. Я знаю, что они значат. Но неважно, как громко я буду их тебе кричать — ты можешь начать смеяться. Возьми их слова, отбери у них ценность и урони их на пол. Если ты это сделаешь, они упадут на землю. Они никогда не смогут тебя коснуться. Они ничто.",author:"Сальма Хайек",lang:"ru",cat:"Mądrość",tid:114},
+  // Grupa 115 — Eduardo Galeano, „Żyjemy w świecie, w którym pogrzeb jest ważniejszy…"
+  {id:721,text:"Żyjemy w świecie, w którym pogrzeb jest ważniejszy od zmarłego, wesele jest ważniejsze od miłości, wygląd ważniejszy jest od intelektu. Żyjemy w kulturze opakowań, która gardzi zawartością.",author:"Eduardo Galeano",lang:"pl",cat:"Filozofia",tid:115},
+  {id:722,text:"We live in a world where the funeral matters more than the dead, the wedding more than love and the physical rather than the intellect. We live in the container culture, which despises the content.",author:"Eduardo Galeano",lang:"en",cat:"Filozofia",tid:115},
+  {id:723,text:"Wir leben in einer Welt, in der die Beerdigung wichtiger ist als der Verstorbene, die Hochzeit wichtiger als die Liebe, das Äußere wichtiger als der Intellekt. Wir leben in einer Verpackungskultur, die den Inhalt verachtet.",author:"Eduardo Galeano",lang:"de",cat:"Filozofia",tid:115},
+  {id:724,text:"Nous vivons dans un monde où l'enterrement compte plus que le défunt, le mariage plus que l'amour, l'apparence plus que l'intellect. Nous vivons dans la culture de l'emballage, qui méprise le contenu.",author:"Eduardo Galeano",lang:"fr",cat:"Filozofia",tid:115},
+  {id:725,text:"Vivimos en un mundo donde el funeral importa más que el muerto, la boda más que el amor, la apariencia más que el intelecto. Vivimos en la cultura del envase, que desprecia el contenido.",author:"Eduardo Galeano",lang:"es",cat:"Filozofia",tid:115},
+  {id:726,text:"Мы живём в мире, в котором похороны важнее умершего, свадьба важнее любви, внешность важнее интеллекта. Мы живём в культуре упаковок, которая презирает содержимое.",author:"Эдуардо Галеано",lang:"ru",cat:"Filozofia",tid:115},
+  // Grupa 116 — Dwight Eisenhower, „Pesymizm nigdy nie wygrał żadnej bitwy."
+  {id:727,text:"Pesymizm nigdy nie wygrał żadnej bitwy.",author:"Dwight Eisenhower",lang:"pl",cat:"Motywacja",tid:116},
+  {id:728,text:"Pessimism never won any battle.",author:"Dwight Eisenhower",lang:"en",cat:"Motywacja",tid:116},
+  {id:729,text:"Pessimismus hat noch nie eine Schlacht gewonnen.",author:"Dwight Eisenhower",lang:"de",cat:"Motywacja",tid:116},
+  {id:730,text:"Le pessimisme n'a jamais gagné aucune bataille.",author:"Dwight Eisenhower",lang:"fr",cat:"Motywacja",tid:116},
+  {id:731,text:"El pesimismo nunca ha ganado ninguna batalla.",author:"Dwight Eisenhower",lang:"es",cat:"Motywacja",tid:116},
+  {id:732,text:"Пессимизм никогда не выигрывал ни одной битвы.",author:"Дуайт Эйзенхауэр",lang:"ru",cat:"Motywacja",tid:116},
+  // Grupa 117 — Giacomo Casanova, „Strzeż się tego, kto czytał tylko jedną książkę."
+  {id:733,text:"Strzeż się tego, kto czytał tylko jedną książkę.",author:"Giacomo Casanova",lang:"pl",cat:"Mądrość",tid:117},
+  {id:734,text:"Beware the man who has read only one book.",author:"Giacomo Casanova",lang:"en",cat:"Mądrość",tid:117},
+  {id:735,text:"Hüte dich vor dem, der nur ein einziges Buch gelesen hat.",author:"Giacomo Casanova",lang:"de",cat:"Mądrość",tid:117},
+  {id:736,text:"Méfie-toi de celui qui n'a lu qu'un seul livre.",author:"Giacomo Casanova",lang:"fr",cat:"Mądrość",tid:117},
+  {id:737,text:"Cuidado con el hombre que ha leído un solo libro.",author:"Giacomo Casanova",lang:"es",cat:"Mądrość",tid:117},
+  {id:738,text:"Остерегайся того, кто прочитал лишь одну книгу.",author:"Джакомо Казанова",lang:"ru",cat:"Mądrość",tid:117},
+  // Grupa 118 — Andrzej Sapkowski, „Ten, kto raz nie złamie w sobie tchórzostwa…"
+  {id:739,text:"Ten, kto raz nie złamie w sobie tchórzostwa, będzie umierał ze strachu do końca swoich dni.",author:"Andrzej Sapkowski",lang:"pl",cat:"Mądrość",tid:118},
+  {id:740,text:"He who does not break cowardice in himself once will die of fear until the end of his days.",author:"Andrzej Sapkowski",lang:"en",cat:"Mądrość",tid:118},
+  {id:741,text:"Wer die Feigheit in sich nicht ein Mal bricht, wird bis ans Ende seiner Tage vor Angst sterben.",author:"Andrzej Sapkowski",lang:"de",cat:"Mądrość",tid:118},
+  {id:742,text:"Celui qui ne brise pas une fois la lâcheté en lui mourra de peur jusqu'à la fin de ses jours.",author:"Andrzej Sapkowski",lang:"fr",cat:"Mądrość",tid:118},
+  {id:743,text:"Quien no rompa una vez la cobardía en sí mismo, morirá de miedo hasta el fin de sus días.",author:"Andrzej Sapkowski",lang:"es",cat:"Mądrość",tid:118},
+  {id:744,text:"Тот, кто хоть раз не сломит в себе трусость, будет умирать от страха до конца своих дней.",author:"Анджей Сапковский",lang:"ru",cat:"Mądrość",tid:118},
+  // Grupa 119 — Brian Tracy, „Twoje życie staje się lepsze, tylko gdy Ty stajesz się lepszym"
+  {id:745,text:"Twoje życie staje się lepsze, tylko gdy Ty stajesz się lepszym.",author:"Brian Tracy",lang:"pl",cat:"Motywacja",tid:119},
+  {id:746,text:"Your life only gets better when you get better.",author:"Brian Tracy",lang:"en",cat:"Motywacja",tid:119},
+  {id:747,text:"Dein Leben wird nur dann besser, wenn du selbst besser wirst.",author:"Brian Tracy",lang:"de",cat:"Motywacja",tid:119},
+  {id:748,text:"Ta vie ne s'améliore que lorsque tu t'améliores toi-même.",author:"Brian Tracy",lang:"fr",cat:"Motywacja",tid:119},
+  {id:749,text:"Tu vida solo mejora cuando tú mejoras.",author:"Brian Tracy",lang:"es",cat:"Motywacja",tid:119},
+  {id:750,text:"Ваша жизнь станет лучше только после того, как лучше станете вы.",author:"Брайан Трейси",lang:"ru",cat:"Motywacja",tid:119},
+  // Grupa 120 — Robert Makłowicz, „Europa to nasz wspólny dom…"
+  {id:751,text:"Europa to nasz wspólny dom, do którego przez lata bezskutecznie pukaliśmy. Jesteśmy w nim w końcu i nie pozwólmy tego schrzanić. Chrzan jest dobry, ale nacjonalizm to zguba dobrego smaku.",author:"Robert Makłowicz",lang:"pl",cat:"Mądrość",tid:120},
+  {id:752,text:"Europe is our common home, on whose door we knocked in vain for years. We are finally inside, and let's not screw this up. Horseradish is good, but nationalism is the ruin of good taste.",author:"Robert Makłowicz",lang:"en",cat:"Mądrość",tid:120},
+  {id:753,text:"Europa ist unser gemeinsames Zuhause, an dessen Tür wir jahrelang vergeblich geklopft haben. Wir sind endlich darin — lassen wir es uns nicht verderben. Meerrettich ist gut, aber Nationalismus ist der Untergang des guten Geschmacks.",author:"Robert Makłowicz",lang:"de",cat:"Mądrość",tid:120},
+  {id:754,text:"L'Europe est notre maison commune, à la porte de laquelle nous avons frappé en vain pendant des années. Nous y sommes enfin — ne gâchons pas tout. Le raifort est bon, mais le nationalisme est la perte du bon goût.",author:"Robert Makłowicz",lang:"fr",cat:"Mądrość",tid:120},
+  {id:755,text:"Europa es nuestra casa común, a cuya puerta llamamos en vano durante años. Por fin estamos dentro — no lo estropeemos. El rábano picante es bueno, pero el nacionalismo es la ruina del buen gusto.",author:"Robert Makłowicz",lang:"es",cat:"Mądrość",tid:120},
+  {id:756,text:"Европа — наш общий дом, в дверь которого мы много лет безуспешно стучались. Мы наконец-то внутри — давайте этого не испортим. Хрен — это хорошо, но национализм — это погибель хорошего вкуса.",author:"Роберт Макловиц",lang:"ru",cat:"Mądrość",tid:120},
+  // Grupa 121 — C.J. Tudor, „Bycie dobrym człowiekiem nie polega na śpiewaniu hymnów…"
+  {id:757,text:"Bycie dobrym człowiekiem nie polega na śpiewaniu hymnów czy modleniu się do jakiegoś mitycznego bóstwa. Nie chodzi o noszenie krzyżyka i chodzenie co niedziela do kościoła, ale o to, jak traktujesz innych ludzi.",author:"C.J. Tudor",lang:"pl",cat:"Mądrość",tid:121},
+  {id:758,text:"Being a good person doesn't mean singing hymns or praying to some mythical deity. It's not about wearing a cross and going to church every Sunday — it's about how you treat other people.",author:"C.J. Tudor",lang:"en",cat:"Mądrość",tid:121},
+  {id:759,text:"Ein guter Mensch zu sein bedeutet nicht, Hymnen zu singen oder zu einer mythischen Gottheit zu beten. Es geht nicht darum, ein Kreuz zu tragen und jeden Sonntag in die Kirche zu gehen, sondern darum, wie du andere Menschen behandelst.",author:"C.J. Tudor",lang:"de",cat:"Mądrość",tid:121},
+  {id:760,text:"Être une bonne personne ne consiste pas à chanter des hymnes ou à prier une divinité mythique. Il ne s'agit pas de porter une croix et d'aller à l'église chaque dimanche, mais de la façon dont tu traites les autres.",author:"C.J. Tudor",lang:"fr",cat:"Mądrość",tid:121},
+  {id:761,text:"Ser una buena persona no consiste en cantar himnos o rezar a alguna deidad mítica. No se trata de llevar una cruz e ir a la iglesia cada domingo, sino de cómo tratas a los demás.",author:"C.J. Tudor",lang:"es",cat:"Mądrość",tid:121},
+  {id:762,text:"Быть хорошим человеком — это не петь гимны и не молиться какому-то мифическому божеству. Дело не в том, чтобы носить крестик и каждое воскресенье ходить в церковь, а в том, как ты относишься к другим людям.",author:"К. Дж. Тюдор",lang:"ru",cat:"Mądrość",tid:121},
+  // Grupa 122 — Autor nieznany, „Las codziennie się zmniejszał…"
+  {id:763,text:"Las codziennie się zmniejszał, ale drzewa z uporem głosowały na siekierę, bo miała uchwyt z drewna.",author:"Autor nieznany",lang:"pl",cat:"Mądrość",tid:122},
+  {id:764,text:"The forest was shrinking every day, but the trees stubbornly voted for the axe, because it had a wooden handle.",author:"Unknown author",lang:"en",cat:"Mądrość",tid:122},
+  {id:765,text:"Der Wald schrumpfte jeden Tag, aber die Bäume stimmten beharrlich für die Axt, weil sie einen Stiel aus Holz hatte.",author:"Unbekannter Autor",lang:"de",cat:"Mądrość",tid:122},
+  {id:766,text:"La forêt diminuait chaque jour, mais les arbres votaient obstinément pour la hache, parce qu'elle avait un manche en bois.",author:"Auteur inconnu",lang:"fr",cat:"Mądrość",tid:122},
+  {id:767,text:"El bosque se reducía cada día, pero los árboles votaban tercamente por el hacha, porque tenía un mango de madera.",author:"Autor desconocido",lang:"es",cat:"Mądrość",tid:122},
+  {id:768,text:"Лес каждый день уменьшался, но деревья упрямо голосовали за топор, потому что у него была деревянная рукоятка.",author:"Автор неизвестен",lang:"ru",cat:"Mądrość",tid:122}
 ];
 
 // Wersja seed-bazy. Bump przy KAŻDYM dodaniu cytatów do DEFAULT_QUOTES.
 // loadQuotes używa tego, by dosiać brakujące cytaty istniejącym użytkownikom.
-var DB_SEED_VERSION=22;
+var DB_SEED_VERSION=23;
 
 // Punktowe poprawki istniejących cytatów (np. literówki). Klucz = wersja, w której patch został wprowadzony.
 // loadQuotes aplikuje tylko patche z zakresu (savedVer, DB_SEED_VERSION], więc każda poprawka pójdzie raz.
