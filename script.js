@@ -1024,12 +1024,89 @@ var DEFAULT_QUOTES=[
   {id:885,text:"Jeder weiß, dass er sterben wird, aber niemand glaubt es. Würden wir es glauben, würden wir die Dinge anders machen.",author:"Mitch Albom",lang:"de",cat:"Filozofia",tid:142},
   {id:886,text:"Tout le monde sait qu'il va mourir, mais personne ne le croit. Si nous y croyions, nous ferions les choses différemment.",author:"Mitch Albom",lang:"fr",cat:"Filozofia",tid:142},
   {id:887,text:"Todo el mundo sabe que va a morir, pero nadie lo cree. Si lo creyéramos, haríamos las cosas de otra manera.",author:"Mitch Albom",lang:"es",cat:"Filozofia",tid:142},
-  {id:888,text:"Каждый знает, что умрёт, но никто в это не верит. Если бы мы верили, мы делали бы всё по-другому.",author:"Митч Элбом",lang:"ru",cat:"Filozofia",tid:142}
+  {id:888,text:"Каждый знает, что умрёт, но никто в это не верит. Если бы мы верили, мы делали бы всё по-другому.",author:"Митч Элбом",lang:"ru",cat:"Filozofia",tid:142},
+  // Grupa 143 — Phyllis Diller, „Always be nice to your children…"
+  {id:889,text:"Zawsze bądź miły dla swoich dzieci, bo to one wybiorą ci dom spokojnej starości.",author:"Phyllis Diller",lang:"pl",cat:"Mądrość",tid:143},
+  {id:890,text:"Always be nice to your children because they are the ones who will choose your rest home.",author:"Phyllis Diller",lang:"en",cat:"Mądrość",tid:143},
+  {id:891,text:"Sei immer nett zu deinen Kindern, denn sie sind diejenigen, die dein Altersheim aussuchen werden.",author:"Phyllis Diller",lang:"de",cat:"Mądrość",tid:143},
+  {id:892,text:"Sois toujours gentil avec tes enfants, car ce sont eux qui choisiront ta maison de retraite.",author:"Phyllis Diller",lang:"fr",cat:"Mądrość",tid:143},
+  {id:893,text:"Sé siempre amable con tus hijos, porque son ellos quienes elegirán tu residencia de ancianos.",author:"Phyllis Diller",lang:"es",cat:"Mądrość",tid:143},
+  {id:894,text:"Всегда будь добр к своим детям, потому что именно они выберут тебе дом престарелых.",author:"Филлис Диллер",lang:"ru",cat:"Mądrość",tid:143},
+  // Grupa 144 — Autor nieznany, „If you don't go after what you want…" (UWAGA: zbliżona do tid:61)
+  {id:895,text:"Jeśli nie pójdziesz za tym, czego chcesz, nigdy tego nie będziesz miał. Jeśli nie zapytasz, odpowiedź zawsze będzie negatywna. Jeśli nie zrobisz kroku naprzód, zawsze będziesz w tym samym miejscu.",author:"Autor nieznany",lang:"pl",cat:"Mądrość",tid:144},
+  {id:896,text:"If you don't go after what you want, you'll never have it. If you don't ask, the answer is always no. If you don't step forward, you're always in the same place.",author:"Unknown author",lang:"en",cat:"Mądrość",tid:144},
+  {id:897,text:"Wenn du nicht dem nachgehst, was du willst, wirst du es nie haben. Wenn du nicht fragst, ist die Antwort immer Nein. Wenn du keinen Schritt nach vorne machst, bleibst du immer am selben Ort.",author:"Unbekannter Autor",lang:"de",cat:"Mądrość",tid:144},
+  {id:898,text:"Si tu ne vas pas chercher ce que tu veux, tu ne l'auras jamais. Si tu ne demandes pas, la réponse est toujours non. Si tu ne fais pas un pas en avant, tu restes toujours au même endroit.",author:"Auteur inconnu",lang:"fr",cat:"Mądrość",tid:144},
+  {id:899,text:"Si no vas tras lo que quieres, nunca lo tendrás. Si no preguntas, la respuesta siempre es no. Si no das un paso adelante, siempre estás en el mismo lugar.",author:"Autor desconocido",lang:"es",cat:"Mądrość",tid:144},
+  {id:900,text:"Если ты не идёшь за тем, чего хочешь, никогда этого не получишь. Если ты не спрашиваешь, ответ всегда будет нет. Если ты не делаешь шаг вперёд, всегда останешься на том же месте.",author:"Автор неизвестен",lang:"ru",cat:"Mądrość",tid:144},
+  // Grupa 145 — Autor nieznany, „When we die we become 'stories' in the minds of other people."
+  {id:901,text:"Kiedy umieramy, stajemy się «opowieściami» w umysłach innych ludzi.",author:"Autor nieznany",lang:"pl",cat:"Filozofia",tid:145},
+  {id:902,text:"When we die we become «stories» in the minds of other people.",author:"Unknown author",lang:"en",cat:"Filozofia",tid:145},
+  {id:903,text:"Wenn wir sterben, werden wir zu «Geschichten» in den Köpfen anderer Menschen.",author:"Unbekannter Autor",lang:"de",cat:"Filozofia",tid:145},
+  {id:904,text:"Quand nous mourons, nous devenons des « histoires » dans l'esprit des autres.",author:"Auteur inconnu",lang:"fr",cat:"Filozofia",tid:145},
+  {id:905,text:"Cuando morimos, nos convertimos en «historias» en las mentes de otras personas.",author:"Autor desconocido",lang:"es",cat:"Filozofia",tid:145},
+  {id:906,text:"Когда мы умираем, мы становимся «историями» в умах других людей.",author:"Автор неизвестен",lang:"ru",cat:"Filozofia",tid:145},
+  // Grupa 146 — Robert A. Heinlein, „Those who forget their past…" (UWAGA: oryginał G. Santayana)
+  {id:907,text:"Ci, którzy zapominają o swojej przeszłości, są skazani na jej powtórzenie.",author:"Robert A. Heinlein",lang:"pl",cat:"Filozofia",tid:146},
+  {id:908,text:"Those who forget their past are destined to repeat it.",author:"Robert A. Heinlein",lang:"en",cat:"Filozofia",tid:146},
+  {id:909,text:"Diejenigen, die ihre Vergangenheit vergessen, sind dazu verdammt, sie zu wiederholen.",author:"Robert A. Heinlein",lang:"de",cat:"Filozofia",tid:146},
+  {id:910,text:"Ceux qui oublient leur passé sont condamnés à le répéter.",author:"Robert A. Heinlein",lang:"fr",cat:"Filozofia",tid:146},
+  {id:911,text:"Quienes olvidan su pasado están condenados a repetirlo.",author:"Robert A. Heinlein",lang:"es",cat:"Filozofia",tid:146},
+  {id:912,text:"Те, кто забывает своё прошлое, обречены его повторить.",author:"Роберт Хайнлайн",lang:"ru",cat:"Filozofia",tid:146},
+  // Grupa 147 — Przysłowie rosyjskie, „You live as long as you are remembered."
+  {id:913,text:"Żyjesz tak długo, jak długo cię pamiętają.",author:"Przysłowie rosyjskie",lang:"pl",cat:"Filozofia",tid:147},
+  {id:914,text:"You live as long as you are remembered.",author:"Russian proverb",lang:"en",cat:"Filozofia",tid:147},
+  {id:915,text:"Du lebst so lange, wie man sich an dich erinnert.",author:"Russisches Sprichwort",lang:"de",cat:"Filozofia",tid:147},
+  {id:916,text:"Tu vis aussi longtemps que l'on se souvient de toi.",author:"Proverbe russe",lang:"fr",cat:"Filozofia",tid:147},
+  {id:917,text:"Vives mientras te recuerden.",author:"Proverbio ruso",lang:"es",cat:"Filozofia",tid:147},
+  {id:918,text:"Ты жив, пока тебя помнят.",author:"Русская пословица",lang:"ru",cat:"Filozofia",tid:147},
+  // Grupa 148 — Dan Brown, „Gdyby przodkowie zobaczyli, jak daleko zaszliśmy…"
+  {id:919,text:"Gdyby przodkowie zobaczyli, jak daleko zaszliśmy, uznaliby nas za bogów.",author:"Dan Brown",lang:"pl",cat:"Filozofia",tid:148},
+  {id:920,text:"If our ancestors could see how far we have come, they would consider us gods.",author:"Dan Brown",lang:"en",cat:"Filozofia",tid:148},
+  {id:921,text:"Wenn unsere Vorfahren sehen könnten, wie weit wir gekommen sind, würden sie uns für Götter halten.",author:"Dan Brown",lang:"de",cat:"Filozofia",tid:148},
+  {id:922,text:"Si nos ancêtres pouvaient voir jusqu'où nous sommes parvenus, ils nous prendraient pour des dieux.",author:"Dan Brown",lang:"fr",cat:"Filozofia",tid:148},
+  {id:923,text:"Si nuestros antepasados pudieran ver hasta dónde hemos llegado, nos considerarían dioses.",author:"Dan Brown",lang:"es",cat:"Filozofia",tid:148},
+  {id:924,text:"Если бы наши предки увидели, как далеко мы зашли, они приняли бы нас за богов.",author:"Дэн Браун",lang:"ru",cat:"Filozofia",tid:148},
+  // Grupa 149 — Robin Williams (z filmu „Jack" 1996), „Please, don't worry so much…"
+  {id:925,text:"Proszę, nie martw się tak bardzo. Bo w końcu żadne z nas nie ma zbyt wiele czasu na tej Ziemi. Życie jest ulotne. A jeśli kiedykolwiek będziesz zmartwiony, skieruj swoje oczy na letnie niebo, gdy gwiazdy rozciągają się na aksamitnej nocy. A kiedy spadająca gwiazda przemknie przez ciemność, zamieniając noc w dzień... pomyśl życzenie i pomyśl o mnie. Spraw, aby Twoje życie było spektakularne.",author:"Robin Williams",lang:"pl",cat:"Życie",tid:149},
+  {id:926,text:"Please, don't worry so much. Because in the end, none of us have very long on this Earth. Life is fleeting. And if you're ever distressed, cast your eyes to the summer sky when the stars are strung across the velvety night. And when a shooting star streaks through the blackness, turning night into day... make a wish and think of me. Make your life spectacular.",author:"Robin Williams",lang:"en",cat:"Życie",tid:149},
+  {id:927,text:"Bitte, mach dir nicht so viele Sorgen. Denn am Ende hat keiner von uns sehr lange auf dieser Erde. Das Leben ist flüchtig. Und wenn du jemals bekümmert bist, wende deine Augen zum Sommerhimmel, wenn die Sterne über der samtenen Nacht gespannt sind. Und wenn eine Sternschnuppe durch die Dunkelheit zieht und die Nacht zum Tag macht... wünsche dir etwas und denke an mich. Mach dein Leben spektakulär.",author:"Robin Williams",lang:"de",cat:"Życie",tid:149},
+  {id:928,text:"S'il te plaît, ne t'inquiète pas tant. Parce qu'au fond, aucun de nous n'a beaucoup de temps sur cette Terre. La vie est éphémère. Et si jamais tu es affligé, lève les yeux vers le ciel d'été, quand les étoiles sont parsemées sur la nuit de velours. Et lorsqu'une étoile filante traverse l'obscurité, transformant la nuit en jour... fais un vœu et pense à moi. Rends ta vie spectaculaire.",author:"Robin Williams",lang:"fr",cat:"Życie",tid:149},
+  {id:929,text:"Por favor, no te preocupes tanto. Porque al final, ninguno de nosotros tiene mucho tiempo en esta Tierra. La vida es fugaz. Y si alguna vez estás afligido, alza los ojos al cielo de verano, cuando las estrellas están extendidas sobre la noche de terciopelo. Y cuando una estrella fugaz cruce la oscuridad, convirtiendo la noche en día... pide un deseo y piensa en mí. Haz que tu vida sea espectacular.",author:"Robin Williams",lang:"es",cat:"Życie",tid:149},
+  {id:930,text:"Пожалуйста, не волнуйся так сильно. Потому что в конце концов никому из нас не отведено много времени на этой Земле. Жизнь скоротечна. И если ты когда-нибудь будешь огорчён, обрати глаза к летнему небу, когда звёзды раскинуты по бархатной ночи. И когда падающая звезда промелькнёт сквозь тьму, превращая ночь в день... загадай желание и подумай обо мне. Сделай свою жизнь незабываемой.",author:"Робин Уильямс",lang:"ru",cat:"Życie",tid:149},
+  // Grupa 150 — Wisława Szymborska, „Człowiek, który nie poczuł smaku swoich łez…" (atrybucja sporna)
+  {id:931,text:"Człowiek, który nie poczuł smaku swoich łez — nie jest prawdziwym człowiekiem.",author:"Wisława Szymborska",lang:"pl",cat:"Filozofia",tid:150},
+  {id:932,text:"A person who has not tasted his own tears is not a true human being.",author:"Wisława Szymborska",lang:"en",cat:"Filozofia",tid:150},
+  {id:933,text:"Ein Mensch, der den Geschmack seiner eigenen Tränen nicht gespürt hat, ist kein wahrer Mensch.",author:"Wisława Szymborska",lang:"de",cat:"Filozofia",tid:150},
+  {id:934,text:"Un homme qui n'a pas goûté ses propres larmes n'est pas un véritable être humain.",author:"Wisława Szymborska",lang:"fr",cat:"Filozofia",tid:150},
+  {id:935,text:"Una persona que no ha probado el sabor de sus propias lágrimas no es un verdadero ser humano.",author:"Wisława Szymborska",lang:"es",cat:"Filozofia",tid:150},
+  {id:936,text:"Человек, который не ощутил вкуса своих слёз, — не настоящий человек.",author:"Вислава Шимборская",lang:"ru",cat:"Filozofia",tid:150},
+  // Grupa 151 — Wisława Szymborska, „Umarłych wieczność dotąd trwa…" (z wiersza „Rehabilitacja")
+  {id:937,text:"Umarłych wieczność dotąd trwa, dokąd pamięcią się im płaci.",author:"Wisława Szymborska",lang:"pl",cat:"Filozofia",tid:151},
+  {id:938,text:"The eternity of the dead lasts as long as we pay them with memory.",author:"Wisława Szymborska",lang:"en",cat:"Filozofia",tid:151},
+  {id:939,text:"Die Ewigkeit der Toten dauert so lange, wie man sie mit Erinnerung bezahlt.",author:"Wisława Szymborska",lang:"de",cat:"Filozofia",tid:151},
+  {id:940,text:"L'éternité des morts dure aussi longtemps qu'on les paie avec le souvenir.",author:"Wisława Szymborska",lang:"fr",cat:"Filozofia",tid:151},
+  {id:941,text:"La eternidad de los muertos dura mientras se les pague con la memoria.",author:"Wisława Szymborska",lang:"es",cat:"Filozofia",tid:151},
+  {id:942,text:"Вечность умерших длится до тех пор, пока им платят памятью.",author:"Вислава Шимборская",lang:"ru",cat:"Filozofia",tid:151},
+  // Grupa 152 — Daniel Ostrowski, „Rodzina to nie zawsze więzy krwi…"
+  {id:943,text:"Rodzina to nie zawsze więzy krwi. Czasem rodzina to mocna więź przyjaźni.",author:"Daniel Ostrowski",lang:"pl",cat:"Miłość",tid:152},
+  {id:944,text:"Family is not always about blood ties. Sometimes family is a strong bond of friendship.",author:"Daniel Ostrowski",lang:"en",cat:"Miłość",tid:152},
+  {id:945,text:"Familie sind nicht immer Blutsbande. Manchmal ist Familie eine starke Bande der Freundschaft.",author:"Daniel Ostrowski",lang:"de",cat:"Miłość",tid:152},
+  {id:946,text:"La famille n'est pas toujours une question de liens du sang. Parfois, la famille est un lien fort d'amitié.",author:"Daniel Ostrowski",lang:"fr",cat:"Miłość",tid:152},
+  {id:947,text:"La familia no siempre son lazos de sangre. A veces la familia es un fuerte vínculo de amistad.",author:"Daniel Ostrowski",lang:"es",cat:"Miłość",tid:152},
+  {id:948,text:"Семья — это не всегда кровные узы. Иногда семья — это крепкая дружеская связь.",author:"Даниэль Островский",lang:"ru",cat:"Miłość",tid:152},
+  // Grupa 153 — „Walter" (atrybucja sporna), „By odkryć, kto tobą rządzi…"
+  {id:949,text:"By odkryć, kto tobą rządzi, po prostu sprawdź, kogo nie wolno ci krytykować.",author:"Voltaire",lang:"pl",cat:"Filozofia",tid:153},
+  {id:950,text:"To find out who rules over you, simply check whom you are not allowed to criticize.",author:"Voltaire",lang:"en",cat:"Filozofia",tid:153},
+  {id:951,text:"Um herauszufinden, wer über dich herrscht, schau einfach, wen du nicht kritisieren darfst.",author:"Voltaire",lang:"de",cat:"Filozofia",tid:153},
+  {id:952,text:"Pour découvrir qui te gouverne, vérifie simplement qui tu n'as pas le droit de critiquer.",author:"Voltaire",lang:"fr",cat:"Filozofia",tid:153},
+  {id:953,text:"Para descubrir quién te gobierna, simplemente averigua a quién no se te permite criticar.",author:"Voltaire",lang:"es",cat:"Filozofia",tid:153},
+  {id:954,text:"Чтобы понять, кто тобой правит, просто проверь, кого тебе нельзя критиковать.",author:"Вольтер",lang:"ru",cat:"Filozofia",tid:153}
 ];
 
 // Wersja seed-bazy. Bump przy KAŻDYM dodaniu cytatów do DEFAULT_QUOTES.
 // loadQuotes używa tego, by dosiać brakujące cytaty istniejącym użytkownikom.
-var DB_SEED_VERSION=25;
+var DB_SEED_VERSION=26;
 
 // Punktowe poprawki istniejących cytatów (np. literówki). Klucz = wersja, w której patch został wprowadzony.
 // loadQuotes aplikuje tylko patche z zakresu (savedVer, DB_SEED_VERSION], więc każda poprawka pójdzie raz.
