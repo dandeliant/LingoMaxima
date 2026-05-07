@@ -7,9 +7,9 @@ var DEFAULT_QUOTES=[
   {id:6,text:"Życie jest tym, co się nam przydarza, gdy jesteśmy zajęci robieniem innych planów.",author:"John Lennon",lang:"pl",cat:"Życie",tid:1},
   {id:7,text:"Bądź zmianą, którą chcesz widzieć w świecie.",author:"Mahatma Gandhi",lang:"pl",cat:"Motywacja",tid:4},
   {id:8,text:"Jedynym sposobem na wielką pracę jest kochanie tego, co się robi.",author:"Steve Jobs",lang:"pl",cat:"Sukces",tid:3},
-  {id:9,text:"Człowiek jest kowalem własnego losu.",author:"Appiusz Klaudiusz",lang:"pl",cat:"Mądrość"},
+  {id:9,text:"Człowiek jest kowalem własnego losu.",author:"Appiusz Klaudiusz",lang:"pl",cat:"Mądrość",tid:159},
   {id:10,text:"W środku każdej trudności tkwi możliwość.",author:"Albert Einstein",lang:"pl",cat:"Motywacja",tid:2},
-  {id:11,text:"Be yourself; everyone else is already taken.",author:"Oscar Wilde",lang:"en",cat:"Mądrość"},
+  {id:11,text:"Be yourself; everyone else is already taken.",author:"Oscar Wilde",lang:"en",cat:"Mądrość",tid:160},
   {id:12,text:"In the middle of every difficulty lies opportunity.",author:"Albert Einstein",lang:"en",cat:"Motywacja",tid:2},
   {id:13,text:"The only way to do great work is to love what you do.",author:"Steve Jobs",lang:"en",cat:"Sukces",tid:3},
   {id:14,text:"It is during our darkest moments that we must focus to see the light.",author:"Aristotle",lang:"en",cat:"Filozofia"},
@@ -1131,12 +1131,43 @@ var DEFAULT_QUOTES=[
   {id:976,text:"Glück hängt allein davon ab, was du denkst.",author:"Dale Carnegie",lang:"de",cat:"Mądrość",tid:158},
   {id:977,text:"Le bonheur dépend uniquement de ce que tu penses.",author:"Dale Carnegie",lang:"fr",cat:"Mądrość",tid:158},
   {id:978,text:"La felicidad depende únicamente de lo que piensas.",author:"Dale Carnegie",lang:"es",cat:"Mądrość",tid:158},
-  {id:979,text:"Счастье зависит исключительно от того, что вы думаете.",author:"Дейл Карнеги",lang:"ru",cat:"Mądrość",tid:158}
+  {id:979,text:"Счастье зависит исключительно от того, что вы думаете.",author:"Дейл Карнеги",lang:"ru",cat:"Mądrość",tid:158},
+  // Uzupełnienie tid:1 (John Lennon) — PL (id:6), EN (id:19), FR (id:35) już istniały. Dodaję DE/ES/RU.
+  {id:980,text:"Das Leben ist das, was passiert, während du eifrig dabei bist, andere Pläne zu machen.",author:"John Lennon",lang:"de",cat:"Życie",tid:1},
+  {id:981,text:"La vida es lo que te pasa mientras estás ocupado haciendo otros planes.",author:"John Lennon",lang:"es",cat:"Życie",tid:1},
+  {id:982,text:"Жизнь — это то, что происходит с тобой, пока ты занят строительством других планов.",author:"Джон Леннон",lang:"ru",cat:"Życie",tid:1},
+  // Uzupełnienie tid:2 (Albert Einstein) — PL (id:10), EN (id:12) już istniały. Dodaję DE/FR/ES/RU.
+  {id:983,text:"In der Mitte jeder Schwierigkeit liegt eine Möglichkeit.",author:"Albert Einstein",lang:"de",cat:"Motywacja",tid:2},
+  {id:984,text:"Au milieu de chaque difficulté se trouve une opportunité.",author:"Albert Einstein",lang:"fr",cat:"Motywacja",tid:2},
+  {id:985,text:"En medio de cada dificultad reside una oportunidad.",author:"Albert Einstein",lang:"es",cat:"Motywacja",tid:2},
+  {id:986,text:"В середине каждой трудности кроется возможность.",author:"Альберт Эйнштейн",lang:"ru",cat:"Motywacja",tid:2},
+  // Uzupełnienie tid:3 (Steve Jobs) — PL (id:8), EN (id:13) już istniały. Dodaję DE/FR/ES/RU.
+  {id:987,text:"Der einzige Weg, großartige Arbeit zu leisten, ist das zu lieben, was man tut.",author:"Steve Jobs",lang:"de",cat:"Sukces",tid:3},
+  {id:988,text:"La seule façon de faire du grand travail est d'aimer ce que l'on fait.",author:"Steve Jobs",lang:"fr",cat:"Sukces",tid:3},
+  {id:989,text:"La única manera de hacer un gran trabajo es amar lo que uno hace.",author:"Steve Jobs",lang:"es",cat:"Sukces",tid:3},
+  {id:990,text:"Единственный способ делать великую работу — любить то, что ты делаешь.",author:"Стив Джобс",lang:"ru",cat:"Sukces",tid:3},
+  // Uzupełnienie tid:4 (Mahatma Gandhi) — PL (id:7), ES (id:47) już istniały. Dodaję EN/DE/FR/RU.
+  {id:991,text:"Be the change you wish to see in the world.",author:"Mahatma Gandhi",lang:"en",cat:"Motywacja",tid:4},
+  {id:992,text:"Sei du selbst die Veränderung, die du dir wünschst für diese Welt.",author:"Mahatma Gandhi",lang:"de",cat:"Motywacja",tid:4},
+  {id:993,text:"Sois le changement que tu veux voir dans le monde.",author:"Mahatma Gandhi",lang:"fr",cat:"Motywacja",tid:4},
+  {id:994,text:"Будь тем изменением, которое ты хочешь видеть в мире.",author:"Махатма Ганди",lang:"ru",cat:"Motywacja",tid:4},
+  // Grupa 159 — Appius Claudius Caecus, „Człowiek jest kowalem własnego losu." (PL już jest jako id:9)
+  {id:995,text:"Every man is the architect of his own fortune.",author:"Appius Claudius Caecus",lang:"en",cat:"Mądrość",tid:159},
+  {id:996,text:"Jeder ist seines eigenen Glückes Schmied.",author:"Appius Claudius Caecus",lang:"de",cat:"Mądrość",tid:159},
+  {id:997,text:"Chacun est l'artisan de sa propre fortune.",author:"Appius Claudius Caecus",lang:"fr",cat:"Mądrość",tid:159},
+  {id:998,text:"Cada hombre es el arquitecto de su propio destino.",author:"Appius Claudius Caecus",lang:"es",cat:"Mądrość",tid:159},
+  {id:999,text:"Каждый — кузнец своего счастья.",author:"Аппий Клавдий",lang:"ru",cat:"Mądrość",tid:159},
+  // Grupa 160 — Oscar Wilde, „Be yourself; everyone else is already taken." (EN już jest jako id:11)
+  {id:1000,text:"Bądź sobą; wszyscy inni są już zajęci.",author:"Oscar Wilde",lang:"pl",cat:"Mądrość",tid:160},
+  {id:1001,text:"Sei du selbst; alle anderen sind schon vergeben.",author:"Oscar Wilde",lang:"de",cat:"Mądrość",tid:160},
+  {id:1002,text:"Sois toi-même ; tous les autres sont déjà pris.",author:"Oscar Wilde",lang:"fr",cat:"Mądrość",tid:160},
+  {id:1003,text:"Sé tú mismo; todos los demás ya están ocupados.",author:"Oscar Wilde",lang:"es",cat:"Mądrość",tid:160},
+  {id:1004,text:"Будь собой; все остальные уже заняты.",author:"Оскар Уайльд",lang:"ru",cat:"Mądrość",tid:160}
 ];
 
 // Wersja seed-bazy. Bump przy KAŻDYM dodaniu cytatów do DEFAULT_QUOTES.
 // loadQuotes używa tego, by dosiać brakujące cytaty istniejącym użytkownikom.
-var DB_SEED_VERSION=28;
+var DB_SEED_VERSION=29;
 
 // Punktowe poprawki istniejących cytatów (np. literówki). Klucz = wersja, w której patch został wprowadzony.
 // loadQuotes aplikuje tylko patche z zakresu (savedVer, DB_SEED_VERSION], więc każda poprawka pójdzie raz.
@@ -1158,6 +1189,12 @@ var DB_TEXT_PATCHES={
     {id:3,field:"tid",value:156},  // Clarke
     {id:4,field:"tid",value:157},  // MLK Jr.
     {id:5,field:"tid",value:158}   // Carnegie
+  ],
+  29:[
+    // Dopięcie tid do Klaudiusza (id:9) i Wilde'a (id:11) — by istniejący użytkownicy
+    // zobaczyli powiązanie z nowymi tłumaczeniami (ID 995–1004).
+    {id:9,field:"tid",value:159},  // Appius Claudius Caecus
+    {id:11,field:"tid",value:160}  // Oscar Wilde
   ]
 };
 
