@@ -1337,12 +1337,54 @@ var DEFAULT_QUOTES=[
   {id:1151,text:"Die Menschen, die versuchen, diese Welt schlechter zu machen, nehmen sich keinen Tag frei. Warum sollte ich es tun?",author:"Unbekannter Autor",lang:"de",cat:"Motywacja",tid:185},
   {id:1152,text:"Les gens qui essaient de rendre ce monde pire ne prennent pas leur journée. Pourquoi devrais-je le faire ?",author:"Auteur inconnu",lang:"fr",cat:"Motywacja",tid:185},
   {id:1153,text:"Las personas que intentan empeorar este mundo no se toman el día libre. ¿Por qué debería hacerlo yo?",author:"Autor desconocido",lang:"es",cat:"Motywacja",tid:185},
-  {id:1154,text:"Люди, которые пытаются сделать этот мир хуже, не берут себе выходных. Почему я должен брать?",author:"Автор неизвестен",lang:"ru",cat:"Motywacja",tid:185}
+  {id:1154,text:"Люди, которые пытаются сделать этот мир хуже, не берут себе выходных. Почему я должен брать?",author:"Автор неизвестен",lang:"ru",cat:"Motywacja",tid:185},
+  // Grupa 186 — Bernard Baruch, „Never follow the crowd."
+  {id:1155,text:"Nigdy nie podążaj za tłumem.",author:"Bernard Baruch",lang:"pl",cat:"Mądrość",tid:186},
+  {id:1156,text:"Never follow the crowd.",author:"Bernard Baruch",lang:"en",cat:"Mądrość",tid:186},
+  {id:1157,text:"Folge niemals der Masse.",author:"Bernard Baruch",lang:"de",cat:"Mądrość",tid:186},
+  {id:1158,text:"Ne suis jamais la foule.",author:"Bernard Baruch",lang:"fr",cat:"Mądrość",tid:186},
+  {id:1159,text:"Nunca sigas a la multitud.",author:"Bernard Baruch",lang:"es",cat:"Mądrość",tid:186},
+  {id:1160,text:"Никогда не следуй за толпой.",author:"Бернард Барух",lang:"ru",cat:"Mądrość",tid:186},
+  // Grupa 187 — Terry Pratchett, „...inside every old person is a young person wondering what happened."
+  {id:1161,text:"...wewnątrz każdej starszej osoby jest młoda osoba zastanawiająca się, co się stało.",author:"Terry Pratchett",lang:"pl",cat:"Życie",tid:187},
+  {id:1162,text:"...inside every old person is a young person wondering what happened.",author:"Terry Pratchett",lang:"en",cat:"Życie",tid:187},
+  {id:1163,text:"...in jeder alten Person steckt eine junge Person, die sich fragt, was passiert ist.",author:"Terry Pratchett",lang:"de",cat:"Życie",tid:187},
+  {id:1164,text:"...à l'intérieur de chaque personne âgée se trouve une jeune personne qui se demande ce qui s'est passé.",author:"Terry Pratchett",lang:"fr",cat:"Życie",tid:187},
+  {id:1165,text:"...dentro de cada persona mayor hay una persona joven preguntándose qué pasó.",author:"Terry Pratchett",lang:"es",cat:"Życie",tid:187},
+  {id:1166,text:"...внутри каждого пожилого человека есть молодой человек, который удивляется, что же случилось.",author:"Терри Пратчетт",lang:"ru",cat:"Życie",tid:187},
+  // Grupa 188 — Terry Pratchett (Śmierć / Death — CAPS to literacka konwencja serii „Świat Dysku")
+  {id:1167,text:"ISTOTY LUDZKIE CZYNIĄ ŻYCIE TAK INTERESUJĄCYM. WIESZ, ŻE WE WSZECHŚWIECIE TAK PEŁNYM CUDÓW UDAŁO IM SIĘ WYNALEŹĆ NUDĘ.",author:"Terry Pratchett (Śmierć)",lang:"pl",cat:"Filozofia",tid:188},
+  {id:1168,text:"HUMAN BEINGS MAKE LIFE SO INTERESTING. DO YOU KNOW, THAT IN A UNIVERSE SO FULL OF WONDERS, THEY HAVE MANAGED TO INVENT BOREDOM.",author:"Terry Pratchett (Death)",lang:"en",cat:"Filozofia",tid:188},
+  {id:1169,text:"MENSCHEN MACHEN DAS LEBEN SO INTERESSANT. WEISST DU, DASS SIE IN EINEM UNIVERSUM VOLLER WUNDER ES GESCHAFFT HABEN, LANGEWEILE ZU ERFINDEN.",author:"Terry Pratchett (Tod)",lang:"de",cat:"Filozofia",tid:188},
+  {id:1170,text:"LES ÊTRES HUMAINS RENDENT LA VIE SI INTÉRESSANTE. SAIS-TU QUE DANS UN UNIVERS SI PLEIN DE MERVEILLES, ILS ONT RÉUSSI À INVENTER L'ENNUI.",author:"Terry Pratchett (la Mort)",lang:"fr",cat:"Filozofia",tid:188},
+  {id:1171,text:"LOS SERES HUMANOS HACEN LA VIDA TAN INTERESANTE. ¿SABES QUE EN UN UNIVERSO TAN LLENO DE MARAVILLAS HAN LOGRADO INVENTAR EL ABURRIMIENTO?",author:"Terry Pratchett (la Muerte)",lang:"es",cat:"Filozofia",tid:188},
+  {id:1172,text:"ЛЮДИ ДЕЛАЮТ ЖИЗНЬ ТАКОЙ ИНТЕРЕСНОЙ. ЗНАЕШЬ ЛИ ТЫ, ЧТО ВО ВСЕЛЕННОЙ, ПОЛНОЙ ЧУДЕС, ИМ УДАЛОСЬ ИЗОБРЕСТИ СКУКУ.",author:"Терри Пратчетт (Смерть)",lang:"ru",cat:"Filozofia",tid:188},
+  // Grupa 189 — Marcus Tullius Cicero, „A room without books…" (UWAGA: dubluje tid:166 / Chesterton)
+  {id:1173,text:"Pokój bez książek to jak ciało bez duszy.",author:"Marcus Tullius Cicero",lang:"pl",cat:"Mądrość",tid:189},
+  {id:1174,text:"A room without books is like a body without a soul.",author:"Marcus Tullius Cicero",lang:"en",cat:"Mądrość",tid:189},
+  {id:1175,text:"Ein Raum ohne Bücher ist wie ein Körper ohne Seele.",author:"Marcus Tullius Cicero",lang:"de",cat:"Mądrość",tid:189},
+  {id:1176,text:"Une pièce sans livres est comme un corps sans âme.",author:"Marcus Tullius Cicero",lang:"fr",cat:"Mądrość",tid:189},
+  {id:1177,text:"Una habitación sin libros es como un cuerpo sin alma.",author:"Marco Tulio Cicerón",lang:"es",cat:"Mądrość",tid:189},
+  {id:1178,text:"Комната без книг — как тело без души.",author:"Марк Туллий Цицерон",lang:"ru",cat:"Mądrość",tid:189},
+  // Grupa 190 — J.R.R. Tolkien (Gandalf, „Władca Pierścieni"), „Death is just another path…"
+  {id:1179,text:"Śmierć to po prostu inna droga, którą wszyscy musimy przejść.",author:"J.R.R. Tolkien",lang:"pl",cat:"Filozofia",tid:190},
+  {id:1180,text:"Death is just another path, one that we all must take.",author:"J.R.R. Tolkien",lang:"en",cat:"Filozofia",tid:190},
+  {id:1181,text:"Der Tod ist nur ein anderer Weg, einer, den wir alle gehen müssen.",author:"J.R.R. Tolkien",lang:"de",cat:"Filozofia",tid:190},
+  {id:1182,text:"La mort n'est qu'un autre chemin, un chemin que nous devons tous emprunter.",author:"J.R.R. Tolkien",lang:"fr",cat:"Filozofia",tid:190},
+  {id:1183,text:"La muerte es solo otro camino, uno que todos debemos tomar.",author:"J.R.R. Tolkien",lang:"es",cat:"Filozofia",tid:190},
+  {id:1184,text:"Смерть — это просто иной путь, по которому всем нам предстоит пройти.",author:"Дж. Р. Р. Толкин",lang:"ru",cat:"Filozofia",tid:190},
+  // Grupa 191 — Stan Lee (Wuj Ben w „Spider-Manie"), „With great power comes great responsibility."
+  {id:1185,text:"Z wielką mocą przychodzi wielka odpowiedzialność.",author:"Stan Lee (Wuj Ben)",lang:"pl",cat:"Mądrość",tid:191},
+  {id:1186,text:"With great power comes great responsibility.",author:"Stan Lee (Uncle Ben)",lang:"en",cat:"Mądrość",tid:191},
+  {id:1187,text:"Mit großer Kraft kommt große Verantwortung.",author:"Stan Lee (Onkel Ben)",lang:"de",cat:"Mądrość",tid:191},
+  {id:1188,text:"Un grand pouvoir implique de grandes responsabilités.",author:"Stan Lee (Oncle Ben)",lang:"fr",cat:"Mądrość",tid:191},
+  {id:1189,text:"Un gran poder conlleva una gran responsabilidad.",author:"Stan Lee (Tío Ben)",lang:"es",cat:"Mądrość",tid:191},
+  {id:1190,text:"С большой силой приходит большая ответственность.",author:"Стэн Ли (Дядя Бен)",lang:"ru",cat:"Mądrość",tid:191}
 ];
 
 // Wersja seed-bazy. Bump przy KAŻDYM dodaniu cytatów do DEFAULT_QUOTES.
 // loadQuotes używa tego, by dosiać brakujące cytaty istniejącym użytkownikom.
-var DB_SEED_VERSION=31;
+var DB_SEED_VERSION=32;
 
 // Punktowe poprawki istniejących cytatów (np. literówki). Klucz = wersja, w której patch został wprowadzony.
 // loadQuotes aplikuje tylko patche z zakresu (savedVer, DB_SEED_VERSION], więc każda poprawka pójdzie raz.
