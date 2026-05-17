@@ -1561,12 +1561,19 @@ var DEFAULT_QUOTES=[
   {id:1342,text:"Ernest Hemingway schrieb einmal: «Die Welt ist ein schöner Ort und es lohnt sich, für sie zu kämpfen.» Ich stimme dem zweiten Teil zu.",author:"David Fincher (Sieben, 1995)",lang:"de",cat:"Filozofia",tid:217},
   {id:1343,text:"Ernest Hemingway a écrit un jour : « Le monde est un bel endroit et vaut la peine qu'on se batte pour lui. » Je suis d'accord avec la deuxième partie.",author:"David Fincher (Seven, 1995)",lang:"fr",cat:"Filozofia",tid:217},
   {id:1344,text:"Ernest Hemingway escribió una vez: «El mundo es un buen lugar y vale la pena luchar por él.» Estoy de acuerdo con la segunda parte.",author:"David Fincher (Seven, 1995)",lang:"es",cat:"Filozofia",tid:217},
-  {id:1345,text:"Эрнест Хемингуэй когда-то написал: «Мир — прекрасное место, и за него стоит сражаться.» Я согласен со второй частью.",author:"Дэвид Финчер (Семь, 1995)",lang:"ru",cat:"Filozofia",tid:217}
+  {id:1345,text:"Эрнест Хемингуэй когда-то написал: «Мир — прекрасное место, и за него стоит сражаться.» Я согласен со второй частью.",author:"Дэвид Финчер (Семь, 1995)",lang:"ru",cat:"Filozofia",tid:217},
+  // Grupa 218 — Zbigniew Herbert, „Idź wyprostowany wśród tych co na kolanach" (z „Przesłania Pana Cogito", 1974)
+  {id:1346,text:"Idź wyprostowany wśród tych co na kolanach",author:"Zbigniew Herbert",lang:"pl",cat:"Motywacja",tid:218},
+  {id:1347,text:"Go upright among those who are down on their knees",author:"Zbigniew Herbert",lang:"en",cat:"Motywacja",tid:218},
+  {id:1348,text:"Geh aufrecht unter denen, die auf den Knien sind",author:"Zbigniew Herbert",lang:"de",cat:"Motywacja",tid:218},
+  {id:1349,text:"Marche debout parmi ceux qui sont à genoux",author:"Zbigniew Herbert",lang:"fr",cat:"Motywacja",tid:218},
+  {id:1350,text:"Camina erguido entre los que están de rodillas",author:"Zbigniew Herbert",lang:"es",cat:"Motywacja",tid:218},
+  {id:1351,text:"Иди прямо среди тех, кто стоит на коленях",author:"Збигнев Херберт",lang:"ru",cat:"Motywacja",tid:218}
 ];
 
 // Wersja seed-bazy. Bump przy KAŻDYM dodaniu cytatów do DEFAULT_QUOTES.
 // loadQuotes używa tego, by dosiać brakujące cytaty istniejącym użytkownikom.
-var DB_SEED_VERSION=36;
+var DB_SEED_VERSION=37;
 
 // Punktowe poprawki istniejących cytatów (np. literówki). Klucz = wersja, w której patch został wprowadzony.
 // loadQuotes aplikuje tylko patche z zakresu (savedVer, DB_SEED_VERSION], więc każda poprawka pójdzie raz.
