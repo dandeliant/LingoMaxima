@@ -1568,12 +1568,33 @@ var DEFAULT_QUOTES=[
   {id:1348,text:"Geh aufrecht unter denen, die auf den Knien sind",author:"Zbigniew Herbert",lang:"de",cat:"Motywacja",tid:218},
   {id:1349,text:"Marche debout parmi ceux qui sont à genoux",author:"Zbigniew Herbert",lang:"fr",cat:"Motywacja",tid:218},
   {id:1350,text:"Camina erguido entre los que están de rodillas",author:"Zbigniew Herbert",lang:"es",cat:"Motywacja",tid:218},
-  {id:1351,text:"Иди прямо среди тех, кто стоит на коленях",author:"Збигнев Херберт",lang:"ru",cat:"Motywacja",tid:218}
+  {id:1351,text:"Иди прямо среди тех, кто стоит на коленях",author:"Збигнев Херберт",lang:"ru",cat:"Motywacja",tid:218},
+  // Grupa 219 — Giordano Bruno, „Truth does not change because…"
+  {id:1352,text:"Prawda nie zmienia się dlatego, że wierzy w nią — lub w nią nie wierzy — większość ludzi.",author:"Giordano Bruno",lang:"pl",cat:"Filozofia",tid:219},
+  {id:1353,text:"Truth does not change because it is, or is not, believed by a majority of the people.",author:"Giordano Bruno",lang:"en",cat:"Filozofia",tid:219},
+  {id:1354,text:"Die Wahrheit ändert sich nicht, weil sie von der Mehrheit der Menschen geglaubt oder nicht geglaubt wird.",author:"Giordano Bruno",lang:"de",cat:"Filozofia",tid:219},
+  {id:1355,text:"La vérité ne change pas parce qu'elle est, ou n'est pas, crue par la majorité des gens.",author:"Giordano Bruno",lang:"fr",cat:"Filozofia",tid:219},
+  {id:1356,text:"La verdad no cambia porque sea, o no sea, creída por la mayoría de la gente.",author:"Giordano Bruno",lang:"es",cat:"Filozofia",tid:219},
+  {id:1357,text:"Истина не меняется оттого, что в неё верит — или не верит — большинство людей.",author:"Джордано Бруно",lang:"ru",cat:"Filozofia",tid:219},
+  // Grupa 220 — Tadeusz Kościuszko, „Największym zwycięstwem jest to, które odnosimy nad nami samymi."
+  {id:1358,text:"Największym zwycięstwem jest to, które odnosimy nad nami samymi.",author:"Tadeusz Kościuszko",lang:"pl",cat:"Mądrość",tid:220},
+  {id:1359,text:"The greatest victory is the one we achieve over ourselves.",author:"Tadeusz Kościuszko",lang:"en",cat:"Mądrość",tid:220},
+  {id:1360,text:"Der größte Sieg ist jener, den wir über uns selbst erringen.",author:"Tadeusz Kościuszko",lang:"de",cat:"Mądrość",tid:220},
+  {id:1361,text:"La plus grande victoire est celle que nous remportons sur nous-mêmes.",author:"Tadeusz Kościuszko",lang:"fr",cat:"Mądrość",tid:220},
+  {id:1362,text:"La mayor victoria es aquella que conseguimos sobre nosotros mismos.",author:"Tadeusz Kościuszko",lang:"es",cat:"Mądrość",tid:220},
+  {id:1363,text:"Величайшая победа — та, которую мы одерживаем над самими собой.",author:"Тадеуш Костюшко",lang:"ru",cat:"Mądrość",tid:220},
+  // Grupa 221 — Tadeusz Kościuszko, „Kościół winien być oddzielony od państwa…" (radykalna laickość oświeceniowa)
+  {id:1364,text:"Kościół winien być oddzielony od państwa, nie wolno mu zajmować się kształceniem młodzieży. Naród winien być panem własnego losu i jego prawa powinny być nadrzędne wobec praw Kościoła. Żadna religia nie może im przeczyć, odwołując się do prawa boskiego, przeciwnie, każda religia powinna być posłuszna prawom ustanowionym przez naród.",author:"Tadeusz Kościuszko",lang:"pl",cat:"Filozofia",tid:221},
+  {id:1365,text:"The Church should be separated from the state and forbidden from educating the youth. The nation should be master of its own fate, and its laws should take precedence over the laws of the Church. No religion may contradict them by appealing to divine law; on the contrary, every religion should be obedient to the laws established by the nation.",author:"Tadeusz Kościuszko",lang:"en",cat:"Filozofia",tid:221},
+  {id:1366,text:"Die Kirche soll vom Staat getrennt sein, und es ist ihr untersagt, sich mit der Erziehung der Jugend zu befassen. Die Nation soll Herrin ihres eigenen Schicksals sein, und ihre Gesetze sollen den Gesetzen der Kirche übergeordnet sein. Keine Religion darf ihnen unter Berufung auf göttliches Recht widersprechen — im Gegenteil, jede Religion soll den von der Nation erlassenen Gesetzen gehorchen.",author:"Tadeusz Kościuszko",lang:"de",cat:"Filozofia",tid:221},
+  {id:1367,text:"L'Église doit être séparée de l'État, il ne lui est pas permis de s'occuper de l'éducation de la jeunesse. La nation doit être maîtresse de son propre destin, et ses lois doivent prévaloir sur les lois de l'Église. Aucune religion ne peut les contredire en se réclamant du droit divin — au contraire, toute religion doit obéir aux lois établies par la nation.",author:"Tadeusz Kościuszko",lang:"fr",cat:"Filozofia",tid:221},
+  {id:1368,text:"La Iglesia debe estar separada del Estado y no le es permitido ocuparse de la educación de la juventud. La nación debe ser dueña de su propio destino, y sus leyes deben prevalecer sobre las leyes de la Iglesia. Ninguna religión puede contradecirlas apelando al derecho divino; al contrario, toda religión debe obedecer las leyes establecidas por la nación.",author:"Tadeusz Kościuszko",lang:"es",cat:"Filozofia",tid:221},
+  {id:1369,text:"Церковь должна быть отделена от государства, и ей не дозволено заниматься воспитанием молодёжи. Нация должна быть хозяйкой своей судьбы, и её законы должны иметь верховенство над законами Церкви. Никакая религия не может им противоречить, ссылаясь на божественное право; напротив, всякая религия должна повиноваться законам, установленным нацией.",author:"Тадеуш Костюшко",lang:"ru",cat:"Filozofia",tid:221}
 ];
 
 // Wersja seed-bazy. Bump przy KAŻDYM dodaniu cytatów do DEFAULT_QUOTES.
 // loadQuotes używa tego, by dosiać brakujące cytaty istniejącym użytkownikom.
-var DB_SEED_VERSION=37;
+var DB_SEED_VERSION=38;
 
 // Punktowe poprawki istniejących cytatów (np. literówki). Klucz = wersja, w której patch został wprowadzony.
 // loadQuotes aplikuje tylko patche z zakresu (savedVer, DB_SEED_VERSION], więc każda poprawka pójdzie raz.
