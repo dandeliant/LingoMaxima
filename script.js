@@ -1519,12 +1519,54 @@ var DEFAULT_QUOTES=[
   {id:1306,text:"Wenn jemand sagt, dass man für das Wohl der Nation den Einzelnen opfern muss, dann zittere ich am ganzen Leib. Wenn mir jemand einreden will, dass bestimmte Menschen weniger wert seien, wenn ein Katholik zugibt, Antisemit oder Rassist zu sein, dann kocht alles in mir. Ein Katholik kann nicht gegen den anderen Menschen sein, besonders wenn dieser andere schwach oder krank ist. Je anders jemand ist, je seltsamer jemand ist, desto mehr trägt er das Gesicht Christi. Es gibt solche, die sogar ihren Katholizismus mit ihrem Antisemitismus begründen. Aber wenn Christus ein Jude war, wenn die Heilige Mutter Jüdin war, dann sind die Juden unsere Brüder, die wir achten und lieben sollen. Natürlich gibt es bessere und schlechtere Menschen auf beiden Seiten, aber die Grenze verläuft nicht zwischen Rassen und Nationen, sondern zwischen Gewissen — und manchmal mitten durch die Gewissen.",author:"Pater Jan Kaczkowski",lang:"de",cat:"Filozofia",tid:211},
   {id:1307,text:"Si quelqu'un dit que pour le bien de la nation il faut sacrifier l'individu, je tremble de tout mon être. Quand quelqu'un essaie de me convaincre que certaines personnes valent moins, quand un catholique avoue être antisémite ou raciste, tout bouillonne en moi. Un catholique ne peut pas être anti l'autre être humain, surtout quand cet autre est faible ou malade. Plus quelqu'un est différent, plus quelqu'un est étrange, plus il porte le visage du Christ. Il y a ceux qui justifient même leur catholicisme par leur antisémitisme. Pourtant, puisque le Christ était juif, puisque la Sainte Mère était juive, alors les juifs sont nos frères que nous devons respecter et aimer. Bien sûr, il y a parmi les uns et les autres de meilleures et de pires personnes, mais la frontière ne passe pas entre les races et les nations, mais entre les consciences — et parfois au milieu des consciences.",author:"père Jan Kaczkowski",lang:"fr",cat:"Filozofia",tid:211},
   {id:1308,text:"Si alguien dice que por el bien de la nación hay que sacrificar al individuo, yo entero me estremezco. Cuando alguien intenta convencerme de que ciertas personas son menos valiosas, cuando un católico admite ser antisemita o racista, todo se rebela en mí. Un católico no puede estar contra el otro ser humano, especialmente cuando ese otro es débil o está enfermo. Cuanto más diferente es alguien, cuanto más extraño es alguien, más lleva el rostro de Cristo. Hay quienes incluso justifican su catolicismo con su antisemitismo. Pero ya que Cristo era judío, ya que la Santísima Madre era judía, entonces los judíos son nuestros hermanos a quienes debemos respetar y amar. Por supuesto, entre unos y otros hay personas mejores y peores, pero la frontera no pasa entre razas y naciones, sino entre conciencias — y a veces en medio de las conciencias.",author:"padre Jan Kaczkowski",lang:"es",cat:"Filozofia",tid:211},
-  {id:1309,text:"Если кто-то говорит, что ради блага народа нужно пожертвовать личностью, то меня всего трясёт. Когда мне кто-то внушает, что определённые люди менее ценны, когда католик признаётся, что он антисемит или расист, во мне всё кипит. Католик не может быть против другого человека, особенно когда этот другой слаб или болен. Чем больше кто-то иной, чем более странный, тем больше у него лицо Христа. Бывают такие, которые даже свой католицизм оправдывают антисемитизмом. А ведь раз Христос был евреем, раз Матерь Святейшая была еврейкой, то евреи — наши братья, которых мы должны уважать и любить. Конечно, среди одних и других бывают лучшие и худшие люди, но граница проходит не между расами и народами, а между совестями — а иногда посередине совестей.",author:"ксёндз Ян Качковский",lang:"ru",cat:"Filozofia",tid:211}
+  {id:1309,text:"Если кто-то говорит, что ради блага народа нужно пожертвовать личностью, то меня всего трясёт. Когда мне кто-то внушает, что определённые люди менее ценны, когда католик признаётся, что он антисемит или расист, во мне всё кипит. Католик не может быть против другого человека, особенно когда этот другой слаб или болен. Чем больше кто-то иной, чем более странный, тем больше у него лицо Христа. Бывают такие, которые даже свой католицизм оправдывают антисемитизмом. А ведь раз Христос был евреем, раз Матерь Святейшая была еврейкой, то евреи — наши братья, которых мы должны уважать и любить. Конечно, среди одних и других бывают лучшие и худшие люди, но граница проходит не между расами и народами, а между совестями — а иногда посередине совестей.",author:"ксёндз Ян Качковский",lang:"ru",cat:"Filozofia",tid:211},
+  // Grupa 212 — W. Clement Stone, „Aim for the moon. If you miss, you may hit a star." (zbliżona do tid:104 Les Brown)
+  {id:1310,text:"Mierz w księżyc. Jeśli chybisz, możesz trafić w gwiazdę.",author:"W. Clement Stone",lang:"pl",cat:"Motywacja",tid:212},
+  {id:1311,text:"Aim for the moon. If you miss, you may hit a star.",author:"W. Clement Stone",lang:"en",cat:"Motywacja",tid:212},
+  {id:1312,text:"Ziele auf den Mond. Wenn du daneben triffst, könntest du einen Stern treffen.",author:"W. Clement Stone",lang:"de",cat:"Motywacja",tid:212},
+  {id:1313,text:"Vise la lune. Si tu la rates, tu pourrais atteindre une étoile.",author:"W. Clement Stone",lang:"fr",cat:"Motywacja",tid:212},
+  {id:1314,text:"Apunta a la luna. Si fallas, puede que des en una estrella.",author:"W. Clement Stone",lang:"es",cat:"Motywacja",tid:212},
+  {id:1315,text:"Целься в луну. Если промахнёшься, можешь попасть в звезду.",author:"У. Клемент Стоун",lang:"ru",cat:"Motywacja",tid:212},
+  // Grupa 213 — Wisława Szymborska, „Życie, choćby i długie, zawsze będzie krótkie."
+  {id:1316,text:"Życie, choćby i długie, zawsze będzie krótkie.",author:"Wisława Szymborska",lang:"pl",cat:"Filozofia",tid:213},
+  {id:1317,text:"Life, however long, will always be short.",author:"Wisława Szymborska",lang:"en",cat:"Filozofia",tid:213},
+  {id:1318,text:"Das Leben, mag es auch lang sein, wird immer kurz sein.",author:"Wisława Szymborska",lang:"de",cat:"Filozofia",tid:213},
+  {id:1319,text:"La vie, aussi longue soit-elle, sera toujours courte.",author:"Wisława Szymborska",lang:"fr",cat:"Filozofia",tid:213},
+  {id:1320,text:"La vida, por larga que sea, siempre será corta.",author:"Wisława Szymborska",lang:"es",cat:"Filozofia",tid:213},
+  {id:1321,text:"Жизнь, как бы ни была долгой, всегда будет короткой.",author:"Вислава Шимборская",lang:"ru",cat:"Filozofia",tid:213},
+  // Grupa 214 — Autor nieznany, „Never be a prisoner of your own past…"
+  {id:1322,text:"Nigdy nie bądź więźniem swojej przeszłości. To była tylko lekcja, nie wyrok dożywocia.",author:"Autor nieznany",lang:"pl",cat:"Mądrość",tid:214},
+  {id:1323,text:"Never be a prisoner of your own past. It was just a lesson, not a life sentence.",author:"Unknown author",lang:"en",cat:"Mądrość",tid:214},
+  {id:1324,text:"Sei niemals ein Gefangener deiner eigenen Vergangenheit. Es war nur eine Lektion, keine lebenslange Strafe.",author:"Unbekannter Autor",lang:"de",cat:"Mądrość",tid:214},
+  {id:1325,text:"Ne sois jamais prisonnier de ton propre passé. Ce n'était qu'une leçon, pas une condamnation à perpétuité.",author:"Auteur inconnu",lang:"fr",cat:"Mądrość",tid:214},
+  {id:1326,text:"Nunca seas prisionero de tu propio pasado. Era solo una lección, no una cadena perpetua.",author:"Autor desconocido",lang:"es",cat:"Mądrość",tid:214},
+  {id:1327,text:"Никогда не будь пленником собственного прошлого. Это был лишь урок, а не пожизненный приговор.",author:"Автор неизвестен",lang:"ru",cat:"Mądrość",tid:214},
+  // Grupa 215 — Benedict Cumberbatch, „Live a life less ordinary." (nawiązanie do filmu D. Boyle'a, 1997)
+  {id:1328,text:"Żyj życiem mniej zwyczajnym.",author:"Benedict Cumberbatch",lang:"pl",cat:"Motywacja",tid:215},
+  {id:1329,text:"Live a life less ordinary.",author:"Benedict Cumberbatch",lang:"en",cat:"Motywacja",tid:215},
+  {id:1330,text:"Lebe ein weniger gewöhnliches Leben.",author:"Benedict Cumberbatch",lang:"de",cat:"Motywacja",tid:215},
+  {id:1331,text:"Vis une vie moins ordinaire.",author:"Benedict Cumberbatch",lang:"fr",cat:"Motywacja",tid:215},
+  {id:1332,text:"Vive una vida menos ordinaria.",author:"Benedict Cumberbatch",lang:"es",cat:"Motywacja",tid:215},
+  {id:1333,text:"Живи менее обычной жизнью.",author:"Бенедикт Камбербэтч",lang:"ru",cat:"Motywacja",tid:215},
+  // Grupa 216 — Billy Cox, „Jeśli nie kochasz tego, co robisz…"
+  {id:1334,text:"Jeśli nie kochasz tego, co robisz, to masz dwa wyjścia: zmień to, co robisz, albo zmień to, co kochasz.",author:"Billy Cox",lang:"pl",cat:"Motywacja",tid:216},
+  {id:1335,text:"If you don't love what you do, you have two choices: change what you do, or change what you love.",author:"Billy Cox",lang:"en",cat:"Motywacja",tid:216},
+  {id:1336,text:"Wenn du nicht liebst, was du tust, hast du zwei Möglichkeiten: ändere das, was du tust, oder ändere das, was du liebst.",author:"Billy Cox",lang:"de",cat:"Motywacja",tid:216},
+  {id:1337,text:"Si tu n'aimes pas ce que tu fais, tu as deux choix : change ce que tu fais, ou change ce que tu aimes.",author:"Billy Cox",lang:"fr",cat:"Motywacja",tid:216},
+  {id:1338,text:"Si no amas lo que haces, tienes dos opciones: cambia lo que haces, o cambia lo que amas.",author:"Billy Cox",lang:"es",cat:"Motywacja",tid:216},
+  {id:1339,text:"Если ты не любишь то, что делаешь, у тебя есть два варианта: измени то, что делаешь, или измени то, что любишь.",author:"Билли Кокс",lang:"ru",cat:"Motywacja",tid:216},
+  // Grupa 217 — Se7en (film, 1995, reż. David Fincher), słowa detektywa Somerseta na zakończenie filmu
+  {id:1340,text:"Ernest Hemingway napisał kiedyś: «Świat to dobre miejsce i warto o niego walczyć». Zgadzam się z drugą częścią.",author:"David Fincher (Se7en, 1995)",lang:"pl",cat:"Filozofia",tid:217},
+  {id:1341,text:"Ernest Hemingway once wrote, «The world is a fine place and worth fighting for.» I agree with the second part.",author:"David Fincher (Se7en, 1995)",lang:"en",cat:"Filozofia",tid:217},
+  {id:1342,text:"Ernest Hemingway schrieb einmal: «Die Welt ist ein schöner Ort und es lohnt sich, für sie zu kämpfen.» Ich stimme dem zweiten Teil zu.",author:"David Fincher (Sieben, 1995)",lang:"de",cat:"Filozofia",tid:217},
+  {id:1343,text:"Ernest Hemingway a écrit un jour : « Le monde est un bel endroit et vaut la peine qu'on se batte pour lui. » Je suis d'accord avec la deuxième partie.",author:"David Fincher (Seven, 1995)",lang:"fr",cat:"Filozofia",tid:217},
+  {id:1344,text:"Ernest Hemingway escribió una vez: «El mundo es un buen lugar y vale la pena luchar por él.» Estoy de acuerdo con la segunda parte.",author:"David Fincher (Seven, 1995)",lang:"es",cat:"Filozofia",tid:217},
+  {id:1345,text:"Эрнест Хемингуэй когда-то написал: «Мир — прекрасное место, и за него стоит сражаться.» Я согласен со второй частью.",author:"Дэвид Финчер (Семь, 1995)",lang:"ru",cat:"Filozofia",tid:217}
 ];
 
 // Wersja seed-bazy. Bump przy KAŻDYM dodaniu cytatów do DEFAULT_QUOTES.
 // loadQuotes używa tego, by dosiać brakujące cytaty istniejącym użytkownikom.
-var DB_SEED_VERSION=35;
+var DB_SEED_VERSION=36;
 
 // Punktowe poprawki istniejących cytatów (np. literówki). Klucz = wersja, w której patch został wprowadzony.
 // loadQuotes aplikuje tylko patche z zakresu (savedVer, DB_SEED_VERSION], więc każda poprawka pójdzie raz.
