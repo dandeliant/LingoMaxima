@@ -1682,9 +1682,9 @@ var DEFAULT_QUOTES=[
   {id:1446,text:"Ya tengo miedo de este 11 de noviembre. Más que de los disfraces de Halloween, temo a aquellos que el 11 de noviembre se disfrazarán de patriotas y saldrán a la ciudad…",author:"Maria Czubaszek",lang:"es",cat:"Filozofia",tid:234},
   {id:1447,text:"Я уже боюсь этого 11 ноября. Больше, чем переодеваний на Хэллоуин, я боюсь тех, кто 11 ноября переоденется патриотами и пойдёт в город…",author:"Мария Чубашек",lang:"ru",cat:"Filozofia",tid:234},
   // Grupa 235 — Autor nieznany, „Religious freedom should be just as meaningful…" (analogia z kolorem)
-  {id:1448,text:"„Wolność religijna" powinna mieć dokładnie taką samą wagę i moc jak „wolność ulubionego koloru". Lubisz zieleń. Nikt nie może ci powiedzieć, że nie wolno ci lubić zieleni. Możesz ubierać się na zielono, możesz pomalować swój dom na zielono, możesz wytatuować sobie „Zielona moc" na piersi i możesz nawet powstrzymywać się od jedzenia zielonych warzyw, bo to dla ciebie grzech. Ale nie możesz zmusić innych, żeby lubili zieleń. Nie możesz ich zmusić, żeby ubierali się na zielono, nie możesz tatuować nowo narodzonego, decydując za niego, że on też będzie lubił zieleń. Nie możesz oczekiwać, że pomalujesz swój dom na zielono za pieniądze podatników, i nie możesz oczekiwać, że ludzie przestaną jeść zielone jedzenie lub żądać, by zostało zdelegalizowane. Nie możesz powodować cierpienia zwierząt, bo lubisz zieleń — więc żadnego malowania psa na zielono. Nie możesz decydować, kto się z kim żeni, na podstawie ich ulubionych kolorów. I nie możesz zmuszać szkół publicznych, by uczyły, że zieleń to najlepszy kolor. Możesz lubić zieleń ile chcesz, ale nie możesz używać tego jako wymówki do łamania prawa lub żądania wyłączeń od niego. I zdecydowanie nie możesz zmuszać innych, by dostosowywali się do twojej preferencji.",author:"Autor nieznany",lang:"pl",cat:"Filozofia",tid:235},
-  {id:1449,text:"„Religious freedom" should be just as meaningful and as powerful as „favorite color freedom". You like green. No one can tell you you're not allowed to like green. You can dress in green, you can paint your house green, you can tattoo „Greenpower" on your chest, and you can even refrain from eating green vegetables because it's a sin to you. But you can't force others to like green. You can't force them to dress in green, you can't tattoo a newborn deciding for them that they would also like green. You can't expect to paint your house green using tax dollars, and you can't expect people to stop eating green food or demand that it be outlawed. You can't make animals suffer because you like green — so no painting your dog green. You can't decide who marries whom based on their favorite colors. And you can't force public schools to teach that green is the best color. You can like green all you want, but you can't use it as an excuse to break the law or demand exemption from it. And you definitely can't force others to conform to your preference.",author:"Unknown author",lang:"en",cat:"Filozofia",tid:235},
-  {id:1450,text:"„Religiöse Freiheit" sollte genauso bedeutsam und mächtig sein wie die „Lieblingsfarben-Freiheit". Du magst Grün. Niemand kann dir sagen, dass du Grün nicht mögen darfst. Du kannst dich in Grün kleiden, dein Haus grün streichen, dir „Grüne Macht" auf die Brust tätowieren und sogar darauf verzichten, grünes Gemüse zu essen, weil es für dich Sünde ist. Aber du kannst andere nicht zwingen, Grün zu mögen. Du kannst sie nicht zwingen, sich grün zu kleiden, du kannst kein Neugeborenes tätowieren und für es entscheiden, dass es auch Grün mögen wird. Du kannst nicht erwarten, dein Haus mit Steuergeldern grün zu streichen, und du kannst nicht erwarten, dass die Leute aufhören, grüne Lebensmittel zu essen, oder fordern, dass sie verboten werden. Du kannst keine Tiere leiden lassen, weil du Grün magst — also keinen Hund grün streichen. Du kannst nicht entscheiden, wer wen heiratet, basierend auf seiner Lieblingsfarbe. Und du kannst öffentliche Schulen nicht zwingen, zu lehren, dass Grün die beste Farbe sei. Du kannst Grün mögen, soviel du willst, aber du kannst es nicht als Ausrede benutzen, das Gesetz zu brechen oder eine Ausnahme davon zu fordern. Und du kannst definitiv andere nicht zwingen, sich deiner Vorliebe zu beugen.",author:"Unbekannter Autor",lang:"de",cat:"Filozofia",tid:235},
+  {id:1448,text:"«Wolność religijna» powinna mieć dokładnie taką samą wagę i moc jak «wolność ulubionego koloru». Lubisz zieleń. Nikt nie może ci powiedzieć, że nie wolno ci lubić zieleni. Możesz ubierać się na zielono, możesz pomalować swój dom na zielono, możesz wytatuować sobie «Zielona moc» na piersi i możesz nawet powstrzymywać się od jedzenia zielonych warzyw, bo to dla ciebie grzech. Ale nie możesz zmusić innych, żeby lubili zieleń. Nie możesz ich zmusić, żeby ubierali się na zielono, nie możesz tatuować nowo narodzonego, decydując za niego, że on też będzie lubił zieleń. Nie możesz oczekiwać, że pomalujesz swój dom na zielono za pieniądze podatników, i nie możesz oczekiwać, że ludzie przestaną jeść zielone jedzenie lub żądać, by zostało zdelegalizowane. Nie możesz powodować cierpienia zwierząt, bo lubisz zieleń — więc żadnego malowania psa na zielono. Nie możesz decydować, kto się z kim żeni, na podstawie ich ulubionych kolorów. I nie możesz zmuszać szkół publicznych, by uczyły, że zieleń to najlepszy kolor. Możesz lubić zieleń ile chcesz, ale nie możesz używać tego jako wymówki do łamania prawa lub żądania wyłączeń od niego. I zdecydowanie nie możesz zmuszać innych, by dostosowywali się do twojej preferencji.",author:"Autor nieznany",lang:"pl",cat:"Filozofia",tid:235},
+  {id:1449,text:"«Religious freedom» should be just as meaningful and as powerful as «favorite color freedom». You like green. No one can tell you you're not allowed to like green. You can dress in green, you can paint your house green, you can tattoo «Greenpower» on your chest, and you can even refrain from eating green vegetables because it's a sin to you. But you can't force others to like green. You can't force them to dress in green, you can't tattoo a newborn deciding for them that they would also like green. You can't expect to paint your house green using tax dollars, and you can't expect people to stop eating green food or demand that it be outlawed. You can't make animals suffer because you like green — so no painting your dog green. You can't decide who marries whom based on their favorite colors. And you can't force public schools to teach that green is the best color. You can like green all you want, but you can't use it as an excuse to break the law or demand exemption from it. And you definitely can't force others to conform to your preference.",author:"Unknown author",lang:"en",cat:"Filozofia",tid:235},
+  {id:1450,text:"«Religiöse Freiheit» sollte genauso bedeutsam und mächtig sein wie die «Lieblingsfarben-Freiheit». Du magst Grün. Niemand kann dir sagen, dass du Grün nicht mögen darfst. Du kannst dich in Grün kleiden, dein Haus grün streichen, dir «Grüne Macht» auf die Brust tätowieren und sogar darauf verzichten, grünes Gemüse zu essen, weil es für dich Sünde ist. Aber du kannst andere nicht zwingen, Grün zu mögen. Du kannst sie nicht zwingen, sich grün zu kleiden, du kannst kein Neugeborenes tätowieren und für es entscheiden, dass es auch Grün mögen wird. Du kannst nicht erwarten, dein Haus mit Steuergeldern grün zu streichen, und du kannst nicht erwarten, dass die Leute aufhören, grüne Lebensmittel zu essen, oder fordern, dass sie verboten werden. Du kannst keine Tiere leiden lassen, weil du Grün magst — also keinen Hund grün streichen. Du kannst nicht entscheiden, wer wen heiratet, basierend auf seiner Lieblingsfarbe. Und du kannst öffentliche Schulen nicht zwingen, zu lehren, dass Grün die beste Farbe sei. Du kannst Grün mögen, soviel du willst, aber du kannst es nicht als Ausrede benutzen, das Gesetz zu brechen oder eine Ausnahme davon zu fordern. Und du kannst definitiv andere nicht zwingen, sich deiner Vorliebe zu beugen.",author:"Unbekannter Autor",lang:"de",cat:"Filozofia",tid:235},
   {id:1451,text:"La « liberté religieuse » devrait être tout aussi significative et puissante que la « liberté de couleur préférée ». Tu aimes le vert. Personne ne peut te dire que tu n'as pas le droit d'aimer le vert. Tu peux t'habiller en vert, peindre ta maison en vert, te tatouer « Force verte » sur la poitrine, et tu peux même t'abstenir de manger des légumes verts parce que c'est un péché pour toi. Mais tu ne peux pas forcer les autres à aimer le vert. Tu ne peux pas les forcer à s'habiller en vert, tu ne peux pas tatouer un nouveau-né en décidant pour lui qu'il aimera aussi le vert. Tu ne peux pas t'attendre à peindre ta maison en vert avec l'argent des contribuables, et tu ne peux pas t'attendre à ce que les gens cessent de manger des aliments verts ou exiger qu'ils soient interdits. Tu ne peux pas faire souffrir les animaux parce que tu aimes le vert — donc pas de chien peint en vert. Tu ne peux pas décider qui épouse qui en fonction de leurs couleurs préférées. Et tu ne peux pas forcer les écoles publiques à enseigner que le vert est la meilleure couleur. Tu peux aimer le vert autant que tu veux, mais tu ne peux pas l'utiliser comme excuse pour enfreindre la loi ou exiger une exemption. Et tu ne peux certainement pas forcer les autres à se conformer à ta préférence.",author:"Auteur inconnu",lang:"fr",cat:"Filozofia",tid:235},
   {id:1452,text:"La «libertad religiosa» debería tener exactamente el mismo significado y poder que la «libertad de color favorito». Te gusta el verde. Nadie puede decirte que no puedes gustar del verde. Puedes vestirte de verde, pintar tu casa de verde, tatuarte «Poder Verde» en el pecho, e incluso puedes abstenerte de comer verduras verdes porque es un pecado para ti. Pero no puedes obligar a otros a gustar del verde. No puedes forzarlos a vestirse de verde, no puedes tatuar a un recién nacido decidiendo por él que también le gustará el verde. No puedes esperar pintar tu casa de verde con el dinero de los impuestos, y no puedes esperar que la gente deje de comer comida verde o exigir que se prohíba. No puedes hacer sufrir a los animales porque te guste el verde — así que nada de pintar tu perro de verde. No puedes decidir quién se casa con quién basándote en sus colores favoritos. Y no puedes obligar a las escuelas públicas a enseñar que el verde es el mejor color. Puedes gustar del verde todo lo que quieras, pero no puedes usarlo como excusa para romper la ley o exigir una exención. Y definitivamente no puedes obligar a otros a conformarse con tu preferencia.",author:"Autor desconocido",lang:"es",cat:"Filozofia",tid:235},
   {id:1453,text:"«Религиозная свобода» должна иметь ровно такое же значение и силу, как и «свобода любимого цвета». Тебе нравится зелёный. Никто не может сказать тебе, что тебе нельзя любить зелёный. Ты можешь одеваться в зелёное, можешь покрасить свой дом в зелёный, можешь набить себе татуировку «Зелёная сила» на груди и можешь даже воздерживаться от поедания зелёных овощей, потому что для тебя это грех. Но ты не можешь заставить других любить зелёный. Ты не можешь заставить их одеваться в зелёное, не можешь татуировать новорождённого, решая за него, что он тоже будет любить зелёный. Ты не можешь ожидать, что покрасишь свой дом в зелёный за счёт налогоплательщиков, и не можешь ожидать, что люди перестанут есть зелёную еду или требовать, чтобы её запретили. Ты не можешь причинять страдания животным из-за того, что любишь зелёный — поэтому никакого крашения собаки в зелёный. Ты не можешь решать, кто на ком женится, основываясь на их любимых цветах. И ты не можешь заставлять государственные школы учить, что зелёный — лучший цвет. Можешь любить зелёный сколько хочешь, но ты не можешь использовать это как оправдание для нарушения закона или требования исключения из него. И ты определённо не можешь заставлять других подчиняться твоим предпочтениям.",author:"Автор неизвестен",lang:"ru",cat:"Filozofia",tid:235},
@@ -1843,9 +1843,9 @@ var DEFAULT_QUOTES=[
   {id:1584,text:"Ten cuidado en quién confías y a quién le cuentas tus problemas. No todos los que te sonríen son tus amigos.",author:"Vanny Angel",lang:"es",cat:"Mądrość",tid:257},
   {id:1585,text:"Будь осторожен в том, кому доверяешь и кому рассказываешь о своих проблемах. Не каждый, кто улыбается тебе, твой друг.",author:"Ванни Эйнджел",lang:"ru",cat:"Mądrość",tid:257},
   // Grupa 258 — David Orr, „Ziemia nie potrzebuje już 'ludzi sukcesu'…"
-  {id:1586,text:"Ziemia nie potrzebuje już „ludzi sukcesu". Natomiast rozpaczliwie potrzebuje ludzi czyniących dobro. Potrzebuje więcej uzdrowicieli, odnowicieli, bajarzy oraz miłośników wszelkiej maści. Potrzebuje ludzi, którzy pięknie żyją. Potrzebuje ludzi wielkiej odwagi gotowych włączyć się do walki o bardziej ludzki świat. A te wszystkie wartości mają niewiele wspólnego z sukcesem tak, jak go rozumie nasza kultura.",author:"David Orr",lang:"pl",cat:"Filozofia",tid:258},
-  {id:1587,text:"The Earth does not need any more „people of success". It desperately needs people who do good. It needs more healers, restorers, storytellers and lovers of every kind. It needs people who live beautifully. It needs people of great courage ready to join the fight for a more human world. And all these values have little to do with success as our culture understands it.",author:"David Orr",lang:"en",cat:"Filozofia",tid:258},
-  {id:1588,text:"Die Erde braucht keine „Menschen des Erfolgs" mehr. Sie braucht verzweifelt Menschen, die Gutes tun. Sie braucht mehr Heiler, Erneuerer, Geschichtenerzähler und Liebende jeder Art. Sie braucht Menschen, die schön leben. Sie braucht Menschen großer Tapferkeit, die bereit sind, sich am Kampf für eine menschlichere Welt zu beteiligen. Und all diese Werte haben wenig mit Erfolg zu tun, wie ihn unsere Kultur versteht.",author:"David Orr",lang:"de",cat:"Filozofia",tid:258},
+  {id:1586,text:"Ziemia nie potrzebuje już «ludzi sukcesu». Natomiast rozpaczliwie potrzebuje ludzi czyniących dobro. Potrzebuje więcej uzdrowicieli, odnowicieli, bajarzy oraz miłośników wszelkiej maści. Potrzebuje ludzi, którzy pięknie żyją. Potrzebuje ludzi wielkiej odwagi gotowych włączyć się do walki o bardziej ludzki świat. A te wszystkie wartości mają niewiele wspólnego z sukcesem tak, jak go rozumie nasza kultura.",author:"David Orr",lang:"pl",cat:"Filozofia",tid:258},
+  {id:1587,text:"The Earth does not need any more «people of success». It desperately needs people who do good. It needs more healers, restorers, storytellers and lovers of every kind. It needs people who live beautifully. It needs people of great courage ready to join the fight for a more human world. And all these values have little to do with success as our culture understands it.",author:"David Orr",lang:"en",cat:"Filozofia",tid:258},
+  {id:1588,text:"Die Erde braucht keine «Menschen des Erfolgs» mehr. Sie braucht verzweifelt Menschen, die Gutes tun. Sie braucht mehr Heiler, Erneuerer, Geschichtenerzähler und Liebende jeder Art. Sie braucht Menschen, die schön leben. Sie braucht Menschen großer Tapferkeit, die bereit sind, sich am Kampf für eine menschlichere Welt zu beteiligen. Und all diese Werte haben wenig mit Erfolg zu tun, wie ihn unsere Kultur versteht.",author:"David Orr",lang:"de",cat:"Filozofia",tid:258},
   {id:1589,text:"La Terre n'a plus besoin de « gens à succès ». Elle a désespérément besoin de gens qui font le bien. Elle a besoin de plus de guérisseurs, de restaurateurs, de conteurs et d'amoureux de toutes sortes. Elle a besoin de gens qui vivent magnifiquement. Elle a besoin de gens d'un grand courage, prêts à s'engager dans la lutte pour un monde plus humain. Et toutes ces valeurs ont peu à voir avec le succès tel que notre culture le comprend.",author:"David Orr",lang:"fr",cat:"Filozofia",tid:258},
   {id:1590,text:"La Tierra ya no necesita «gente de éxito». Necesita desesperadamente personas que hagan el bien. Necesita más sanadores, restauradores, narradores y amantes de toda clase. Necesita personas que vivan hermosamente. Necesita personas de gran valentía, dispuestas a sumarse a la lucha por un mundo más humano. Y todos estos valores tienen poco que ver con el éxito tal como lo entiende nuestra cultura.",author:"David Orr",lang:"es",cat:"Filozofia",tid:258},
   {id:1591,text:"Земля больше не нуждается в «людях успеха». Она отчаянно нуждается в людях, творящих добро. Она нуждается в большем числе целителей, восстановителей, сказителей и любящих всякого рода. Она нуждается в людях, которые красиво живут. Она нуждается в людях великой смелости, готовых включиться в борьбу за более человечный мир. А все эти ценности имеют мало общего с успехом, как его понимает наша культура.",author:"David Orr",lang:"ru",cat:"Filozofia",tid:258},
@@ -2190,6 +2190,90 @@ var isSpeaking=false;
 // === SŁOWNICTWO (vocabulary store) ===
 // Wpis: {word, lang, status:"learning"|"known", trs:{en:"life",...}, addedAt, stats:{ok,bad}}
 var vocab=JSON.parse(localStorage.getItem("ql_vocab")||"[]");
+
+// === STAŁE NAUKI ===
+var CEFR_LEVELS=["A1","A2","B1","B2","C1","C2"];
+var CEFR_LABELS={A1:"Początkujący",A2:"Podstawowy",B1:"Średniozaawansowany",B2:"Średnio-wyższy",C1:"Zaawansowany",C2:"Biegły"};
+// Algorytm SM-2 lite — uproszczona wersja SuperMemo 2.
+// Interwały (w dniach) dla poziomów oceny: again=0 (jutro), hard=1, good=interval*ease, easy=interval*ease*1.3
+function srsNextReview(item,quality){
+  // quality: 0=again, 1=hard, 2=good, 3=easy
+  if(!item.srs)item.srs={interval:1,ease:2.5,reps:0,lapses:0};
+  var s=item.srs;
+  if(quality===0){s.interval=1;s.reps=0;s.lapses++;s.ease=Math.max(1.3,s.ease-0.2)}
+  else if(quality===1){s.interval=Math.max(1,Math.round(s.interval*1.2));s.reps++;s.ease=Math.max(1.3,s.ease-0.15)}
+  else if(quality===2){s.interval=s.reps===0?1:s.reps===1?3:Math.round(s.interval*s.ease);s.reps++}
+  else if(quality===3){s.interval=s.reps===0?2:s.reps===1?5:Math.round(s.interval*s.ease*1.3);s.reps++;s.ease=Math.min(3.0,s.ease+0.1)}
+  var d=new Date();d.setHours(0,0,0,0);d.setDate(d.getDate()+s.interval);
+  s.nextReview=d.toISOString().slice(0,10);
+  return s;
+}
+function srsDueDates(){var d=new Date();d.setHours(0,0,0,0);return d.toISOString().slice(0,10)}
+function srsDueVocab(){
+  var today=srsDueDates();
+  return vocab.filter(function(v){
+    if(v.status==="known")return false; // znane słowa nie są w kolejce SRS
+    if(!v.srs||!v.srs.nextReview)return true; // nowe słowo
+    return v.srs.nextReview<=today;
+  });
+}
+
+// === STREAK (seria dni z aplikacją) ===
+var streakData=JSON.parse(localStorage.getItem("ql_streak")||'{"current":0,"longest":0,"lastVisit":null,"totalDays":0}');
+function saveStreak(){localStorage.setItem("ql_streak",JSON.stringify(streakData))}
+function updateStreak(){
+  var today=srsDueDates();
+  if(streakData.lastVisit===today)return; // już zaliczono dzisiaj
+  if(streakData.lastVisit){
+    var yesterday=new Date();yesterday.setDate(yesterday.getDate()-1);yesterday.setHours(0,0,0,0);
+    if(streakData.lastVisit===yesterday.toISOString().slice(0,10)){
+      streakData.current++;
+    } else {
+      streakData.current=1;
+    }
+  } else {
+    streakData.current=1;
+  }
+  streakData.longest=Math.max(streakData.longest,streakData.current);
+  streakData.lastVisit=today;
+  streakData.totalDays++;
+  saveStreak();
+  checkAchievements();
+}
+
+// === ACHIEVEMENTS (odznaki) ===
+var ACHIEVEMENTS=[
+  {id:"first_fav",name:"Pierwsze ulubione",desc:"Polub swój pierwszy cytat",emoji:"💝",check:function(){return favorites.length>=1}},
+  {id:"fav_10",name:"Kolekcjoner",desc:"10 ulubionych cytatów",emoji:"📚",check:function(){return favorites.length>=10}},
+  {id:"fav_50",name:"Bibliofil",desc:"50 ulubionych cytatów",emoji:"📖",check:function(){return favorites.length>=50}},
+  {id:"vocab_1",name:"Pierwsze słówko",desc:"Dodaj pierwsze słowo do listy nauki",emoji:"⭐",check:function(){return vocab.length>=1}},
+  {id:"vocab_25",name:"Słownictwowy zapaleniec",desc:"25 słów na liście",emoji:"📝",check:function(){return vocab.length>=25}},
+  {id:"vocab_100",name:"Mistrz słownictwa",desc:"100 słów na liście",emoji:"🎓",check:function(){return vocab.length>=100}},
+  {id:"known_10",name:"Pierwsze 10 znanych",desc:"Oznacz 10 słów jako znane",emoji:"🟢",check:function(){return vocab.filter(function(v){return v.status==="known"}).length>=10}},
+  {id:"known_50",name:"50 słów w pamięci",desc:"50 znanych słów",emoji:"🧠",check:function(){return vocab.filter(function(v){return v.status==="known"}).length>=50}},
+  {id:"streak_3",name:"Trzy dni z rzędu",desc:"Korzystaj z aplikacji 3 dni z rzędu",emoji:"🔥",check:function(){return streakData.current>=3}},
+  {id:"streak_7",name:"Tydzień nauki",desc:"7-dniowa seria",emoji:"⚡",check:function(){return streakData.current>=7}},
+  {id:"streak_30",name:"Miesiąc systematyczności",desc:"30-dniowa seria",emoji:"🏆",check:function(){return streakData.current>=30}},
+  {id:"polyglot",name:"Poliglota",desc:"Aktywne wszystkie 6 języków",emoji:"🌍",check:function(){return activeLangs.length===6}},
+  {id:"explorer",name:"Odkrywca",desc:"Przeczytaj 100 cytatów (otwórz w słowniku/karuzeli)",emoji:"🔍",check:function(){return (JSON.parse(localStorage.getItem("ql_seen")||"[]")).length>=100}}
+];
+var unlockedAchievements=JSON.parse(localStorage.getItem("ql_achievements")||"[]");
+function saveAchievements(){localStorage.setItem("ql_achievements",JSON.stringify(unlockedAchievements))}
+function checkAchievements(){
+  var newOnes=[];
+  ACHIEVEMENTS.forEach(function(a){
+    if(unlockedAchievements.indexOf(a.id)===-1 && a.check()){
+      unlockedAchievements.push(a.id);
+      newOnes.push(a);
+    }
+  });
+  if(newOnes.length){
+    saveAchievements();
+    newOnes.forEach(function(a){
+      setTimeout(function(){showToast(a.emoji+" Odznaka: "+a.name)},200);
+    });
+  }
+}
 
 function saveVocab(){localStorage.setItem("ql_vocab",JSON.stringify(vocab))}
 function vocabKey(w,l){return w.toLowerCase()+"|"+l}
