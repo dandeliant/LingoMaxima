@@ -4209,9 +4209,40 @@ var deferredInstallPrompt=null;
 
 function setupPWA(){
   if("serviceWorker" in navigator){
-    navigator.serviceWorker.register("./service-worker.js")
-      .then(function(reg){console.log("LingoMaxima: Service Worker registered")})
+    // updateViaCache:'none' — nie cachuj samego SW (zawsze świeży)
+    navigator.serviceWorker.register("./service-worker.js",{updateViaCache:"none"})
+      .then(function(reg){
+        console.log("LingoMaxima: Service Worker registered");
+        // Sprawdzaj aktualizacje co minutę gdy karta jest aktywna
+        setInterval(function(){
+          if(document.visibilityState==="visible")reg.update().catch(function(){});
+        },60000);
+        // Gdy znaleziono nowy SW, czekaj na 'controllerchange' żeby auto-reload
+        reg.addEventListener("updatefound",function(){
+          var newWorker=reg.installing;
+          if(!newWorker)return;
+          newWorker.addEventListener("statechange",function(){
+            if(newWorker.state==="installed"&&navigator.serviceWorker.controller){
+              // Nowa wersja gotowa — info dla użytkownika
+              showUpdateAvailable();
+            }
+          });
+        });
+      })
       .catch(function(err){console.warn("LingoMaxima: SW failed",err)});
+    // Komunikacja od SW (np. „aktualizacja zaakceptowana")
+    navigator.serviceWorker.addEventListener("message",function(e){
+      if(e.data&&e.data.type==="SW_UPDATED"){
+        console.log("LingoMaxima: SW updated to "+e.data.version);
+      }
+    });
+    // Gdy zmienia się controller — automatyczny reload, ale tylko raz
+    var refreshing=false;
+    navigator.serviceWorker.addEventListener("controllerchange",function(){
+      if(refreshing)return;
+      refreshing=true;
+      window.location.reload();
+    });
   }
   window.addEventListener("beforeinstallprompt",function(e){
     e.preventDefault();
@@ -4224,6 +4255,18 @@ function setupPWA(){
     if(btn)btn.style.display="none";
     showToast("📱 Apka zainstalowana!");
   });
+}
+
+function showUpdateAvailable(){
+  // Niewielki banner: nowa wersja dostępna, kliknij żeby odświeżyć
+  var existing=document.getElementById("update-banner");
+  if(existing)return;
+  var banner=document.createElement("div");
+  banner.id="update-banner";
+  banner.style.cssText="position:fixed;bottom:1.5rem;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,var(--gold),var(--gold2));color:var(--bg);font-family:var(--ff-u);font-size:.85rem;padding:.8rem 1.4rem;border-radius:25px;box-shadow:0 8px 24px rgba(0,0,0,.4);z-index:5000;cursor:pointer;font-weight:500;letter-spacing:.05em;animation:fadeUp .4s ease";
+  banner.innerHTML="✦ Nowa wersja dostępna · kliknij, aby odświeżyć";
+  banner.onclick=function(){window.location.reload(true)};
+  document.body.appendChild(banner);
 }
 
 function installPWA(){
