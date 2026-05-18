@@ -2859,6 +2859,7 @@ function toggleFavorite(id){
   else{favorites.splice(i,1);showToast("Usunięto z ulubionych")}
   localStorage.setItem("ql_fav",JSON.stringify(favorites));
   updateFavCount();
+  checkAchievements();
 }
 
 function toggleCardFav(code,btn){
@@ -2870,6 +2871,36 @@ function toggleCardFav(code,btn){
 
 function updateFavCount(){
   document.getElementById("fav-count-num").textContent=favorites.length;
+}
+
+function updateStreakUI(){
+  var el=document.getElementById("streak-num");
+  if(el)el.textContent=streakData.current||0;
+  var pill=document.getElementById("streak-pill");
+  if(pill)pill.classList.toggle("streak-hot",streakData.current>=3);
+}
+
+function showAchievements(){
+  checkAchievements();
+  document.getElementById("ach-count").textContent=unlockedAchievements.length;
+  document.getElementById("ach-total").textContent=ACHIEVEMENTS.length;
+  var display=document.getElementById("streak-display");
+  display.innerHTML=
+    '<div class="streak-stat"><div class="streak-stat-num streak-fire">🔥 '+streakData.current+'</div><div class="streak-stat-lbl">Obecna seria</div></div>'+
+    '<div class="streak-stat"><div class="streak-stat-num">'+streakData.longest+'</div><div class="streak-stat-lbl">Najdłuższa seria</div></div>'+
+    '<div class="streak-stat"><div class="streak-stat-num">'+streakData.totalDays+'</div><div class="streak-stat-lbl">Łącznie dni</div></div>';
+  var grid=document.getElementById("achievement-grid");
+  grid.innerHTML="";
+  ACHIEVEMENTS.forEach(function(a){
+    var unlocked=unlockedAchievements.indexOf(a.id)!==-1;
+    var div=document.createElement("div");
+    div.className="achievement"+(unlocked?" unlocked":"");
+    div.innerHTML='<div class="achievement-emoji">'+a.emoji+'</div>'
+      +'<div class="achievement-name">'+a.name+'</div>'
+      +'<div class="achievement-desc">'+a.desc+'</div>';
+    grid.appendChild(div);
+  });
+  document.getElementById("achievements-modal").classList.add("open");
 }
 
 function setFilter(type,val,btn){
@@ -3699,6 +3730,9 @@ function showToast(msg){
 
 window.addEventListener("load",function(){
   updateFavCount();
+  updateStreak();
+  updateStreakUI();
+  checkAchievements();
   buildLangToggles();
   buildLangCards();
   // Podpowiedzi przy polach tid w panelu admina
