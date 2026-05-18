@@ -2335,6 +2335,71 @@ function showView(name){
   if(name==="admin")renderAdmin();
   if(name==="dict")renderDict();
   if(name==="learn")renderLearn();
+  if(name==="parallel")renderParallel();
+}
+
+// =================== PARALLEL READING ===================
+var parallelFilter="all";
+
+function setParallelFilter(cat,btn){
+  parallelFilter=cat;
+  document.querySelectorAll("[data-fpc]").forEach(function(c){
+    c.classList.toggle("active",c.getAttribute("data-fpc")===cat);
+  });
+  renderParallel();
+}
+
+function renderParallel(){
+  var leftLang=document.getElementById("par-left-lang").value;
+  var rightLang=document.getElementById("par-right-lang").value;
+  var grid=document.getElementById("par-grid");
+  var statsEl=document.getElementById("par-stats");
+  // Znajdź wszystkie cytaty z tid, które mają wersje w obu wybranych językach
+  var tidMap={};
+  quotes.forEach(function(q){
+    if(!q.tid)return;
+    if(parallelFilter!=="all"&&q.cat!==parallelFilter)return;
+    if(!tidMap[q.tid])tidMap[q.tid]={};
+    tidMap[q.tid][q.lang]=q;
+  });
+  var pairs=[];
+  Object.keys(tidMap).forEach(function(tid){
+    var group=tidMap[tid];
+    if(group[leftLang]&&group[rightLang]&&leftLang!==rightLang){
+      pairs.push({left:group[leftLang],right:group[rightLang]});
+    }
+  });
+  statsEl.innerHTML=leftLang===rightLang
+    ?'⚠️ Wybierz dwa <strong>różne</strong> języki'
+    :'Znalezione pary: <strong style="color:var(--gold)">'+pairs.length+'</strong>'
+      +(parallelFilter!=="all"?' (kategoria: '+getCatEmoji(parallelFilter)+' '+parallelFilter+')':'');
+  grid.innerHTML="";
+  if(leftLang===rightLang)return;
+  if(!pairs.length){
+    grid.innerHTML='<div class="empty-state"><div class="empty-icon">📖</div><div>Brak cytatów z tłumaczeniami w tej parze języków</div><div style="color:var(--text3);font-size:.78rem">Spróbuj zmienić kategorię albo wybrać inny język</div></div>';
+    return;
+  }
+  pairs.forEach(function(pair,idx){
+    var Ll=getLang(pair.left.lang);
+    var Lr=getLang(pair.right.lang);
+    var row=document.createElement("div");
+    row.className="par-row";
+    row.style.animationDelay=((idx%10)*0.05)+"s";
+    row.innerHTML=
+      '<div class="par-side">'+
+        '<div class="par-side-head"><div><span class="par-side-flag">'+Ll.flag+'</span>'+Ll.label+'</div><button class="icon-btn" onclick="speakText(\''+pair.left.text.replace(/'/g,"\\'").replace(/"/g,'\\"')+'\',\''+pair.left.lang+'\',this)">🔊</button></div>'+
+        '<div class="par-side-text" id="par-l-'+idx+'"></div>'+
+        '<div class="par-side-foot">— '+pair.left.author+'</div>'+
+      '</div>'+
+      '<div class="par-side">'+
+        '<div class="par-side-head"><div><span class="par-side-flag">'+Lr.flag+'</span>'+Lr.label+'</div><button class="icon-btn" onclick="speakText(\''+pair.right.text.replace(/'/g,"\\'").replace(/"/g,'\\"')+'\',\''+pair.right.lang+'\',this)">🔊</button></div>'+
+        '<div class="par-side-text" id="par-r-'+idx+'"></div>'+
+        '<div class="par-side-foot">— '+pair.right.author+'</div>'+
+      '</div>';
+    grid.appendChild(row);
+    makeClickableWords(pair.left.text,pair.left.lang,document.getElementById("par-l-"+idx));
+    makeClickableWords(pair.right.text,pair.right.lang,document.getElementById("par-r-"+idx));
+  });
 }
 
 // === NAUKA — sub-taby ===

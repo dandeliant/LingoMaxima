@@ -238,6 +238,17 @@ select option{background:var(--bg2)}
 .quiz-results{padding:2.5rem;background:var(--card-bg);border:1px solid var(--gold);border-radius:var(--radius);text-align:center;max-width:480px;margin:0 auto}
 .qr-score{font-family:var(--ff-d);font-size:4rem;font-style:italic;color:var(--gold3)}
 .qr-percent{font-family:var(--ff-u);font-size:.9rem;color:var(--text2);margin-top:.3rem;letter-spacing:.08em}
+/* PARALLEL READING */
+.par-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1.5rem;animation:fadeUp .4s ease both}
+.par-side{background:var(--card-bg);border:1px solid var(--border);border-radius:var(--radius);padding:1.5rem 1.8rem;position:relative;transition:border-color .3s}
+.par-side:hover{border-color:var(--border2)}
+.par-side-head{display:flex;justify-content:space-between;align-items:center;font-family:var(--ff-u);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;margin-bottom:.8rem;color:var(--text3)}
+.par-side-text{font-family:var(--ff-d);font-style:italic;font-size:1.15rem;color:var(--cream);line-height:1.55;min-height:3.5rem}
+.par-side-foot{font-family:var(--ff-u);font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;color:var(--gold);margin-top:.8rem;border-top:1px dashed var(--border);padding-top:.6rem}
+.par-side-flag{font-size:.9rem;margin-right:.3rem}
+@media(max-width:768px){
+  .par-row{grid-template-columns:1fr;gap:.5rem}
+}
 /* SRS */
 .srs-card{background:var(--card-bg);border:2px solid var(--gold);border-radius:var(--radius);padding:2.5rem 2rem;text-align:center;max-width:600px;margin:0 auto}
 .srs-card-lang{font-family:var(--ff-u);font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--text3);margin-bottom:.7rem}

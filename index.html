@@ -17,6 +17,7 @@
     <li><a id="nav-browse" onclick="showView('browse')">Przeglądaj</a></li>
     <li><a id="nav-favorites" onclick="showView('favorites')">Ulubione</a></li>
     <li><a id="nav-dict" onclick="showView('dict')">Słownik</a></li>
+    <li><a id="nav-parallel" onclick="showView('parallel')">Czytanie</a></li>
     <li><a id="nav-learn" onclick="showView('learn')">Nauka</a></li>
     <li><a id="nav-admin" onclick="showView('admin')">Admin</a></li>
   </ul>
@@ -451,6 +452,47 @@
       Rozmiar tagu zależy od częstości słowa · klik = wyszukaj w Słowniku
     </div>
   </div>
+</div>
+
+<!-- PARALLEL READING -->
+<div class="view" id="parallel">
+  <div class="dict-header">
+    <div>
+      <div class="page-title">Czytanie równoległe</div>
+      <div class="section-sub">Ten sam cytat w dwóch językach obok siebie</div>
+    </div>
+    <div style="display:flex;gap:.6rem;align-items:center;flex-wrap:wrap">
+      <label style="margin:0;font-size:.8rem;color:var(--text2)">Lewa:</label>
+      <select id="par-left-lang" onchange="renderParallel()">
+        <option value="pl">🇵🇱 Polski</option>
+        <option value="en" selected>🇬🇧 English</option>
+        <option value="de">🇩🇪 Deutsch</option>
+        <option value="fr">🇫🇷 Français</option>
+        <option value="es">🇪🇸 Español</option>
+        <option value="ru">🇷🇺 Русский</option>
+      </select>
+      <label style="margin:0;font-size:.8rem;color:var(--text2)">Prawa:</label>
+      <select id="par-right-lang" onchange="renderParallel()">
+        <option value="pl" selected>🇵🇱 Polski</option>
+        <option value="en">🇬🇧 English</option>
+        <option value="de">🇩🇪 Deutsch</option>
+        <option value="fr">🇫🇷 Français</option>
+        <option value="es">🇪🇸 Español</option>
+        <option value="ru">🇷🇺 Русский</option>
+      </select>
+    </div>
+  </div>
+  <div class="filter-bar">
+    <button class="filter-chip active" data-fpc="all" onclick="setParallelFilter('all',this)">🌍 Wszystkie</button>
+    <button class="filter-chip" data-fpc="Filozofia" onclick="setParallelFilter('Filozofia',this)">🧠 Filozofia</button>
+    <button class="filter-chip" data-fpc="Miłość" onclick="setParallelFilter('Miłość',this)">❤️ Miłość</button>
+    <button class="filter-chip" data-fpc="Życie" onclick="setParallelFilter('Życie',this)">🌿 Życie</button>
+    <button class="filter-chip" data-fpc="Sukces" onclick="setParallelFilter('Sukces',this)">🏆 Sukces</button>
+    <button class="filter-chip" data-fpc="Motywacja" onclick="setParallelFilter('Motywacja',this)">⚡ Motywacja</button>
+    <button class="filter-chip" data-fpc="Mądrość" onclick="setParallelFilter('Mądrość',this)">✨ Mądrość</button>
+  </div>
+  <div id="par-stats" style="padding:1rem 2.5rem;font-family:var(--ff-u);font-size:.85rem;color:var(--text3);border-bottom:1px solid var(--border)"></div>
+  <div id="par-grid" style="padding:1.5rem 2.5rem"></div>
 </div>
 
 <!-- AUTHOR PROFILE -->
