@@ -28,3 +28,6 @@ build/
 
 # Backup oryginalnego pliku (w Downloads)
 QuotaLingua.html
+
+# Lokalna konfiguracja Claude Code
+.claude/

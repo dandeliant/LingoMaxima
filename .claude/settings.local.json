@@ -1,8 +1,0 @@
-{
-  "permissions": {
-    "allow": [
-      "Bash(node -e \"try{require\\('fs'\\).readFileSync\\('script.js','utf8'\\);var c=require\\('fs'\\).readFileSync\\('script.js','utf8'\\);new Function\\(c\\);console.log\\('SYNTAX OK'\\)}catch\\(e\\){console.log\\('ERROR:',e.message\\)}\")",
-      "Bash(node -e \"var c=require\\('fs'\\).readFileSync\\('script.js','utf8'\\);new Function\\(c\\);console.log\\('OK'\\)\")"
-    ]
-  }
-}
