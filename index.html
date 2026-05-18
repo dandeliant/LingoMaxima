@@ -7,6 +7,11 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <script src="https://code.responsivevoice.org/responsivevoice.js?key=FREE"></script>
 <link rel="stylesheet" href="styles.css">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#c9a84c">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="LingoMaxima">
 </head>
 <body>
 
@@ -35,11 +40,17 @@
     <div class="home-eyebrow">✦ Słynne słowa · Nauka przez cytaty ✦</div>
     <div class="home-heading">Cytat dnia</div>
     <div class="home-sub">Ten sam losowy zestaw — w każdym aktywnym języku jednocześnie.</div>
-    <button class="roll-btn" onclick="rollAll()">
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
-      Losuj wszystkie cytaty
-    </button>
+    <div style="display:flex;gap:.7rem;flex-wrap:wrap;justify-content:center;align-items:center">
+      <button class="roll-btn" onclick="rollAll()">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+        Losuj wszystkie cytaty
+      </button>
+      <button class="btn btn-ghost" id="install-btn" onclick="installPWA()" style="display:none">📱 Zainstaluj apkę</button>
+      <button class="btn btn-ghost" id="notif-btn" onclick="setupDailyNotification()">🔔 Cytat dnia (powiadomienia)</button>
+    </div>
   </div>
+
+  <div id="daily-quote-box" style="margin:0 2.5rem 1.5rem;display:none"></div>
 
   <div class="lang-cards-grid" id="lang-cards-grid"></div>
 

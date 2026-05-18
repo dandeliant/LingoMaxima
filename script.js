@@ -4167,13 +4167,147 @@ function levenshtein(a,b){
   return m[b.length][a.length];
 }
 
+// =================== PWA + DAILY QUOTE ===================
+var deferredInstallPrompt=null;
+
+function setupPWA(){
+  if("serviceWorker" in navigator){
+    navigator.serviceWorker.register("./service-worker.js")
+      .then(function(reg){console.log("LingoMaxima: Service Worker registered")})
+      .catch(function(err){console.warn("LingoMaxima: SW failed",err)});
+  }
+  window.addEventListener("beforeinstallprompt",function(e){
+    e.preventDefault();
+    deferredInstallPrompt=e;
+    var btn=document.getElementById("install-btn");
+    if(btn)btn.style.display="";
+  });
+  window.addEventListener("appinstalled",function(){
+    var btn=document.getElementById("install-btn");
+    if(btn)btn.style.display="none";
+    showToast("📱 Apka zainstalowana!");
+  });
+}
+
+function installPWA(){
+  if(!deferredInstallPrompt){
+    showToast("ℹ️ Apkę można zainstalować z menu przeglądarki (Chrome: ⋮ → Zainstaluj)");
+    return;
+  }
+  deferredInstallPrompt.prompt();
+  deferredInstallPrompt.userChoice.then(function(choice){
+    if(choice.outcome==="accepted")showToast("📱 Instalowanie…");
+    deferredInstallPrompt=null;
+    var btn=document.getElementById("install-btn");
+    if(btn)btn.style.display="none";
+  });
+}
+
+function pickDailyQuote(){
+  // Deterministyczny wybór na podstawie daty (każdy ten sam cytat danego dnia)
+  var today=new Date();
+  var seed=today.getFullYear()*10000+(today.getMonth()+1)*100+today.getDate();
+  var pool=quotes.filter(function(q){return activeLangs.indexOf(q.lang)!==-1});
+  if(!pool.length)pool=quotes;
+  return pool[seed%pool.length];
+}
+
+function renderDailyQuote(){
+  var box=document.getElementById("daily-quote-box");
+  if(!box)return;
+  // Sprawdź, czy user nie zamknął cytatu dziś
+  var today=srsDueDates();
+  var dismissed=localStorage.getItem("ql_daily_dismissed");
+  if(dismissed===today)return;
+  var q=pickDailyQuote();
+  var L=getLang(q.lang);
+  box.style.display="block";
+  box.innerHTML=
+    '<div class="daily-quote-card">'+
+      '<button class="daily-quote-close" onclick="dismissDailyQuote()" title="Ukryj na dzisiaj">×</button>'+
+      '<div class="daily-quote-label">✦ Cytat dnia ✦</div>'+
+      '<div class="daily-quote-text">"'+q.text+'"</div>'+
+      '<div class="daily-quote-author">— '+q.author+'</div>'+
+      '<div class="daily-quote-lang">'+L.flag+' '+L.label+'</div>'+
+    '</div>';
+}
+
+function dismissDailyQuote(){
+  localStorage.setItem("ql_daily_dismissed",srsDueDates());
+  var box=document.getElementById("daily-quote-box");
+  if(box)box.style.display="none";
+}
+
+function setupDailyNotification(){
+  if(!("Notification" in window)){
+    showToast("❌ Przeglądarka nie wspiera powiadomień");
+    return;
+  }
+  if(Notification.permission==="granted"){
+    showToast("🔔 Powiadomienia już są włączone");
+    scheduleDailyNotification();
+    return;
+  }
+  if(Notification.permission==="denied"){
+    showToast("⚠️ Powiadomienia zablokowane — odblokuj w ustawieniach przeglądarki");
+    return;
+  }
+  Notification.requestPermission().then(function(perm){
+    if(perm==="granted"){
+      showToast("✦ Powiadomienia włączone!");
+      scheduleDailyNotification();
+    } else {
+      showToast("ℹ️ Powiadomienia nie zostały włączone");
+    }
+  });
+}
+
+function scheduleDailyNotification(){
+  // Prosty mechanizm: jeśli dziś jeszcze nie pokazaliśmy notyfikacji
+  // i jest po 8 rano, pokaż teraz. Inaczej ustaw timeout.
+  var today=srsDueDates();
+  var lastShown=localStorage.getItem("ql_daily_notif_shown");
+  if(lastShown===today)return;
+  var now=new Date();
+  var target=new Date();
+  target.setHours(8,0,0,0);
+  if(now>=target){
+    // Pokaż teraz
+    showDailyNotification();
+  } else {
+    // Zaplanuj na 8:00
+    var delay=target.getTime()-now.getTime();
+    setTimeout(showDailyNotification,delay);
+  }
+}
+
+function showDailyNotification(){
+  if(Notification.permission!=="granted")return;
+  var q=pickDailyQuote();
+  var L=getLang(q.lang);
+  try{
+    new Notification("LingoMaxima — Cytat dnia",{
+      body:'"'+q.text+'"\n— '+q.author+' '+L.flag,
+      icon:"manifest.json",
+      tag:"daily-quote-"+srsDueDates(),
+      silent:false
+    });
+    localStorage.setItem("ql_daily_notif_shown",srsDueDates());
+  }catch(e){
+    console.warn("Notification error:",e);
+  }
+}
+
 window.addEventListener("load",function(){
   updateFavCount();
   updateStreak();
   updateStreakUI();
   checkAchievements();
+  setupPWA();
   buildLangToggles();
   buildLangCards();
+  renderDailyQuote();
+  if(Notification&&Notification.permission==="granted")scheduleDailyNotification();
   // Podpowiedzi przy polach tid w panelu admina
   var nqTid=document.getElementById("nq-tid");
   if(nqTid)nqTid.addEventListener("input",function(){updateTidHint("nq-tid-hint",this.value)});
