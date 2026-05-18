@@ -2324,6 +2324,43 @@ function makeClickableWords(text,lang,container){
   });
 }
 
+// =================== HAMBURGER NAV ===================
+function toggleNav(){
+  var links=document.getElementById("nav-links");
+  var backdrop=document.getElementById("nav-backdrop");
+  var btn=document.getElementById("nav-hamburger");
+  if(!links)return;
+  var isOpen=links.classList.toggle("open");
+  if(backdrop)backdrop.classList.toggle("open",isOpen);
+  if(btn){
+    btn.classList.toggle("open",isOpen);
+    btn.setAttribute("aria-expanded",isOpen?"true":"false");
+  }
+  // Zablokuj scroll body kiedy menu otwarte
+  document.body.style.overflow=isOpen?"hidden":"";
+}
+
+function closeNav(){
+  var links=document.getElementById("nav-links");
+  var backdrop=document.getElementById("nav-backdrop");
+  var btn=document.getElementById("nav-hamburger");
+  if(links)links.classList.remove("open");
+  if(backdrop)backdrop.classList.remove("open");
+  if(btn){
+    btn.classList.remove("open");
+    btn.setAttribute("aria-expanded","false");
+  }
+  document.body.style.overflow="";
+}
+
+// Zamknij menu na Escape
+document.addEventListener("keydown",function(e){
+  if(e.key==="Escape"){
+    var links=document.getElementById("nav-links");
+    if(links&&links.classList.contains("open"))closeNav();
+  }
+});
+
 function showView(name){
   document.querySelectorAll(".view").forEach(function(v){v.classList.remove("active")});
   document.querySelectorAll(".nav-links a").forEach(function(a){a.classList.remove("active")});

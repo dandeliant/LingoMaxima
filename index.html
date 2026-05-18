@@ -17,20 +17,24 @@
 
 <nav>
   <div class="logo" onclick="showView('home')">Lingo<span>Maxima</span></div>
-  <ul class="nav-links">
-    <li><a id="nav-home" class="active" onclick="showView('home')">Strona główna</a></li>
-    <li><a id="nav-browse" onclick="showView('browse')">Przeglądaj</a></li>
-    <li><a id="nav-favorites" onclick="showView('favorites')">Ulubione</a></li>
-    <li><a id="nav-dict" onclick="showView('dict')">Słownik</a></li>
-    <li><a id="nav-parallel" onclick="showView('parallel')">Czytanie</a></li>
-    <li><a id="nav-learn" onclick="showView('learn')">Nauka</a></li>
-    <li><a id="nav-admin" onclick="showView('admin')">Admin</a></li>
+  <ul class="nav-links" id="nav-links">
+    <li><a id="nav-home" class="active" onclick="showView('home');closeNav()">Strona główna</a></li>
+    <li><a id="nav-browse" onclick="showView('browse');closeNav()">Przeglądaj</a></li>
+    <li><a id="nav-favorites" onclick="showView('favorites');closeNav()">Ulubione</a></li>
+    <li><a id="nav-dict" onclick="showView('dict');closeNav()">Słownik</a></li>
+    <li><a id="nav-parallel" onclick="showView('parallel');closeNav()">Czytanie</a></li>
+    <li><a id="nav-learn" onclick="showView('learn');closeNav()">Nauka</a></li>
+    <li><a id="nav-admin" onclick="showView('admin');closeNav()">Admin</a></li>
   </ul>
-  <div style="display:flex;align-items:center;gap:.6rem">
+  <div class="nav-right">
     <div class="streak-pill" id="streak-pill" onclick="showAchievements()" title="Twoja seria dni z aplikacją">🔥 <span id="streak-num">0</span></div>
-    <div class="fav-pill" onclick="showView('favorites')">♥ <span id="fav-count-num">0</span> ulubionych</div>
+    <div class="fav-pill" onclick="showView('favorites')" title="Ulubione cytaty">♥ <span id="fav-count-num">0</span><span class="fav-pill-label"> ulubionych</span></div>
+    <button class="nav-hamburger" id="nav-hamburger" onclick="toggleNav()" aria-label="Menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
   </div>
 </nav>
+<div class="nav-backdrop" id="nav-backdrop" onclick="closeNav()"></div>
 
 <div class="toast" id="toast"></div>
 
