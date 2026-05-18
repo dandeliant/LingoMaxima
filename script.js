@@ -2965,17 +2965,85 @@ function searchByTag(tag){
   renderBrowse();
 }
 
-// Stub — pełna implementacja w widoku Profile autorów
 function openAuthorProfile(authorName){
-  if(typeof renderAuthorProfile==="function"){
-    renderAuthorProfile(authorName);
-  } else {
-    // fallback: szukaj po autorze
-    showView("browse");
-    var s=document.getElementById("search-input");
-    s.value=authorName;
-    renderBrowse();
+  renderAuthorProfile(authorName);
+}
+
+// Mapa nazwisk: różne formy językowe → kanoniczna forma
+// Pozwala znaleźć wszystkie cytaty tego samego autora niezależnie od języka
+var AUTHOR_VARIANTS={
+  "John Lennon":["John Lennon","Джон Леннон"],
+  "Mahatma Gandhi":["Mahatma Gandhi","Махатма Ганди"],
+  "Steve Jobs":["Steve Jobs","Стив Джобс"],
+  "Albert Einstein":["Albert Einstein","Альберт Эйнштейн"],
+  "Wisława Szymborska":["Wisława Szymborska","Вислава Шимборская"],
+  "Olga Tokarczuk":["Olga Tokarczuk","Ольга Токарчук"],
+  "Daniel Ostrowski":["Daniel Ostrowski","Даниэль Островский"],
+  "Friedrich Nietzsche":["Friedrich Nietzsche","Фридрих Ницше"],
+  "Voltaire":["Voltaire","Вольтер"],
+  "William Shakespeare":["William Shakespeare","Уильям Шекспир"],
+  "Les Brown":["Les Brown","Лес Браун"],
+  "Steve Jobs":["Steve Jobs","Стив Джобс"],
+  "Heraklit":["Heraklit","Heraclitus","Héraclite","Heráclito","Гераклит"],
+  "Laozi":["Laozi","Лао-цзы"]
+};
+
+function canonicalAuthor(name){
+  for(var k in AUTHOR_VARIANTS){
+    if(AUTHOR_VARIANTS[k].indexOf(name)!==-1)return k;
   }
+  return name;
+}
+
+function findAuthorQuotes(authorName){
+  var canonical=canonicalAuthor(authorName);
+  var variants=AUTHOR_VARIANTS[canonical]||[authorName];
+  return quotes.filter(function(q){return variants.indexOf(q.author)!==-1});
+}
+
+function renderAuthorProfile(authorName){
+  showView("author-profile");
+  var all=findAuthorQuotes(authorName);
+  var canonical=canonicalAuthor(authorName);
+  document.getElementById("ap-name").textContent=canonical;
+  // Metadane
+  var langSet={},catSet={},tidSet={};
+  all.forEach(function(q){
+    langSet[q.lang]=true;
+    catSet[q.cat]=(catSet[q.cat]||0)+1;
+    if(q.tid)tidSet[q.tid]=true;
+  });
+  var langs=Object.keys(langSet).map(function(c){var L=getLang(c);return L?L.flag:""}).join(" ");
+  document.getElementById("ap-meta").textContent="Autor w "+Object.keys(langSet).length+" językach · "+all.length+" cytatów łącznie";
+  // Statystyki
+  var stats=document.getElementById("ap-stats");
+  stats.innerHTML="";
+  function statBlock(num,lbl){
+    return '<div style="text-align:center;padding:.5rem 1.2rem;background:var(--bg3);border-radius:8px;border:1px solid var(--border)">'
+      +'<div style="font-family:var(--ff-d);font-size:1.8rem;color:var(--gold2)">'+num+'</div>'
+      +'<div style="font-size:.7rem;color:var(--text3);letter-spacing:.08em;text-transform:uppercase">'+lbl+'</div></div>';
+  }
+  stats.innerHTML=statBlock(all.length,"cytatów")
+    +statBlock(Object.keys(tidSet).length,"grup tłumaczeń")
+    +statBlock(Object.keys(langSet).length,"języków")
+    +statBlock(langs,"flagi");
+  // Statystyki per kategoria
+  var catStats=document.createElement("div");
+  catStats.style.cssText="margin-top:.5rem;font-family:var(--ff-u);font-size:.78rem;color:var(--text2)";
+  catStats.innerHTML="<strong>Kategorie:</strong> "+Object.keys(catSet).map(function(c){return getCatEmoji(c)+" "+c+" ("+catSet[c]+")"}).join(" · ");
+  stats.appendChild(catStats);
+  // Lista wszystkich cytatów (pogrupowane po tid jeśli istnieje, inaczej osobno)
+  var grid=document.getElementById("ap-quotes");
+  grid.innerHTML="";
+  // Najpierw grupy tłumaczeń (jedna karta = pierwszy cytat z grupy, gdy aktywny jego lang lub pierwszy aktywny)
+  var seenTids={};
+  all.forEach(function(q,i){
+    if(q.tid){
+      if(seenTids[q.tid])return;
+      seenTids[q.tid]=true;
+    }
+    grid.appendChild(buildBrowseCard(q,i));
+  });
 }
 
 function speakBrowse(id,btn){var q=quotes.find(function(q){return q.id===id});if(q)speakText(q.text,q.lang,btn)}

@@ -338,6 +338,25 @@
   </div>
 </div>
 
+<!-- AUTHOR PROFILE -->
+<div class="view" id="author-profile">
+  <div class="dict-header">
+    <div>
+      <button class="btn btn-ghost" onclick="history.back ? history.back() : showView('browse')" style="margin-bottom:.8rem">← Powrót</button>
+      <div class="page-title" id="ap-name">—</div>
+      <div class="section-sub" id="ap-meta">—</div>
+    </div>
+  </div>
+  <div class="dict-section">
+    <div class="dict-section-title">📊 Statystyki autora</div>
+    <div id="ap-stats" style="display:flex;gap:1.5rem;flex-wrap:wrap;font-family:var(--ff-u);font-size:.85rem"></div>
+  </div>
+  <div class="dict-section">
+    <div class="dict-section-title">📜 Wszystkie cytaty</div>
+    <div class="quotes-grid" id="ap-quotes" style="padding:0"></div>
+  </div>
+</div>
+
 <!-- ADMIN -->
 <div class="view" id="admin">
   <div class="admin-login" id="admin-login">
