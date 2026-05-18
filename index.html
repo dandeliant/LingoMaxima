@@ -85,6 +85,14 @@
     <button class="filter-chip" data-fc="Sukces" onclick="setFilter('cat','Sukces',this)">🏆 Sukces</button>
     <button class="filter-chip" data-fc="Motywacja" onclick="setFilter('cat','Motywacja',this)">⚡ Motywacja</button>
     <button class="filter-chip" data-fc="Mądrość" onclick="setFilter('cat','Mądrość',this)">✨ Mądrość</button>
+    <div class="filter-sep">|</div>
+    <button class="filter-chip active" data-flevel="all" onclick="setFilter('level','all',this)">Wszystkie poziomy</button>
+    <button class="filter-chip" data-flevel="A1" onclick="setFilter('level','A1',this)" title="Początkujący">🟢 A1</button>
+    <button class="filter-chip" data-flevel="A2" onclick="setFilter('level','A2',this)" title="Podstawowy">🟢 A2</button>
+    <button class="filter-chip" data-flevel="B1" onclick="setFilter('level','B1',this)" title="Średniozaawansowany">🟡 B1</button>
+    <button class="filter-chip" data-flevel="B2" onclick="setFilter('level','B2',this)" title="Średnio-wyższy">🟡 B2</button>
+    <button class="filter-chip" data-flevel="C1" onclick="setFilter('level','C1',this)" title="Zaawansowany">🔴 C1</button>
+    <button class="filter-chip" data-flevel="C2" onclick="setFilter('level','C2',this)" title="Biegły">🔴 C2</button>
   </div>
   <div class="quotes-grid" id="quotes-grid"></div>
 </div>
@@ -384,6 +392,22 @@
         <input type="number" id="nq-tid" placeholder="np. 1, 2, 3… (puste = cytat unikalny)">
         <div id="nq-tid-hint" style="font-family:var(--ff-u);font-size:.7rem;color:var(--text3);margin-top:.3rem"></div>
       </div>
+      <div class="form-group">
+        <label>📊 Poziom CEFR</label>
+        <select id="nq-level">
+          <option value="">— nie ustawiono —</option>
+          <option value="A1">🟢 A1 — Początkujący</option>
+          <option value="A2">🟢 A2 — Podstawowy</option>
+          <option value="B1">🟡 B1 — Średniozaawansowany</option>
+          <option value="B2">🟡 B2 — Średnio-wyższy</option>
+          <option value="C1">🔴 C1 — Zaawansowany</option>
+          <option value="C2">🔴 C2 — Biegły</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>🏷️ Tagi <span style="text-transform:none;letter-spacing:0;color:var(--text3);font-size:.7rem">(po przecinku)</span></label>
+        <input type="text" id="nq-tags" placeholder="np. czas, miłość, śmierć">
+      </div>
       <div class="full">
         <button class="btn btn-primary" onclick="adminAdd()">✦ Dodaj cytat do bazy</button>
       </div>
@@ -548,6 +572,22 @@
         <label>🌐 ID tłumaczenia <span style="text-transform:none;letter-spacing:0;color:var(--text3);font-size:.7rem">(puste = cytat unikalny)</span></label>
         <input type="number" id="eq-tid" placeholder="np. 1, 2, 3…">
         <div id="eq-tid-hint" style="font-family:var(--ff-u);font-size:.7rem;color:var(--text3);margin-top:.3rem"></div>
+      </div>
+      <div class="form-group">
+        <label>📊 Poziom CEFR</label>
+        <select id="eq-level">
+          <option value="">— nie ustawiono —</option>
+          <option value="A1">🟢 A1 — Początkujący</option>
+          <option value="A2">🟢 A2 — Podstawowy</option>
+          <option value="B1">🟡 B1 — Średniozaawansowany</option>
+          <option value="B2">🟡 B2 — Średnio-wyższy</option>
+          <option value="C1">🔴 C1 — Zaawansowany</option>
+          <option value="C2">🔴 C2 — Biegły</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>🏷️ Tagi <span style="text-transform:none;letter-spacing:0;color:var(--text3);font-size:.7rem">(po przecinku)</span></label>
+        <input type="text" id="eq-tags" placeholder="np. czas, miłość, śmierć">
       </div>
     </div>
     <div class="modal-actions" style="flex-wrap:wrap">

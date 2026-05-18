@@ -146,6 +146,17 @@ select option{background:var(--bg2)}
 @keyframes pulse-g{0%,100%{box-shadow:0 0 0 0 rgba(201,168,76,.4)}50%{box-shadow:0 0 0 7px rgba(201,168,76,0)}}
 @keyframes cardFlip{0%{opacity:1;transform:translateY(0) scale(1)}40%{opacity:0;transform:translateY(-14px) scale(.97)}60%{opacity:0;transform:translateY(10px) scale(.97)}100%{opacity:1;transform:translateY(0) scale(1)}}
 .lang-quote-card.rolling{animation:cardFlip .45s ease both!important}
+/* CEFR LEVELS — badges */
+.cefr-badge{display:inline-block;font-family:var(--ff-u);font-size:.6rem;font-weight:600;letter-spacing:.05em;padding:1px 6px;margin-left:.5rem;border-radius:8px;vertical-align:middle;border:1px solid currentColor}
+.cefr-a1,.cefr-a2{color:#5fb777}
+.cefr-b1,.cefr-b2{color:#e8c97a}
+.cefr-c1,.cefr-c2{color:#e74c3c}
+/* TAGS */
+.card-tags{display:flex;flex-wrap:wrap;gap:.3rem;margin-top:.8rem;padding-top:.6rem;border-top:1px dashed var(--border)}
+.card-tag{font-family:var(--ff-u);font-size:.65rem;color:var(--text2);background:rgba(201,168,76,.08);border:1px solid var(--border);padding:2px 8px;border-radius:10px;cursor:pointer;transition:all .25s}
+.card-tag:hover{border-color:var(--gold);color:var(--gold);background:rgba(201,168,76,.15)}
+.card-author{cursor:pointer;transition:color .25s}
+.card-author:hover{color:var(--gold3)}
 /* CLICKABLE WORDS */
 .word{cursor:pointer;transition:color .2s,background .2s;border-radius:3px;padding:0 1px;display:inline}
 .word:hover{color:var(--gold2);background:rgba(201,168,76,.12)}

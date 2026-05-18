@@ -2184,7 +2184,7 @@ var favorites=JSON.parse(localStorage.getItem("ql_fav")||"[]");
 var activeLangs=JSON.parse(localStorage.getItem("ql_langs")||JSON.stringify(LANGS.map(function(l){return l.code})));
 var currentQuotePerLang={};
 var adminIn=false;
-var browseFilt={lang:"all",cat:"all"};
+var browseFilt={lang:"all",cat:"all",level:"all"};
 var isSpeaking=false;
 
 // === SŁOWNICTWO (vocabulary store) ===
@@ -2874,7 +2874,7 @@ function updateFavCount(){
 
 function setFilter(type,val,btn){
   browseFilt[type]=val;
-  var attr=type==="lang"?"data-fl":"data-fc";
+  var attr=type==="lang"?"data-fl":type==="cat"?"data-fc":"data-flevel";
   document.querySelectorAll("["+attr+"]").forEach(function(c){
     c.classList.toggle("active",c.getAttribute(attr)===val);
   });
@@ -2888,7 +2888,8 @@ function renderBrowse(){
   var filtered=quotes.filter(function(q){
     if(browseFilt.lang!=="all"&&q.lang!==browseFilt.lang)return false;
     if(browseFilt.cat!=="all"&&q.cat!==browseFilt.cat)return false;
-    if(search&&q.text.toLowerCase().indexOf(search)===-1&&q.author.toLowerCase().indexOf(search)===-1)return false;
+    if(browseFilt.level&&browseFilt.level!=="all"&&q.level!==browseFilt.level)return false;
+    if(search&&q.text.toLowerCase().indexOf(search)===-1&&q.author.toLowerCase().indexOf(search)===-1&&!(q.tags&&q.tags.some(function(t){return t.toLowerCase().indexOf(search)!==-1})))return false;
     return true;
   });
   filtered.forEach(function(q,i){grid.appendChild(buildBrowseCard(q,i))});
@@ -2907,17 +2908,43 @@ function buildBrowseCard(q,delay){
   var isFav=favorites.indexOf(q.id)!==-1;
   var trCount=q.tid?quotes.filter(function(x){return x.tid===q.tid}).length:1;
   var trBtn=trCount>1?'<button class="icon-btn tr-btn" title="Tłumaczenia ('+trCount+' jęz.)" onclick="openTranslationsModal('+q.id+')">🌐<span class="tr-badge">'+trCount+'</span></button>':'';
+  var levelBadge=q.level?'<span class="cefr-badge cefr-'+q.level.toLowerCase()+'" title="'+(CEFR_LABELS[q.level]||q.level)+'">'+q.level+'</span>':'';
+  var tagsHtml='';
+  if(q.tags&&q.tags.length){
+    tagsHtml='<div class="card-tags">'+q.tags.map(function(t){return '<span class="card-tag" onclick="event.stopPropagation();searchByTag(\''+t.replace(/'/g,"\\'")+'\')">#'+t+'</span>'}).join('')+'</div>';
+  }
   card.innerHTML='<div class="card-top">'
-    +'<div class="card-lang" style="color:'+L.color+'">'+L.flag+' '+L.label+'</div>'
+    +'<div class="card-lang" style="color:'+L.color+'">'+L.flag+' '+L.label+levelBadge+'</div>'
     +'<div class="card-actions">'
     +trBtn
     +'<button class="icon-btn" onclick="speakBrowse('+q.id+',this)">🔊</button>'
     +'<button class="icon-btn'+(isFav?' fav-on':'')+'" onclick="toggleBrowseFav('+q.id+',this)">♥</button>'
     +'</div></div>'
     +'<div class="card-quote"></div>'
-    +'<div class="card-footer"><div class="card-author">'+q.author+'</div><div class="card-cat">'+getCatEmoji(q.cat)+' '+q.cat+'</div></div>';
+    +'<div class="card-footer"><div class="card-author" onclick="event.stopPropagation();openAuthorProfile(\''+q.author.replace(/'/g,"\\'")+'\')">'+q.author+'</div><div class="card-cat">'+getCatEmoji(q.cat)+' '+q.cat+'</div></div>'
+    +tagsHtml;
   makeClickableWords(q.text,q.lang,card.querySelector(".card-quote"));
   return card;
+}
+
+function searchByTag(tag){
+  showView("browse");
+  var search=document.getElementById("search-input");
+  search.value=tag;
+  renderBrowse();
+}
+
+// Stub — pełna implementacja w widoku Profile autorów
+function openAuthorProfile(authorName){
+  if(typeof renderAuthorProfile==="function"){
+    renderAuthorProfile(authorName);
+  } else {
+    // fallback: szukaj po autorze
+    showView("browse");
+    var s=document.getElementById("search-input");
+    s.value=authorName;
+    renderBrowse();
+  }
 }
 
 function speakBrowse(id,btn){var q=quotes.find(function(q){return q.id===id});if(q)speakText(q.text,q.lang,btn)}
@@ -2987,14 +3014,22 @@ function adminAdd(){
   var lang=document.getElementById("nq-lang").value;
   var cat=document.getElementById("nq-cat").value;
   var tidRaw=document.getElementById("nq-tid").value.trim();
+  var levelEl=document.getElementById("nq-level");
+  var tagsEl=document.getElementById("nq-tags");
+  var level=levelEl?levelEl.value:"";
+  var tagsRaw=tagsEl?tagsEl.value.trim():"";
   if(!text||!author){showToast("⚠️ Wypełnij treść i autora");return}
   var q={id:nextId++,text:text,author:author,lang:lang,cat:cat};
   if(tidRaw){var t=parseInt(tidRaw,10);if(!isNaN(t))q.tid=t}
+  if(level)q.level=level;
+  if(tagsRaw){q.tags=tagsRaw.split(",").map(function(s){return s.trim()}).filter(function(s){return s})}
   quotes.push(q);
   saveQuotes();
   document.getElementById("nq-text").value="";
   document.getElementById("nq-author").value="";
   document.getElementById("nq-tid").value="";
+  if(levelEl)levelEl.value="";
+  if(tagsEl)tagsEl.value="";
   renderAdminList();
   buildLangCards();
   showToast("✦ Cytat dodany do bazy");
@@ -3008,6 +3043,10 @@ function adminEdit(id){
   document.getElementById("eq-lang").value=q.lang;
   document.getElementById("eq-cat").value=q.cat;
   document.getElementById("eq-tid").value=q.tid||"";
+  var levelEl=document.getElementById("eq-level");
+  var tagsEl=document.getElementById("eq-tags");
+  if(levelEl)levelEl.value=q.level||"";
+  if(tagsEl)tagsEl.value=(q.tags||[]).join(", ");
   updateTidHint("eq-tid-hint",q.tid);
   document.getElementById("edit-modal").classList.add("open");
 }
@@ -3018,11 +3057,17 @@ function adminSaveEdit(){
   var lang=document.getElementById("eq-lang").value;
   var cat=document.getElementById("eq-cat").value;
   var tidRaw=document.getElementById("eq-tid").value.trim();
+  var levelEl=document.getElementById("eq-level");
+  var tagsEl=document.getElementById("eq-tags");
+  var level=levelEl?levelEl.value:"";
+  var tagsRaw=tagsEl?tagsEl.value.trim():"";
   if(!text||!author){showToast("⚠️ Wypełnij treść i autora");return}
   var q=quotes.find(function(q){return q.id===id});
   if(!q)return;
   q.text=text;q.author=author;q.lang=lang;q.cat=cat;
   if(tidRaw){var t=parseInt(tidRaw,10);q.tid=isNaN(t)?undefined:t} else delete q.tid;
+  if(level)q.level=level; else delete q.level;
+  if(tagsRaw)q.tags=tagsRaw.split(",").map(function(s){return s.trim()}).filter(function(s){return s}); else delete q.tags;
   saveQuotes();
   document.getElementById("edit-modal").classList.remove("open");
   renderAdminList();
