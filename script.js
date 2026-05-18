@@ -2345,10 +2345,12 @@ function switchLearnTab(panel){
   document.querySelectorAll(".learn-tab").forEach(function(t){
     t.classList.toggle("active",t.getAttribute("data-panel")===panel);
   });
-  ["vocab","quiz","cloze","freq"].forEach(function(p){
-    document.getElementById("learn-"+p).style.display=p===panel?"":"none";
+  ["vocab","srs","quiz","cloze","dictation","pronunciation","freq"].forEach(function(p){
+    var el=document.getElementById("learn-"+p);
+    if(el)el.style.display=p===panel?"":"none";
   });
   if(panel==="vocab")renderVocab();
+  if(panel==="srs")renderSRS();
   if(panel==="quiz")renderQuizConfig();
   if(panel==="freq")renderFreq();
 }
@@ -3794,6 +3796,310 @@ function showToast(msg){
   t.textContent=msg;t.classList.add("show");
   clearTimeout(window._tt);
   window._tt=setTimeout(function(){t.classList.remove("show")},2800);
+}
+
+// =================== SRS — Spaced Repetition ===================
+var srsState=null; // {queue:[vocab items], idx:0, done:0}
+
+function renderSRS(){
+  var due=srsDueVocab();
+  var emp=document.getElementById("srs-empty");
+  var stats=document.getElementById("srs-stats");
+  var sess=document.getElementById("srs-session");
+  var done=document.getElementById("srs-done");
+  if(done)done.style.display="none";
+  if(sess)sess.style.display="none";
+  if(!due.length){
+    if(emp)emp.style.display="flex";
+    if(stats)stats.style.display="none";
+    return;
+  }
+  if(emp)emp.style.display="none";
+  if(stats){
+    stats.style.display="block";
+    var newCount=due.filter(function(v){return !v.srs||!v.srs.nextReview}).length;
+    var dueCount=due.length-newCount;
+    stats.innerHTML='<div class="vocab-stats" style="margin:0">'
+      +'<div>Do powtórki: <strong>'+due.length+'</strong></div>'
+      +'<div>🆕 Nowe: <strong style="color:#5fb777">'+newCount+'</strong></div>'
+      +'<div>📅 Zaplanowane: <strong style="color:#f4a261">'+dueCount+'</strong></div>'
+      +'<button class="btn btn-primary" style="margin-left:auto" onclick="srsStart()">▶ Rozpocznij sesję</button>'
+      +'</div>';
+  }
+}
+
+function srsStart(){
+  var due=srsDueVocab();
+  if(!due.length){renderSRS();return}
+  // tasuj
+  due=shuffle(due);
+  srsState={queue:due,idx:0,done:0};
+  document.getElementById("srs-empty").style.display="none";
+  document.getElementById("srs-stats").style.display="none";
+  document.getElementById("srs-session").style.display="block";
+  document.getElementById("srs-done").style.display="none";
+  document.getElementById("srs-total").textContent=due.length;
+  srsShowQuestion();
+}
+
+function srsShowQuestion(){
+  var v=srsState.queue[srsState.idx];
+  var L=getLang(v.lang);
+  document.getElementById("srs-num").textContent=srsState.idx+1;
+  document.getElementById("srs-bar").style.width=((srsState.idx/srsState.queue.length)*100)+"%";
+  document.getElementById("srs-lang").innerHTML=(L?L.flag+" "+L.label:v.lang);
+  document.getElementById("srs-word").textContent=v.word;
+  // ukryj odpowiedź
+  document.getElementById("srs-translations").style.display="none";
+  document.getElementById("srs-show-btn").style.display="block";
+  document.getElementById("srs-rate-buttons").style.display="none";
+  // Aktualizuj podpisy interwałów na przyciskach
+  var ints=document.querySelectorAll(".srs-rate-int");
+  if(ints.length===4){
+    // szybka symulacja każdej oceny żeby pokazać interval
+    var preview=function(qty){
+      var clone={srs:v.srs?JSON.parse(JSON.stringify(v.srs)):null};
+      var s=srsNextReview(clone,qty);
+      return s.interval;
+    };
+    ints[0].textContent="+1 dzień";
+    ints[1].textContent="+"+preview(1)+(preview(1)===1?" dzień":" dni");
+    ints[2].textContent="+"+preview(2)+(preview(2)===1?" dzień":" dni");
+    ints[3].textContent="+"+preview(3)+(preview(3)===1?" dzień":" dni");
+  }
+}
+
+function srsShowAnswer(){
+  var v=srsState.queue[srsState.idx];
+  var trs=v.trs||{};
+  var html="";
+  Object.keys(trs).forEach(function(code){
+    var TL=getLang(code);if(!TL)return;
+    html+='<div class="srs-tr-row"><span class="srs-tr-flag">'+TL.flag+'</span>'+trs[code]+'</div>';
+  });
+  if(!html)html='<div style="color:var(--text3);font-style:italic">Brak tłumaczeń (otwórz słowo w Słowniku, by pobrać)</div>';
+  document.getElementById("srs-trs-content").innerHTML=html;
+  document.getElementById("srs-translations").style.display="block";
+  document.getElementById("srs-show-btn").style.display="none";
+  document.getElementById("srs-rate-buttons").style.display="block";
+}
+
+function srsRate(quality){
+  var v=srsState.queue[srsState.idx];
+  // zastosuj SM-2
+  srsNextReview(v,quality);
+  // statystyki
+  if(!v.stats)v.stats={ok:0,bad:0};
+  if(quality>=2)v.stats.ok++; else v.stats.bad++;
+  saveVocab();
+  srsState.done++;
+  srsState.idx++;
+  if(srsState.idx>=srsState.queue.length){
+    // koniec sesji
+    document.getElementById("srs-session").style.display="none";
+    document.getElementById("srs-done").style.display="block";
+    document.getElementById("srs-done-count").textContent=srsState.done;
+    checkAchievements();
+  } else {
+    srsShowQuestion();
+  }
+}
+
+// =================== AUDIO DYKTANDO ===================
+var dictationState=null;
+
+function startDictation(){
+  var lang=document.getElementById("dict-lang-sel").value;
+  var pool=quotes.filter(function(q){
+    if(q.lang!==lang)return false;
+    var words=q.text.split(/\s+/);
+    return words.length>=3&&words.length<=20; // dyktando: krótkie cytaty
+  });
+  if(!pool.length){showToast("⚠️ Brak cytatów w "+getLang(lang).label);return}
+  var q=pool[Math.floor(Math.random()*pool.length)];
+  dictationState={quote:q,attempts:0};
+  document.getElementById("dictation-empty").style.display="none";
+  document.getElementById("dictation-session").style.display="block";
+  document.getElementById("dictation-input").value="";
+  document.getElementById("dictation-result").style.display="none";
+  // Odtwórz cytat
+  setTimeout(function(){speakText(q.text,q.lang,null)},300);
+}
+
+function dictationReplay(){
+  if(dictationState)speakText(dictationState.quote.text,dictationState.quote.lang,null);
+}
+
+function checkDictation(){
+  if(!dictationState)return;
+  var orig=dictationState.quote.text;
+  var typed=document.getElementById("dictation-input").value.trim();
+  if(!typed){showToast("⚠️ Wpisz tekst zanim sprawdzisz");return}
+  // Porównanie słowo po słowie
+  var origWords=orig.split(/\s+/);
+  var typedWords=typed.split(/\s+/);
+  var maxLen=Math.max(origWords.length,typedWords.length);
+  var correct=0,wrong=0,missing=0;
+  var diffHtml="<div class='dictation-diff'>";
+  // Najprostsze porównanie pozycyjne
+  for(var i=0;i<maxLen;i++){
+    var ow=origWords[i]||"";
+    var tw=typedWords[i]||"";
+    var owClean=ow.replace(/[.,;:!?„"'…—]/g,"").toLowerCase();
+    var twClean=tw.replace(/[.,;:!?„"'…—]/g,"").toLowerCase();
+    if(!tw){diffHtml+='<span class="miss">'+ow+'</span> ';missing++}
+    else if(owClean===twClean){diffHtml+='<span class="ok">'+ow+'</span> ';correct++}
+    else {diffHtml+='<span class="bad">'+tw+'</span><sub style="color:#7fc890">('+ow+')</sub> ';wrong++}
+  }
+  diffHtml+='</div>';
+  var pct=Math.round((correct/maxLen)*100);
+  var verdict=pct>=90?"🎉 Świetnie!":pct>=70?"👍 Dobrze":pct>=50?"😊 Nieźle":"📝 Powtórz";
+  document.getElementById("dictation-result").innerHTML=
+    '<div class="dictation-result-card">'+
+      '<div style="text-align:center;font-family:var(--ff-d);font-size:2.2rem;color:var(--gold3);font-style:italic">'+pct+'%</div>'+
+      '<div style="text-align:center;font-family:var(--ff-u);font-size:.85rem;color:var(--text2);margin-bottom:1rem">'+verdict+' · '+correct+' poprawnie · '+wrong+' z błędem · '+missing+' brak</div>'+
+      '<div style="font-family:var(--ff-u);font-size:.75rem;color:var(--text3);text-transform:uppercase;letter-spacing:.08em;margin-bottom:.5rem">Analiza:</div>'+
+      diffHtml+
+      '<div style="margin-top:1rem;font-family:var(--ff-u);font-size:.75rem;color:var(--text3);text-transform:uppercase;letter-spacing:.08em">Oryginał:</div>'+
+      '<div style="font-family:var(--ff-d);font-style:italic;font-size:1.1rem;color:var(--cream);margin-top:.5rem">'+orig+'</div>'+
+      '<div style="margin-top:1.2rem;text-align:center">'+
+        '<button class="btn btn-primary" onclick="startDictation()">▶ Następny cytat</button>'+
+      '</div>'+
+    '</div>';
+  document.getElementById("dictation-result").style.display="block";
+  // statystyki sesji
+  var st=document.getElementById("dictation-stats");
+  if(st){
+    var prevText=st.textContent;
+    var nMatch=prevText.match(/(\d+)\/(\d+)/);
+    var prev=nMatch?{ok:parseInt(nMatch[1]),total:parseInt(nMatch[2])}:{ok:0,total:0};
+    prev.total++;if(pct>=70)prev.ok++;
+    st.innerHTML='<div>Dyktanda: <strong style="color:#7fc890">'+prev.ok+'</strong> / '+prev.total+'</div>';
+  }
+}
+
+function dictationGiveUp(){
+  if(!dictationState)return;
+  document.getElementById("dictation-input").value=dictationState.quote.text;
+  document.getElementById("dictation-result").innerHTML=
+    '<div class="dictation-result-card">'+
+      '<div style="font-family:var(--ff-u);font-size:.85rem;color:var(--text3);text-align:center">Oryginał:</div>'+
+      '<div style="font-family:var(--ff-d);font-style:italic;font-size:1.15rem;color:var(--cream);margin-top:.5rem;text-align:center">'+dictationState.quote.text+'</div>'+
+      '<div style="margin-top:1.2rem;text-align:center">'+
+        '<button class="btn btn-primary" onclick="startDictation()">▶ Następny cytat</button>'+
+      '</div>'+
+    '</div>';
+  document.getElementById("dictation-result").style.display="block";
+}
+
+// =================== PRONUNCIATION RECORDING ===================
+var pronState=null;
+var pronRecognition=null;
+
+function startPronunciation(){
+  var lang=document.getElementById("pron-lang-sel").value;
+  var pool=quotes.filter(function(q){
+    if(q.lang!==lang)return false;
+    var words=q.text.split(/\s+/);
+    return words.length>=3&&words.length<=15;
+  });
+  if(!pool.length){showToast("⚠️ Brak cytatów w "+getLang(lang).label);return}
+  var q=pool[Math.floor(Math.random()*pool.length)];
+  pronState={quote:q};
+  document.getElementById("pron-empty").style.display="none";
+  document.getElementById("pron-session").style.display="block";
+  document.getElementById("pron-result").style.display="none";
+  document.getElementById("pron-quote").textContent=q.text;
+}
+
+function pronListen(){
+  if(pronState)speakText(pronState.quote.text,pronState.quote.lang,null);
+}
+
+function pronRecord(){
+  if(!pronState){showToast("⚠️ Najpierw wylosuj cytat");return}
+  var SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+  if(!SR){
+    showToast("❌ Twoja przeglądarka nie wspiera rozpoznawania mowy. Spróbuj Chrome/Edge.");
+    return;
+  }
+  var btn=document.getElementById("pron-record-btn");
+  if(pronRecognition){
+    try{pronRecognition.stop()}catch(e){}
+    pronRecognition=null;
+    btn.classList.remove("recording");
+    btn.textContent="🎙️ Nagraj swoją wymowę";
+    return;
+  }
+  pronRecognition=new SR();
+  var L=getLang(pronState.quote.lang);
+  pronRecognition.lang=L.voice;
+  pronRecognition.continuous=false;
+  pronRecognition.interimResults=false;
+  pronRecognition.maxAlternatives=1;
+  btn.classList.add("recording");
+  btn.textContent="🔴 Mów teraz… (klik = stop)";
+  pronRecognition.onresult=function(e){
+    var transcript=e.results[0][0].transcript;
+    var confidence=e.results[0][0].confidence;
+    pronShowResult(transcript,confidence);
+  };
+  pronRecognition.onerror=function(e){
+    showToast("❌ Błąd: "+e.error);
+    btn.classList.remove("recording");
+    btn.textContent="🎙️ Nagraj swoją wymowę";
+    pronRecognition=null;
+  };
+  pronRecognition.onend=function(){
+    btn.classList.remove("recording");
+    btn.textContent="🎙️ Nagraj swoją wymowę";
+    pronRecognition=null;
+  };
+  pronRecognition.start();
+}
+
+function pronShowResult(transcript,confidence){
+  var orig=pronState.quote.text;
+  // Normalizacja: małe litery, bez znaków interpunkcyjnych
+  function norm(s){return s.toLowerCase().replace(/[.,;:!?„"'…—()]/g,"").replace(/\s+/g," ").trim()}
+  var nOrig=norm(orig);
+  var nTrans=norm(transcript);
+  // Levenshtein similarity
+  var dist=levenshtein(nOrig,nTrans);
+  var maxLen=Math.max(nOrig.length,nTrans.length);
+  var similarity=Math.round(((maxLen-dist)/maxLen)*100);
+  var score=Math.max(0,Math.round(similarity*0.7 + (confidence||0.5)*30)); // mix similarity + confidence
+  var verdict=score>=85?"great":score>=70?"good":score>=50?"fair":"poor";
+  var verdictText=score>=85?"🎉 Świetna wymowa!":score>=70?"👍 Dobra wymowa":score>=50?"😊 Nieźle, popraw":"📝 Powtórz wzorzec";
+  document.getElementById("pron-result").innerHTML=
+    '<div class="dictation-result-card">'+
+      '<div class="pron-score '+verdict+'">'+score+'%</div>'+
+      '<div style="text-align:center;font-family:var(--ff-u);font-size:.85rem;color:var(--text2);margin-bottom:1.5rem">'+verdictText+'</div>'+
+      '<div style="font-family:var(--ff-u);font-size:.75rem;color:var(--text3);text-transform:uppercase;letter-spacing:.08em">Co usłyszała apka:</div>'+
+      '<div class="pron-transcript">'+transcript+'</div>'+
+      '<div style="font-family:var(--ff-u);font-size:.75rem;color:var(--text3);text-transform:uppercase;letter-spacing:.08em;margin-top:.5rem">Oryginał:</div>'+
+      '<div class="pron-transcript" style="background:rgba(201,168,76,.05);border:1px solid rgba(201,168,76,.2)">'+orig+'</div>'+
+      '<div style="margin-top:1.2rem;text-align:center">'+
+        '<button class="btn btn-ghost" onclick="pronListen()">🔊 Wzorzec</button>'+
+        '<button class="btn btn-primary" onclick="startPronunciation()">▶ Następny</button>'+
+      '</div>'+
+    '</div>';
+  document.getElementById("pron-result").style.display="block";
+}
+
+function levenshtein(a,b){
+  if(a===b)return 0;
+  if(!a.length)return b.length;
+  if(!b.length)return a.length;
+  var m=[];for(var i=0;i<=b.length;i++)m[i]=[i];
+  for(var j=0;j<=a.length;j++)m[0][j]=j;
+  for(i=1;i<=b.length;i++){
+    for(j=1;j<=a.length;j++){
+      if(b.charAt(i-1)===a.charAt(j-1))m[i][j]=m[i-1][j-1];
+      else m[i][j]=Math.min(m[i-1][j-1]+1,m[i][j-1]+1,m[i-1][j]+1);
+    }
+  }
+  return m[b.length][a.length];
 }
 
 window.addEventListener("load",function(){

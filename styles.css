@@ -238,6 +238,33 @@ select option{background:var(--bg2)}
 .quiz-results{padding:2.5rem;background:var(--card-bg);border:1px solid var(--gold);border-radius:var(--radius);text-align:center;max-width:480px;margin:0 auto}
 .qr-score{font-family:var(--ff-d);font-size:4rem;font-style:italic;color:var(--gold3)}
 .qr-percent{font-family:var(--ff-u);font-size:.9rem;color:var(--text2);margin-top:.3rem;letter-spacing:.08em}
+/* SRS */
+.srs-card{background:var(--card-bg);border:2px solid var(--gold);border-radius:var(--radius);padding:2.5rem 2rem;text-align:center;max-width:600px;margin:0 auto}
+.srs-card-lang{font-family:var(--ff-u);font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--text3);margin-bottom:.7rem}
+.srs-card-word{font-family:var(--ff-d);font-style:italic;font-size:3rem;color:var(--gold3);line-height:1.2}
+.srs-divider{border-top:1px solid var(--border);width:50%;margin:1.5rem auto}
+.srs-tr-row{font-family:var(--ff-u);font-size:1rem;padding:.3rem 0;color:var(--text)}
+.srs-tr-row .srs-tr-flag{font-size:1.1rem;margin-right:.5rem}
+.srs-rate-again{background:rgba(231,76,60,.1);border:1px solid rgba(231,76,60,.4);color:#ec7063;font-size:.78rem;padding:.7rem .4rem;line-height:1.4}
+.srs-rate-hard{background:rgba(244,162,97,.1);border:1px solid rgba(244,162,97,.4);color:#f4a261;font-size:.78rem;padding:.7rem .4rem;line-height:1.4}
+.srs-rate-good{background:rgba(95,183,119,.1);border:1px solid rgba(95,183,119,.4);color:#7fc890;font-size:.78rem;padding:.7rem .4rem;line-height:1.4}
+.srs-rate-easy{background:rgba(201,168,76,.1);border:1px solid var(--gold);color:var(--gold);font-size:.78rem;padding:.7rem .4rem;line-height:1.4}
+.srs-rate-again:hover,.srs-rate-hard:hover,.srs-rate-good:hover,.srs-rate-easy:hover{transform:translateY(-2px);opacity:.85}
+.srs-rate-int{display:block;font-size:.65rem;opacity:.7;margin-top:.2rem}
+/* DICTATION */
+.dictation-result-card{background:var(--card-bg);border:1px solid var(--border);border-radius:var(--radius);padding:1.5rem}
+.dictation-diff{font-family:var(--ff-d);font-size:1.1rem;line-height:1.7;margin:.8rem 0}
+.dictation-diff .ok{color:#7fc890}
+.dictation-diff .bad{color:#ec7063;text-decoration:underline wavy}
+.dictation-diff .miss{color:var(--gold);background:rgba(201,168,76,.15);padding:0 3px;border-radius:3px}
+/* PRONUNCIATION */
+#pron-record-btn.recording{background:linear-gradient(135deg,#e74c3c,#c0392b);animation:pulse-g 1s infinite}
+.pron-transcript{font-family:var(--ff-d);font-style:italic;font-size:1.1rem;padding:1rem;background:var(--bg3);border-radius:8px;margin:.5rem 0}
+.pron-score{font-family:var(--ff-d);font-size:3rem;color:var(--gold3);text-align:center;font-style:italic}
+.pron-score.poor{color:#ec7063}
+.pron-score.fair{color:#f4a261}
+.pron-score.good{color:#7fc890}
+.pron-score.great{color:var(--gold)}
 /* Cloze */
 .cloze-toolbar{display:flex;gap:.7rem;align-items:center;margin-bottom:1.5rem;flex-wrap:wrap}
 .cloze-toolbar select{width:auto;padding:8px 12px}

@@ -178,8 +178,11 @@
     <div class="section-sub">Twoje słownictwo, quizy i analiza bazy</div>
     <div class="learn-tabs">
       <button class="learn-tab active" data-panel="vocab" onclick="switchLearnTab('vocab')">⭐ Słownictwo</button>
+      <button class="learn-tab" data-panel="srs" onclick="switchLearnTab('srs')">📅 SRS</button>
       <button class="learn-tab" data-panel="quiz" onclick="switchLearnTab('quiz')">🎯 Quiz</button>
       <button class="learn-tab" data-panel="cloze" onclick="switchLearnTab('cloze')">📝 Cytat z luką</button>
+      <button class="learn-tab" data-panel="dictation" onclick="switchLearnTab('dictation')">🎧 Dyktando</button>
+      <button class="learn-tab" data-panel="pronunciation" onclick="switchLearnTab('pronunciation')">🎙️ Wymowa</button>
       <button class="learn-tab" data-panel="freq" onclick="switchLearnTab('freq')">☁️ Częstość słów</button>
     </div>
   </div>
@@ -210,6 +213,118 @@
       <div>Brak słówek na liście</div>
       <div style="color:var(--text3);font-size:.78rem">Otwórz dowolne słowo w Słowniku i kliknij ⭐, aby je dodać</div>
       <button class="btn btn-ghost" onclick="showView('browse')" style="margin-top:1rem">Przeglądaj cytaty</button>
+    </div>
+  </div>
+
+  <!-- SRS — Spaced Repetition -->
+  <div class="learn-panel" id="learn-srs" style="display:none">
+    <div id="srs-empty" class="empty-state">
+      <div class="empty-icon">📅</div>
+      <div>Brak słów do powtórki dzisiaj</div>
+      <div style="color:var(--text3);font-size:.78rem">Dodawaj słowa do listy nauki w Słowniku — pojawią się tutaj</div>
+      <button class="btn btn-ghost" onclick="switchLearnTab('vocab')" style="margin-top:1rem">⭐ Moje słownictwo</button>
+    </div>
+    <div id="srs-stats" style="margin-bottom:1.5rem;display:none"></div>
+    <div id="srs-session" style="display:none">
+      <div class="quiz-progress">
+        Słówko <strong id="srs-num">1</strong> z <strong id="srs-total">10</strong>
+        <div class="quiz-progress-bar"><div id="srs-bar" style="width:0%"></div></div>
+      </div>
+      <div class="srs-card">
+        <div class="srs-card-lang" id="srs-lang"></div>
+        <div class="srs-card-word" id="srs-word"></div>
+        <div id="srs-translations" style="display:none">
+          <div class="srs-divider"></div>
+          <div id="srs-trs-content"></div>
+        </div>
+        <div id="srs-show-btn" style="text-align:center;margin-top:1.5rem">
+          <button class="btn btn-ghost" onclick="srsShowAnswer()">👁 Pokaż tłumaczenia</button>
+        </div>
+        <div id="srs-rate-buttons" style="display:none;margin-top:1.5rem">
+          <div style="font-family:var(--ff-u);font-size:.78rem;color:var(--text3);text-align:center;margin-bottom:.8rem;letter-spacing:.1em">JAK DOBRZE ZNASZ TO SŁOWO?</div>
+          <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:.5rem">
+            <button class="btn srs-rate-again" onclick="srsRate(0)">❌ Nie pamiętam<br><span class="srs-rate-int">+1 dzień</span></button>
+            <button class="btn srs-rate-hard" onclick="srsRate(1)">😕 Trudne<br><span class="srs-rate-int">+? dni</span></button>
+            <button class="btn srs-rate-good" onclick="srsRate(2)">😊 Dobrze<br><span class="srs-rate-int">+? dni</span></button>
+            <button class="btn srs-rate-easy" onclick="srsRate(3)">⭐ Łatwo<br><span class="srs-rate-int">+? dni</span></button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="srs-done" style="display:none">
+      <div class="quiz-results">
+        <div style="font-family:var(--ff-u);font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gold)">Koniec sesji</div>
+        <div class="qr-score">✓ <span id="srs-done-count">0</span></div>
+        <div class="qr-percent">słów powtórzonych dzisiaj</div>
+        <div style="margin-top:1.5rem">
+          <button class="btn btn-primary" onclick="renderSRS()">Sprawdź ponownie</button>
+          <button class="btn btn-ghost" onclick="switchLearnTab('vocab')">Lista słownictwa</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Audio Dyktando -->
+  <div class="learn-panel" id="learn-dictation" style="display:none">
+    <div class="cloze-toolbar">
+      <label style="margin:0">Język:</label>
+      <select id="dict-lang-sel">
+        <option value="pl">🇵🇱 Polski</option>
+        <option value="en">🇬🇧 English</option>
+        <option value="de">🇩🇪 Deutsch</option>
+        <option value="fr">🇫🇷 Français</option>
+        <option value="es">🇪🇸 Español</option>
+        <option value="ru">🇷🇺 Русский</option>
+      </select>
+      <button class="btn btn-primary" onclick="startDictation()">🎧 Losuj cytat</button>
+      <div class="vocab-stats" style="margin:0;margin-left:auto" id="dictation-stats"></div>
+    </div>
+    <div id="dictation-session" style="display:none">
+      <div style="text-align:center;margin-bottom:1.5rem">
+        <button class="btn btn-ghost" onclick="dictationReplay()" style="font-size:1.1rem;padding:1rem 2rem">🔊 Odtwórz ponownie</button>
+      </div>
+      <div style="font-family:var(--ff-u);font-size:.75rem;color:var(--text3);text-align:center;margin-bottom:.5rem;letter-spacing:.08em">WPISZ TO, CO USŁYSZAŁEŚ</div>
+      <textarea id="dictation-input" style="width:100%;min-height:120px;font-family:var(--ff-d);font-style:italic;font-size:1.1rem;padding:1rem"></textarea>
+      <div style="text-align:center;margin-top:1rem">
+        <button class="btn btn-primary" onclick="checkDictation()">Sprawdź</button>
+        <button class="btn btn-ghost" onclick="dictationGiveUp()">Poddaję się</button>
+      </div>
+      <div id="dictation-result" style="display:none;margin-top:1.5rem"></div>
+    </div>
+    <div class="empty-state" id="dictation-empty">
+      <div class="empty-icon">🎧</div>
+      <div>Wybierz język i kliknij „Losuj cytat"</div>
+      <div style="color:var(--text3);font-size:.78rem">Posłuchasz cytatu i wpiszesz to, co usłyszałeś</div>
+    </div>
+  </div>
+
+  <!-- Pronunciation -->
+  <div class="learn-panel" id="learn-pronunciation" style="display:none">
+    <div class="cloze-toolbar">
+      <label style="margin:0">Język:</label>
+      <select id="pron-lang-sel">
+        <option value="pl">🇵🇱 Polski</option>
+        <option value="en">🇬🇧 English</option>
+        <option value="de">🇩🇪 Deutsch</option>
+        <option value="fr">🇫🇷 Français</option>
+        <option value="es">🇪🇸 Español</option>
+        <option value="ru">🇷🇺 Русский</option>
+      </select>
+      <button class="btn btn-primary" onclick="startPronunciation()">🎙️ Losuj cytat</button>
+      <div class="vocab-stats" style="margin:0;margin-left:auto" id="pron-stats"></div>
+    </div>
+    <div id="pron-session" style="display:none">
+      <div class="cloze-quote" id="pron-quote"></div>
+      <div style="text-align:center;margin:1.5rem 0">
+        <button class="btn btn-ghost" onclick="pronListen()">🔊 Posłuchaj wzorca</button>
+        <button class="btn btn-primary" id="pron-record-btn" onclick="pronRecord()">🎙️ Nagraj swoją wymowę</button>
+      </div>
+      <div id="pron-result" style="display:none;margin-top:1.5rem"></div>
+    </div>
+    <div class="empty-state" id="pron-empty">
+      <div class="empty-icon">🎙️</div>
+      <div>Wybierz język i kliknij „Losuj cytat"</div>
+      <div style="color:var(--text3);font-size:.78rem;max-width:480px">Wciśniesz mikrofon, przeczytasz cytat na głos, a apka porówna Twoją wymowę z oryginałem</div>
     </div>
   </div>
 
