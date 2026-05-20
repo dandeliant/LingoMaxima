@@ -38,7 +38,7 @@
 </script>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <script src="https://code.responsivevoice.org/responsivevoice.js?key=FREE"></script>
-<link rel="stylesheet" href="styles.css?v=13">
+<link rel="stylesheet" href="styles.css?v=14">
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#c9a84c">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -52,6 +52,7 @@
   <ul class="nav-links" id="nav-links">
     <li><a id="nav-home" class="active" onclick="showView('home');closeNav()" data-i18n="nav_home">Strona główna</a></li>
     <li><a id="nav-browse" onclick="showView('browse');closeNav()" data-i18n="nav_browse">Przeglądaj</a></li>
+    <li><a id="nav-swipe" onclick="showView('swipe');closeNav()">🔥 Swipe</a></li>
     <li><a id="nav-favorites" onclick="showView('favorites');closeNav()" data-i18n="nav_favorites">Ulubione</a></li>
     <li><a id="nav-dict" onclick="showView('dict');closeNav()" data-i18n="nav_dict">Słownik</a></li>
     <li><a id="nav-parallel" onclick="showView('parallel');closeNav()" data-i18n="nav_parallel">Czytanie</a></li>
@@ -180,6 +181,41 @@
     <button class="filter-chip" data-flevel="C2" onclick="setFilter('level','C2',this)" title="Biegły">🔴 C2</button>
   </div>
   <div class="quotes-grid" id="quotes-grid"></div>
+</div>
+
+<!-- SWIPE — Tinder dla cytatów -->
+<div class="view" id="swipe">
+  <div style="text-align:center;padding:2rem 1rem 1rem">
+    <div class="page-title">🔥 Swipe cytatów</div>
+    <div class="section-sub">Tinder-style — odkrywaj, zaznaczaj ulubione, ucz się</div>
+    <div style="display:flex;gap:.5rem;justify-content:center;flex-wrap:wrap;margin-top:1rem">
+      <select id="swipe-lang" onchange="initSwipe()" style="background:var(--bg3);color:var(--cream);border:1px solid var(--border);border-radius:6px;padding:.4rem .7rem">
+        <option value="all">🌍 Wszystkie języki</option>
+        <option value="pl">🇵🇱 Polski</option>
+        <option value="en">🇬🇧 English</option>
+        <option value="de">🇩🇪 Deutsch</option>
+        <option value="fr">🇫🇷 Français</option>
+        <option value="es">🇪🇸 Español</option>
+        <option value="ru">🇷🇺 Русский</option>
+      </select>
+      <button class="btn btn-ghost" onclick="initSwipe()" style="font-size:.78rem">🔄 Wymieszaj ponownie</button>
+    </div>
+  </div>
+  <div class="swipe-stage" id="swipe-stage">
+    <div class="swipe-empty" id="swipe-empty">
+      <div class="empty-icon">🔥</div>
+      <div>Brak cytatów</div>
+    </div>
+  </div>
+  <div class="swipe-actions" id="swipe-actions" style="display:none">
+    <button class="swipe-btn swipe-btn-left" onclick="swipeCard('left')" title="Pomiń">⏭️</button>
+    <button class="swipe-btn swipe-btn-down" onclick="swipeCard('down')" title="Odsłuchaj">🔊</button>
+    <button class="swipe-btn swipe-btn-up" onclick="swipeCard('up')" title="Do nauki słów">📚</button>
+    <button class="swipe-btn swipe-btn-right" onclick="swipeCard('right')" title="Ulubione">❤️</button>
+  </div>
+  <div style="text-align:center;font-family:var(--ff-u);font-size:.72rem;color:var(--text3);padding:.5rem 1rem;letter-spacing:.05em">
+    👉 swipe / klik strzałki · ❤️ ulubione · 📚 do nauki · 🔊 odsłuchaj · ⏭️ pomiń
+  </div>
 </div>
 
 <!-- FAVORITES -->
@@ -1072,6 +1108,6 @@
   </div>
 </div>
 
-<script src="script.js?v=13"></script>
+<script src="script.js?v=14"></script>
 </body>
 </html>

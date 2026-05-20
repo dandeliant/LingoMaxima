@@ -3160,6 +3160,130 @@ function showView(name){
   if(name==="dict")renderDict();
   if(name==="learn")renderLearn();
   if(name==="parallel")renderParallel();
+  if(name==="swipe")initSwipe();
+}
+
+// =================== SWIPE (Tinder dla cytatów) ===================
+var swipeQueue=[];
+var swipeIdx=0;
+var swipeCardEl=null;
+var swipeDragStart=null;
+
+function initSwipe(){
+  var lang=document.getElementById("swipe-lang").value;
+  var pool=quotes.filter(function(q){return lang==="all"||q.lang===lang});
+  swipeQueue=shuffle(pool.slice());
+  swipeIdx=0;
+  renderSwipe();
+}
+
+function renderSwipe(){
+  var stage=document.getElementById("swipe-stage");
+  var actions=document.getElementById("swipe-actions");
+  if(!stage)return;
+  if(swipeIdx>=swipeQueue.length){
+    stage.innerHTML='<div class="swipe-empty"><div class="empty-icon">🎉</div><div>Przejrzałeś wszystkie cytaty!</div><button class="btn btn-primary" style="margin-top:1.5rem" onclick="initSwipe()">🔄 Od nowa</button></div>';
+    actions.style.display="none";
+    return;
+  }
+  // Pokaż 2 karty: bieżącą i następną (efekt głębi)
+  var html="";
+  for(var i=Math.min(swipeIdx+1,swipeQueue.length-1);i>=swipeIdx;i--){
+    var q=swipeQueue[i];
+    var L=getLang(q.lang);
+    var isFav=favorites.indexOf(q.id)!==-1;
+    var z=10-(i-swipeIdx);
+    var scale=i===swipeIdx?1:.95;
+    var ty=i===swipeIdx?0:8;
+    html+='<div class="swipe-card" data-idx="'+i+'" style="z-index:'+z+';transform:translateY('+ty+'px) scale('+scale+')">'
+      +'<div class="swipe-card-lang" style="color:'+L.color+'">'+L.flag+' '+L.label+(q.level?' · '+q.level:'')+'</div>'
+      +'<div class="swipe-card-text">"'+escapeHtml(q.text)+'"</div>'
+      +'<div class="swipe-card-author">— '+escapeHtml(q.author)+'</div>'
+      +'<div class="swipe-card-cat">'+getCatEmoji(q.cat)+' '+q.cat+(isFav?' · ❤️':'')+'</div>'
+      +'</div>';
+  }
+  stage.innerHTML=html;
+  actions.style.display="flex";
+  // Bind drag handlers do TOP karty
+  swipeCardEl=stage.querySelector('.swipe-card[data-idx="'+swipeIdx+'"]');
+  if(swipeCardEl)attachSwipeHandlers(swipeCardEl);
+}
+
+function attachSwipeHandlers(card){
+  var startX=0,startY=0,deltaX=0,deltaY=0,dragging=false;
+  function start(e){
+    dragging=true;
+    var pt=e.touches?e.touches[0]:e;
+    startX=pt.clientX;startY=pt.clientY;deltaX=0;deltaY=0;
+    card.classList.add("dragging");
+  }
+  function move(e){
+    if(!dragging)return;
+    var pt=e.touches?e.touches[0]:e;
+    deltaX=pt.clientX-startX;
+    deltaY=pt.clientY-startY;
+    var rot=deltaX*0.06;
+    card.style.transform="translate("+deltaX+"px,"+deltaY+"px) rotate("+rot+"deg)";
+    card.classList.toggle("swiping-right",deltaX>40);
+    card.classList.toggle("swiping-left",deltaX<-40);
+    if(e.cancelable)e.preventDefault();
+  }
+  function end(){
+    if(!dragging)return;
+    dragging=false;
+    card.classList.remove("dragging");
+    var threshold=100;
+    var absX=Math.abs(deltaX),absY=Math.abs(deltaY);
+    if(absX>threshold&&absX>absY){
+      swipeCard(deltaX>0?"right":"left");
+    } else if(absY>threshold&&deltaY<-threshold){
+      swipeCard("up");
+    } else if(absY>threshold&&deltaY>threshold){
+      swipeCard("down");
+    } else {
+      card.style.transform="";
+      card.classList.remove("swiping-right","swiping-left");
+    }
+  }
+  card.addEventListener("mousedown",start);
+  card.addEventListener("touchstart",start,{passive:true});
+  window.addEventListener("mousemove",move);
+  window.addEventListener("touchmove",move,{passive:false});
+  window.addEventListener("mouseup",end);
+  window.addEventListener("touchend",end);
+}
+
+function swipeCard(direction){
+  if(swipeIdx>=swipeQueue.length)return;
+  var q=swipeQueue[swipeIdx];
+  if(!q||!swipeCardEl)return;
+  // Akcja
+  if(direction==="right"){
+    if(favorites.indexOf(q.id)===-1)toggleFavorite(q.id);
+    else showToast("❤️ Już w ulubionych");
+  } else if(direction==="up"){
+    // Dodaj wszystkie "wartościowe" słowa z cytatu do listy nauki
+    var added=0;
+    q.text.split(/\s+/).forEach(function(w){
+      var clean;
+      try{clean=w.replace(/^[^\p{L}\p{N}]+|[^\p{L}\p{N}]+$/gu,"")}
+      catch(e){clean=w.replace(/^[^\wÀ-žА-я]+|[^\wÀ-žА-я]+$/g,"")}
+      if(clozeWordScore(clean,q.lang)>=8&&!findVocab(clean,q.lang)){addVocab(clean,q.lang,{});added++}
+    });
+    showToast(added?"📚 Dodano "+added+" słów do nauki":"ℹ️ Wszystkie słowa już są na liście");
+  } else if(direction==="down"){
+    speakText(q.text,q.lang,null);
+    // Nie advance — zostaje na tej samej karcie
+    swipeCardEl.style.transform="";
+    swipeCardEl.classList.remove("swiping-right","swiping-left");
+    return;
+  }
+  // Animacja "wylotu"
+  var outX=direction==="right"?500:direction==="left"?-500:0;
+  var outY=direction==="up"?-500:0;
+  swipeCardEl.style.transform="translate("+outX+"px,"+outY+"px) rotate("+(outX*.06)+"deg)";
+  swipeCardEl.classList.add("gone");
+  setTimeout(function(){swipeIdx++;renderSwipe()},300);
 }
 
 // =================== PARALLEL READING ===================
