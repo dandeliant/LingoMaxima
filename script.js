@@ -5912,13 +5912,49 @@ function installPWA(){
   });
 }
 
+// Czas dnia → preferowane kategorie/tagi cytatów
+// 5–10 rano: budzenie, motywacja, gratitude
+// 11–14: filozofia, mądrość, refleksja
+// 15–18: sukces, praca, działanie
+// 19–22: miłość, przyjaźń, rodzina, wspomnienia
+// 23–4: filozofia, śmierć, sen, kosmos
+function getTimeContext(){
+  var h=new Date().getHours();
+  if(h>=5&&h<=10)return {label:"🌅 Poranny",cats:["Motywacja","Sukces"],tags:["nadziej","start","początek","świt","ranek","awakening","morning","beginning","hope"]};
+  if(h>=11&&h<=14)return {label:"☀️ Południowy",cats:["Filozofia","Mądrość"],tags:["mądroś","myśl","wisdom","truth","thought","reflexion","reflection"]};
+  if(h>=15&&h<=18)return {label:"🌤️ Popołudniowy",cats:["Sukces","Motywacja"],tags:["sukces","praca","działanie","cel","success","work","action","goal","achievement"]};
+  if(h>=19&&h<=22)return {label:"🌆 Wieczorny",cats:["Miłość","Życie"],tags:["miłoś","przyjaź","rodzin","love","friendship","family","memory","wspomnien"]};
+  return {label:"🌙 Nocny",cats:["Filozofia","Mądrość"],tags:["śmier","sen","czas","ciemnoś","death","dream","time","darkness","silence","cisza"]};
+}
+
 function pickDailyQuote(){
-  // Deterministyczny wybór na podstawie daty (każdy ten sam cytat danego dnia)
+  // Quote of the moment: kontekstowy wybór wg pory dnia
+  var ctx=getTimeContext();
   var today=new Date();
-  var seed=today.getFullYear()*10000+(today.getMonth()+1)*100+today.getDate();
-  var pool=quotes.filter(function(q){return activeLangs.indexOf(q.lang)!==-1});
+  // Seed zawiera też godzinę-bucket żeby cytat zmieniał się 5x dziennie
+  var hourBucket=Math.floor(today.getHours()/5); // 0-4
+  var seed=today.getFullYear()*1000000+(today.getMonth()+1)*10000+today.getDate()*10+hourBucket;
+  // 1) Najpierw szukaj cytatów z tagami pasującymi do pory dnia
+  var pool=quotes.filter(function(q){
+    if(activeLangs.indexOf(q.lang)===-1)return false;
+    if(q.tags&&q.tags.length){
+      for(var i=0;i<q.tags.length;i++){
+        var tag=q.tags[i].toLowerCase();
+        for(var j=0;j<ctx.tags.length;j++)if(tag.indexOf(ctx.tags[j])!==-1)return true;
+      }
+    }
+    return ctx.cats.indexOf(q.cat)!==-1;
+  });
+  // 2) Fallback: kategorie bez tagów
+  if(pool.length<10){
+    pool=quotes.filter(function(q){return activeLangs.indexOf(q.lang)!==-1&&ctx.cats.indexOf(q.cat)!==-1});
+  }
+  // 3) Ultimate fallback: cały aktywny zbiór
+  if(!pool.length)pool=quotes.filter(function(q){return activeLangs.indexOf(q.lang)!==-1});
   if(!pool.length)pool=quotes;
-  return pool[seed%pool.length];
+  var q=pool[seed%pool.length];
+  q._timeCtx=ctx; // podpięcie kontekstu — używane w renderDailyQuote
+  return q;
 }
 
 function renderDailyQuote(){
@@ -5935,6 +5971,7 @@ function renderDailyQuote(){
   }
   var q=pickDailyQuote();
   var L=getLang(q.lang);
+  var ctx=q._timeCtx||{label:""};
   var isFav=favorites.indexOf(q.id)!==-1;
   var trCount=q.tid?quotes.filter(function(x){return x.tid===q.tid}).length:1;
   var trBtn=trCount>1?'<button class="icon-btn tr-btn" title="Tłumaczenia ('+trCount+' jęz.)" onclick="openTranslationsModal('+q.id+')">🌐<span class="tr-badge">'+trCount+'</span></button>':'';
@@ -5942,7 +5979,7 @@ function renderDailyQuote(){
   box.innerHTML=
     '<div class="daily-quote-card">'+
       '<button class="daily-quote-close" onclick="dismissDailyQuote()" title="Ukryj na dzisiaj (możesz przywrócić poniżej)">×</button>'+
-      '<div class="daily-quote-label">✦ Cytat dnia ✦</div>'+
+      '<div class="daily-quote-label">'+(ctx.label?ctx.label+' · ':'')+'✦ Cytat dnia ✦</div>'+
       '<div class="daily-quote-text">"'+q.text+'"</div>'+
       '<div class="daily-quote-author">— '+q.author+'</div>'+
       '<div class="daily-quote-lang">'+L.flag+' '+L.label+'</div>'+
