@@ -3234,13 +3234,14 @@ function switchLearnTab(panel){
   document.querySelectorAll(".learn-tab").forEach(function(t){
     t.classList.toggle("active",t.getAttribute("data-panel")===panel);
   });
-  ["vocab","srs","quiz","cloze","dictation","pronunciation","freq"].forEach(function(p){
+  ["vocab","srs","quiz","cloze","jigsaw","reverse","dictation","pronunciation","shadowing","freq"].forEach(function(p){
     var el=document.getElementById("learn-"+p);
     if(el)el.style.display=p===panel?"":"none";
   });
   if(panel==="vocab")renderVocab();
   if(panel==="srs")renderSRS();
   if(panel==="quiz")renderQuizConfig();
+  if(panel==="reverse")initReverseSelects();
   if(panel==="freq")renderFreq();
 }
 
@@ -3456,28 +3457,61 @@ function shuffle(arr){
 var clozeStats={ok:0,bad:0};
 var clozeState=null;
 
+// Stopwords: bardzo częste słowa "funkcyjne" — odrzucamy z Smart Cloze
+// (zaimki, spójniki, przyimki, czasowniki posiłkowe) — uczenie ich nie buduje słownictwa
+var STOPWORDS={
+  pl:["i","a","o","u","w","z","na","do","od","po","za","nie","tak","to","ta","ten","ci","się","czy","jak","co","kto","gdy","gdzie","aby","że","oraz","lub","albo","bo","ale","lecz","więc","już","jeszcze","tylko","tym","tych","tej","jego","jej","ich","mój","twój","nasz","wasz","jest","są","był","była","było","będzie","ma","mam","masz"],
+  en:["the","a","an","and","or","but","if","in","on","at","by","to","of","for","with","from","as","is","are","was","were","be","been","being","have","has","had","do","does","did","will","would","can","could","should","may","might","this","that","these","those","i","you","he","she","it","we","they","my","your","his","her","its","our","their","not","no","yes","so","very","just"],
+  de:["der","die","das","den","dem","des","ein","eine","einen","einem","einer","eines","und","oder","aber","wenn","in","an","auf","bei","mit","von","zu","für","aus","nach","ist","sind","war","waren","wird","werden","hat","haben","ich","du","er","sie","es","wir","ihr","nicht","kein","sehr","auch","schon","noch"],
+  fr:["le","la","les","un","une","des","du","de","et","ou","mais","si","dans","sur","à","au","aux","par","pour","avec","sans","est","sont","était","sera","ont","avoir","être","je","tu","il","elle","on","nous","vous","ils","elles","mon","ton","son","ne","pas","ce","cette","ces","très"],
+  es:["el","la","los","las","un","una","unos","unas","y","o","pero","si","en","de","a","por","para","con","sin","es","son","era","será","ha","han","hay","yo","tú","él","ella","nosotros","vosotros","ellos","mi","tu","su","no","muy","ya","aún"],
+  ru:["и","а","но","или","в","на","с","по","о","от","до","за","из","для","к","у","что","как","кто","где","когда","если","чтобы","есть","был","была","было","будет","я","ты","он","она","оно","мы","вы","они","мой","твой","свой","не","да","нет","уже","еще","только"]
+};
+// Heurystyka wartości słowa: im wyższa, tym lepszy kandydat na lukę
+function clozeWordScore(clean,lang){
+  if(!clean)return 0;
+  var lower=clean.toLowerCase();
+  if((STOPWORDS[lang]||[]).indexOf(lower)!==-1)return 0; // stopword = nieinteresujące
+  var s=clean.length; // bazowa: długość
+  if(clean.length>=6)s+=3; // bonus za długie słowa
+  if(clean.length>=9)s+=2; // bonus za bardzo długie
+  // Pierwsza litera wielka (rzeczownik niemiecki, imię własne) — wciąż OK
+  // Czysto cyfry → 0
+  if(/^\d+$/.test(clean))return 0;
+  // Słowa 2-3 znakowe — zwykle za krótkie/funkcyjne
+  if(clean.length<=3)return 0;
+  return s;
+}
+
 function startCloze(){
   var lang=document.getElementById("cloze-lang").value;
+  // Czy uwzględnić poziom CEFR usera (jeśli ustawił filtr)
+  var levelFilter=document.getElementById("cloze-level")?document.getElementById("cloze-level").value:"all";
   // tylko cytaty z minimum 5 słowami
   var pool=quotes.filter(function(q){
     if(q.lang!==lang)return false;
+    if(levelFilter!=="all"&&q.level!==levelFilter)return false;
     var words=q.text.split(/\s+/).filter(function(w){return w.length>2});
     return words.length>=5;
   });
   if(!pool.length){showToast("⚠️ Brak cytatów w "+getLang(lang).label);return}
   var q=pool[Math.floor(Math.random()*pool.length)];
-  // wybierz losowe "ważne" słowo (długość >=4, nie pierwsze/ostatnie)
+  // Smart wybór: skoruj wszystkie słowa, weź najlepsze
   var tokens=q.text.split(/(\s+)/);
-  var indices=[];
+  var candidates=[];
   tokens.forEach(function(t,i){
     if(/^\s+$/.test(t))return;
     var clean;
     try{clean=t.replace(/^[^\p{L}\p{N}]+|[^\p{L}\p{N}]+$/gu,"")}
     catch(e){clean=t.replace(/^[^\wÀ-žА-я]+|[^\wÀ-žА-я]+$/g,"")}
-    if(clean.length>=4)indices.push({i:i,clean:clean});
+    var score=clozeWordScore(clean,lang);
+    if(score>0)candidates.push({i:i,clean:clean,score:score});
   });
-  if(!indices.length){showToast("⚠️ Cytat zbyt krótki, próbuję inny");return startCloze()}
-  var pick=indices[Math.floor(Math.random()*indices.length)];
+  if(!candidates.length){showToast("⚠️ Cytat zbyt krótki, próbuję inny");return startCloze()}
+  // Top 30% kandydatów — wybór z najlepszych, ale z odrobiną losowości
+  candidates.sort(function(a,b){return b.score-a.score});
+  var topN=Math.max(1,Math.floor(candidates.length*0.4));
+  var pick=candidates[Math.floor(Math.random()*topN)];
   // zbuduj dystraktory: losowe słowa o podobnej długości z innych cytatów w tym języku
   var allWords={};
   quotes.filter(function(x){return x.lang===lang&&x.id!==q.id}).forEach(function(x){
@@ -3498,6 +3532,8 @@ function startCloze(){
   document.getElementById("cloze-session").style.display="block";
   document.getElementById("cloze-feedback").style.display="none";
   document.getElementById("cloze-next").style.display="none";
+  var hintBtn=document.getElementById("cloze-hint");
+  if(hintBtn){hintBtn.disabled=false}
   var quoteEl=document.getElementById("cloze-quote");
   quoteEl.innerHTML="";
   tokens.forEach(function(t,i){
@@ -3541,11 +3577,361 @@ function answerCloze(picked,correct,btn){
   renderClozeStats();
 }
 
+function clozeHint(){
+  if(!clozeState)return;
+  var blank=document.getElementById("cloze-blank");
+  if(!blank)return;
+  var c=clozeState.correct;
+  blank.textContent=c.charAt(0)+"_".repeat(Math.max(1,c.length-1));
+  blank.classList.add("hint");
+  document.getElementById("cloze-hint").disabled=true;
+}
+
 function renderClozeStats(){
   var t=clozeStats.ok+clozeStats.bad;
   document.getElementById("cloze-stats").innerHTML=t?
     '<div>Poprawnie: <strong style="color:#7fc890">'+clozeStats.ok+'</strong> / '+t+' (<strong>'+Math.round(clozeStats.ok/t*100)+'%</strong>)</div>':
     '<div>Brak prób w tej sesji</div>';
+}
+
+// =================== SENTENCE JIGSAW ===================
+var jigsawState=null;
+var jigsawStats={ok:0,bad:0};
+
+function startJigsaw(){
+  var lang=document.getElementById("jigsaw-lang").value;
+  var lenMode=document.getElementById("jigsaw-len").value;
+  var pool=quotes.filter(function(q){
+    if(q.lang!==lang)return false;
+    var n=q.text.split(/\s+/).filter(function(w){return w.length>0}).length;
+    if(lenMode==="short")return n>=5&&n<=9;
+    if(lenMode==="medium")return n>=10&&n<=15;
+    if(lenMode==="long")return n>=16;
+    return n>=5;
+  });
+  if(!pool.length){showToast("⚠️ Brak cytatów spełniających kryteria");return}
+  var q=pool[Math.floor(Math.random()*pool.length)];
+  // Tokeny: tylko słowa (interpunkcja zachowana jako część słowa)
+  var words=q.text.split(/\s+/).filter(function(w){return w.length>0});
+  // Tworzymy "chipy" z indeksem oryginalnym
+  var chips=words.map(function(w,idx){return {word:w,orig:idx,id:"chip-"+Date.now()+"-"+idx}});
+  // Zamieszamy chipsy (gwarantujemy że nie są w oryginalnej kolejności)
+  var shuffled=chips.slice();
+  var tries=0;
+  do{shuffled=shuffle(shuffled.slice());tries++}while(words.length>1&&shuffled.every(function(c,i){return c.orig===i})&&tries<20);
+  jigsawState={quote:q,words:words,answer:[],pool:shuffled,solved:false};
+  document.getElementById("jigsaw-empty").style.display="none";
+  document.getElementById("jigsaw-session").style.display="block";
+  document.getElementById("jigsaw-feedback").style.display="none";
+  document.getElementById("jigsaw-next").style.display="none";
+  document.getElementById("jigsaw-check").style.display="";
+  document.getElementById("jigsaw-author").textContent="— "+q.author;
+  renderJigsawZones();
+  renderJigsawStats();
+}
+
+function renderJigsawZones(){
+  var answer=document.getElementById("jigsaw-answer");
+  var pool=document.getElementById("jigsaw-pool");
+  answer.innerHTML="";pool.innerHTML="";
+  jigsawState.answer.forEach(function(c){
+    var chip=createJigsawChip(c,"answer");
+    answer.appendChild(chip);
+  });
+  jigsawState.pool.forEach(function(c){
+    var chip=createJigsawChip(c,"pool");
+    pool.appendChild(chip);
+  });
+  if(!jigsawState.pool.length){
+    pool.innerHTML='<div style="width:100%;text-align:center;color:var(--text3);font-style:italic;font-size:.85rem">Pula pusta — kliknij Sprawdź</div>';
+  }
+}
+
+function createJigsawChip(chip,zone){
+  var b=document.createElement("button");
+  b.className="jigsaw-chip "+zone;
+  b.textContent=chip.word;
+  b.dataset.id=chip.id;
+  b.onclick=function(){
+    if(jigsawState.solved)return;
+    if(zone==="pool"){
+      // przenieś z pool do answer (na koniec)
+      jigsawState.pool=jigsawState.pool.filter(function(c){return c.id!==chip.id});
+      jigsawState.answer.push(chip);
+    } else {
+      // odeślij z answer z powrotem do pool
+      jigsawState.answer=jigsawState.answer.filter(function(c){return c.id!==chip.id});
+      jigsawState.pool.push(chip);
+    }
+    renderJigsawZones();
+  };
+  return b;
+}
+
+function checkJigsaw(){
+  if(!jigsawState||jigsawState.solved)return;
+  if(jigsawState.pool.length>0){showToast("⚠️ Użyj wszystkich słów");return}
+  var userOrder=jigsawState.answer.map(function(c){return c.word}).join(" ");
+  var correct=jigsawState.words.join(" ");
+  var ok=userOrder===correct;
+  // Tolerancja: bez wielkości liter i interpunkcji końcowej
+  if(!ok){
+    var norm=function(s){return s.toLowerCase().replace(/[.,!?;:]/g,"").trim()};
+    if(norm(userOrder)===norm(correct))ok=true;
+  }
+  jigsawState.solved=true;
+  var fb=document.getElementById("jigsaw-feedback");
+  fb.className="quiz-feedback "+(ok?"ok":"bad");
+  if(ok){
+    fb.innerHTML='✓ Brawo! Idealnie!';
+    jigsawStats.ok++;
+  } else {
+    fb.innerHTML='✗ Niezupełnie. Poprawnie:<br><em style="color:var(--cream);display:block;margin-top:.5rem;font-size:1.05rem">'+correct+'</em>';
+    jigsawStats.bad++;
+  }
+  fb.style.display="block";
+  document.getElementById("jigsaw-check").style.display="none";
+  document.getElementById("jigsaw-next").style.display="";
+  renderJigsawStats();
+}
+
+function jigsawReset(){
+  if(!jigsawState||jigsawState.solved)return;
+  // Wszystko z answer wraca do pool
+  jigsawState.pool=jigsawState.pool.concat(jigsawState.answer);
+  jigsawState.answer=[];
+  // Przemieszamy pool, ale zachowamy gwarancję że nie jest w pełnej kolejności
+  jigsawState.pool=shuffle(jigsawState.pool);
+  renderJigsawZones();
+}
+
+function jigsawGiveUp(){
+  if(!jigsawState||jigsawState.solved)return;
+  // Pokaż poprawną odpowiedź
+  jigsawState.solved=true;
+  var fb=document.getElementById("jigsaw-feedback");
+  fb.className="quiz-feedback bad";
+  fb.innerHTML='😔 Poprawna kolejność:<br><em style="color:var(--cream);display:block;margin-top:.5rem;font-size:1.05rem">'+jigsawState.words.join(" ")+'</em>';
+  fb.style.display="block";
+  document.getElementById("jigsaw-check").style.display="none";
+  document.getElementById("jigsaw-next").style.display="";
+  jigsawStats.bad++;
+  renderJigsawStats();
+}
+
+function renderJigsawStats(){
+  var t=jigsawStats.ok+jigsawStats.bad;
+  var el=document.getElementById("jigsaw-stats");
+  if(el)el.innerHTML=t?
+    '<div>Poprawnie: <strong style="color:#7fc890">'+jigsawStats.ok+'</strong> / '+t+' (<strong>'+Math.round(jigsawStats.ok/t*100)+'%</strong>)</div>':
+    '<div>Brak prób w tej sesji</div>';
+}
+
+// =================== REVERSE TRANSLATION CHALLENGE ===================
+var reverseState=null;
+var reverseStats={ok:0,bad:0};
+
+function initReverseSelects(){
+  // Tylko jeśli puste — wypełnij selecty
+  var from=document.getElementById("rev-from");
+  var to=document.getElementById("rev-to");
+  if(from&&!from.children.length){
+    LANGS.forEach(function(L){
+      from.innerHTML+='<option value="'+L.code+'"'+(L.code==="en"?" selected":"")+'>'+L.flag+' '+L.label+'</option>';
+      to.innerHTML+='<option value="'+L.code+'"'+(L.code==="pl"?" selected":"")+'>'+L.flag+' '+L.label+'</option>';
+    });
+  }
+}
+
+function startReverse(){
+  var fromLang=document.getElementById("rev-from").value;
+  var toLang=document.getElementById("rev-to").value;
+  if(fromLang===toLang){showToast("⚠️ Wybierz różne języki");return}
+  // Cytaty które mają tłumaczenie w docelowym języku
+  var pool=quotes.filter(function(q){
+    if(q.lang!==fromLang||!q.tid)return false;
+    return quotes.some(function(x){return x.tid===q.tid&&x.lang===toLang});
+  });
+  if(!pool.length){showToast("⚠️ Brak par "+fromLang.toUpperCase()+"→"+toLang.toUpperCase());return}
+  var q=pool[Math.floor(Math.random()*pool.length)];
+  var target=quotes.find(function(x){return x.tid===q.tid&&x.lang===toLang});
+  if(!target){showToast("⚠️ Brak tłumaczenia");return}
+  reverseState={source:q,target:target};
+  document.getElementById("rev-empty").style.display="none";
+  document.getElementById("rev-session").style.display="block";
+  document.getElementById("rev-result").style.display="none";
+  document.getElementById("rev-next").style.display="none";
+  document.getElementById("rev-source").textContent='"'+q.text+'"';
+  document.getElementById("rev-source-author").textContent='— '+q.author+' ('+getLang(q.lang).flag+' '+getLang(q.lang).label+' → '+getLang(toLang).flag+' '+getLang(toLang).label+')';
+  document.getElementById("rev-input").value="";
+  document.getElementById("rev-input").focus();
+  renderReverseStats();
+}
+
+// Levenshtein distance — odległość edycyjna między dwoma stringami
+function levenshtein(a,b){
+  if(a===b)return 0;
+  if(!a.length)return b.length;
+  if(!b.length)return a.length;
+  var prev=[],curr=[],i,j;
+  for(i=0;i<=b.length;i++)prev[i]=i;
+  for(i=1;i<=a.length;i++){
+    curr[0]=i;
+    for(j=1;j<=b.length;j++){
+      curr[j]=Math.min(prev[j]+1,curr[j-1]+1,prev[j-1]+(a[i-1]===b[j-1]?0:1));
+    }
+    for(j=0;j<=b.length;j++)prev[j]=curr[j];
+  }
+  return curr[b.length];
+}
+
+function normalizeText(s){
+  return s.toLowerCase()
+    .replace(/[„""''«»]/g,'"')
+    .replace(/[.,!?;:()\[\]"]/g,"")
+    .replace(/\s+/g," ")
+    .trim();
+}
+
+function checkReverse(){
+  if(!reverseState)return;
+  var user=document.getElementById("rev-input").value.trim();
+  if(!user){showToast("⚠️ Wpisz tłumaczenie");return}
+  var canonical=reverseState.target.text;
+  var nu=normalizeText(user);
+  var nc=normalizeText(canonical);
+  var dist=levenshtein(nu,nc);
+  var maxLen=Math.max(nu.length,nc.length);
+  var similarity=Math.round((1-dist/maxLen)*100);
+  // Porównanie słowo-po-słowie dla diff
+  var userWords=nu.split(/\s+/);
+  var canWords=nc.split(/\s+/);
+  var matched=userWords.filter(function(w){return canWords.indexOf(w)!==-1}).length;
+  var wordPct=Math.round(matched/canWords.length*100);
+  // Werdykt
+  var verdict,color,emoji;
+  if(similarity>=90){verdict="Doskonale!";color="#7fc890";emoji="🌟"}
+  else if(similarity>=75){verdict="Bardzo dobrze!";color="#9dca6f";emoji="✓"}
+  else if(similarity>=55){verdict="Blisko, ale nie idealnie";color="#e8c97a";emoji="👍"}
+  else if(similarity>=35){verdict="Częściowo poprawnie";color="#e8a87a";emoji="😕"}
+  else{verdict="Spróbuj jeszcze raz";color="#e07070";emoji="✗"}
+  var result=document.getElementById("rev-result");
+  result.innerHTML=
+    '<div style="text-align:center;padding:1.2rem;background:var(--bg3);border-radius:12px;border:2px solid '+color+'">'+
+      '<div style="font-size:2.2rem;margin-bottom:.4rem">'+emoji+'</div>'+
+      '<div style="font-family:var(--ff-u);font-size:1.05rem;color:'+color+';font-weight:600;letter-spacing:.05em">'+verdict+'</div>'+
+      '<div style="display:flex;justify-content:center;gap:2rem;margin:1rem 0;font-family:var(--ff-u);font-size:.85rem;color:var(--text2)">'+
+        '<div>Podobieństwo tekstu: <strong style="color:'+color+'">'+similarity+'%</strong></div>'+
+        '<div>Trafionych słów: <strong style="color:'+color+'">'+matched+'/'+canWords.length+' ('+wordPct+'%)</strong></div>'+
+      '</div>'+
+      '<div style="margin-top:1rem;text-align:left">'+
+        '<div style="font-family:var(--ff-u);font-size:.72rem;color:var(--text3);letter-spacing:.08em;text-transform:uppercase;margin-bottom:.3rem">TWOJE TŁUMACZENIE</div>'+
+        '<div style="font-family:var(--ff-d);font-style:italic;color:var(--cream);margin-bottom:.8rem">"'+user+'"</div>'+
+        '<div style="font-family:var(--ff-u);font-size:.72rem;color:var(--text3);letter-spacing:.08em;text-transform:uppercase;margin-bottom:.3rem">ORYGINAŁ Z BAZY</div>'+
+        '<div style="font-family:var(--ff-d);font-style:italic;color:var(--gold)">"'+canonical+'"</div>'+
+      '</div>'+
+    '</div>';
+  result.style.display="block";
+  document.getElementById("rev-next").style.display="";
+  if(similarity>=75)reverseStats.ok++;else reverseStats.bad++;
+  renderReverseStats();
+}
+
+function revGiveUp(){
+  if(!reverseState)return;
+  document.getElementById("rev-input").value=reverseState.target.text;
+  showToast("ℹ️ Pokazano oryginalne tłumaczenie");
+}
+
+function renderReverseStats(){
+  var t=reverseStats.ok+reverseStats.bad;
+  var el=document.getElementById("rev-stats");
+  if(el)el.innerHTML=t?
+    '<div>Dobrze: <strong style="color:#7fc890">'+reverseStats.ok+'</strong> / '+t+' (<strong>'+Math.round(reverseStats.ok/t*100)+'%</strong>)</div>':
+    '<div>Brak prób w tej sesji</div>';
+}
+
+// =================== SHADOWING MODE ===================
+var shadowState=null;
+var shadowRecorder=null;
+var shadowMediaStream=null;
+
+function startShadowing(){
+  var lang=document.getElementById("shadow-lang").value;
+  var pool=quotes.filter(function(q){
+    if(q.lang!==lang)return false;
+    var n=q.text.split(/\s+/).length;
+    return n>=5&&n<=20; // ani za krótkie ani za długie dla shadowingu
+  });
+  if(!pool.length){showToast("⚠️ Brak cytatów w "+getLang(lang).label);return}
+  var q=pool[Math.floor(Math.random()*pool.length)];
+  shadowState={quote:q,myBlob:null,myUrl:null};
+  document.getElementById("shadow-empty").style.display="none";
+  document.getElementById("shadow-session").style.display="block";
+  document.getElementById("shadow-quote").textContent='"'+q.text+'"';
+  document.getElementById("shadow-author").textContent='— '+q.author;
+  document.getElementById("shadow-compare").style.display="none";
+  document.getElementById("shadow-play-mine").style.display="none";
+  document.getElementById("shadow-status").textContent="";
+  document.getElementById("shadow-record-btn").textContent="🎙️ Nagraj swoją wersję";
+  document.getElementById("shadow-record-btn").classList.remove("btn-danger");
+}
+
+function shadowPlayOriginal(){
+  if(!shadowState)return;
+  speakText(shadowState.quote.text,shadowState.quote.lang,null);
+}
+
+function shadowToggleRecord(){
+  if(!shadowState)return;
+  if(shadowRecorder&&shadowRecorder.state==="recording"){
+    shadowStopRecord();
+  } else {
+    shadowStartRecord();
+  }
+}
+
+function shadowStartRecord(){
+  if(!navigator.mediaDevices||!navigator.mediaDevices.getUserMedia){
+    showToast("⚠️ Twoja przeglądarka nie wspiera nagrywania");return;
+  }
+  navigator.mediaDevices.getUserMedia({audio:true}).then(function(stream){
+    shadowMediaStream=stream;
+    try{shadowRecorder=new MediaRecorder(stream)}
+    catch(e){showToast("⚠️ MediaRecorder niedostępny");return}
+    var chunks=[];
+    shadowRecorder.ondataavailable=function(e){if(e.data.size>0)chunks.push(e.data)};
+    shadowRecorder.onstop=function(){
+      var blob=new Blob(chunks,{type:"audio/webm"});
+      if(shadowState.myUrl)URL.revokeObjectURL(shadowState.myUrl);
+      shadowState.myBlob=blob;
+      shadowState.myUrl=URL.createObjectURL(blob);
+      document.getElementById("shadow-play-mine").style.display="";
+      document.getElementById("shadow-compare").style.display="";
+      document.getElementById("shadow-status").textContent="✅ Nagranie gotowe — możesz porównać";
+      document.getElementById("shadow-record-btn").textContent="🎙️ Nagraj ponownie";
+      document.getElementById("shadow-record-btn").classList.remove("btn-danger");
+      // Zwolnij mikrofon
+      if(shadowMediaStream){shadowMediaStream.getTracks().forEach(function(t){t.stop()});shadowMediaStream=null}
+    };
+    shadowRecorder.start();
+    document.getElementById("shadow-record-btn").textContent="⏹️ Zatrzymaj nagranie";
+    document.getElementById("shadow-record-btn").classList.add("btn-danger");
+    document.getElementById("shadow-status").textContent="🔴 Nagrywanie… Mów teraz!";
+  }).catch(function(err){
+    showToast("⚠️ Brak dostępu do mikrofonu");
+    console.warn("getUserMedia error:",err);
+  });
+}
+
+function shadowStopRecord(){
+  if(shadowRecorder&&shadowRecorder.state==="recording")shadowRecorder.stop();
+}
+
+function shadowPlayMine(){
+  if(!shadowState||!shadowState.myUrl)return;
+  var audio=new Audio(shadowState.myUrl);
+  audio.play().catch(function(err){showToast("⚠️ Błąd odtwarzania: "+err.message)});
 }
 
 // === FREQUENCY — chmura słów ===

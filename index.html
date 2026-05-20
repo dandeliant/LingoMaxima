@@ -38,7 +38,7 @@
 </script>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <script src="https://code.responsivevoice.org/responsivevoice.js?key=FREE"></script>
-<link rel="stylesheet" href="styles.css?v=11">
+<link rel="stylesheet" href="styles.css?v=12">
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#c9a84c">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -265,8 +265,11 @@
       <button class="learn-tab" data-panel="srs" onclick="switchLearnTab('srs')">📅 SRS</button>
       <button class="learn-tab" data-panel="quiz" onclick="switchLearnTab('quiz')">🎯 Quiz</button>
       <button class="learn-tab" data-panel="cloze" onclick="switchLearnTab('cloze')">📝 Cytat z luką</button>
+      <button class="learn-tab" data-panel="jigsaw" onclick="switchLearnTab('jigsaw')">🧩 Układanka</button>
+      <button class="learn-tab" data-panel="reverse" onclick="switchLearnTab('reverse')">🔄 Tłumacz</button>
       <button class="learn-tab" data-panel="dictation" onclick="switchLearnTab('dictation')">🎧 Dyktando</button>
       <button class="learn-tab" data-panel="pronunciation" onclick="switchLearnTab('pronunciation')">🎙️ Wymowa</button>
+      <button class="learn-tab" data-panel="shadowing" onclick="switchLearnTab('shadowing')">👥 Shadowing</button>
       <button class="learn-tab" data-panel="freq" onclick="switchLearnTab('freq')">☁️ Częstość słów</button>
     </div>
   </div>
@@ -491,6 +494,15 @@
         <option value="es">🇪🇸 Español</option>
         <option value="ru">🇷🇺 Русский</option>
       </select>
+      <select id="cloze-level" title="Filtr poziomu CEFR">
+        <option value="all">📊 Wszystkie poziomy</option>
+        <option value="A1">🟢 A1</option>
+        <option value="A2">🟢 A2</option>
+        <option value="B1">🟡 B1</option>
+        <option value="B2">🟡 B2</option>
+        <option value="C1">🔴 C1</option>
+        <option value="C2">🔴 C2</option>
+      </select>
       <button class="btn btn-primary" onclick="startCloze()">📝 Losuj cytat</button>
       <div class="vocab-stats" style="margin:0;margin-left:auto" id="cloze-stats"></div>
     </div>
@@ -501,14 +513,128 @@
         <div class="cloze-options" id="cloze-options"></div>
       </div>
       <div id="cloze-feedback" style="display:none;text-align:center;margin:1rem auto;max-width:560px"></div>
-      <div style="text-align:center;margin-top:1rem">
+      <div style="text-align:center;margin-top:1rem;display:flex;gap:.6rem;justify-content:center;flex-wrap:wrap">
+        <button class="btn btn-ghost" id="cloze-hint" onclick="clozeHint()">💡 Podpowiedź (pierwsza litera)</button>
         <button class="btn btn-primary" id="cloze-next" onclick="startCloze()" style="display:none">➡️ Następny cytat</button>
       </div>
     </div>
     <div class="empty-state" id="cloze-empty">
       <div class="empty-icon">📝</div>
       <div>Wybierz język i kliknij „Losuj cytat"</div>
-      <div style="color:var(--text3);font-size:.78rem">Z cytatu zniknie jedno słowo — zgadnij, które</div>
+      <div style="color:var(--text3);font-size:.78rem">Smart Cloze — system wybierze najbardziej wartościowe słowo (czasownik, rzeczownik) — pomijając „i", „w", „nie" itd.</div>
+    </div>
+  </div>
+
+  <!-- Sentence Jigsaw -->
+  <div class="learn-panel" id="learn-jigsaw" style="display:none">
+    <div class="cloze-toolbar">
+      <select id="jigsaw-lang">
+        <option value="pl">🇵🇱 Polski</option>
+        <option value="en">🇬🇧 English</option>
+        <option value="de">🇩🇪 Deutsch</option>
+        <option value="fr">🇫🇷 Français</option>
+        <option value="es">🇪🇸 Español</option>
+        <option value="ru">🇷🇺 Русский</option>
+      </select>
+      <select id="jigsaw-len" title="Długość cytatu">
+        <option value="short" selected>🔹 Krótkie (5-9 słów)</option>
+        <option value="medium">🔸 Średnie (10-15 słów)</option>
+        <option value="long">🔶 Długie (16+ słów)</option>
+      </select>
+      <button class="btn btn-primary" onclick="startJigsaw()">🧩 Losuj cytat</button>
+      <div class="vocab-stats" style="margin:0;margin-left:auto" id="jigsaw-stats"></div>
+    </div>
+    <div id="jigsaw-session" style="display:none">
+      <div style="font-family:var(--ff-u);font-size:.78rem;color:var(--text3);text-align:center;margin-bottom:.7rem;letter-spacing:.08em">UŁÓŻ SŁOWA W POPRAWNEJ KOLEJNOŚCI</div>
+      <!-- Twoja konstrukcja -->
+      <div class="jigsaw-zone" id="jigsaw-answer" style="min-height:80px;padding:1rem;background:var(--bg3);border:2px dashed var(--border);border-radius:12px;display:flex;flex-wrap:wrap;gap:.4rem;align-items:flex-start;margin-bottom:1rem"></div>
+      <!-- Pula słów -->
+      <div style="font-family:var(--ff-u);font-size:.72rem;color:var(--text3);text-align:center;margin-bottom:.4rem">PULA SŁÓW (klik = przenieś)</div>
+      <div class="jigsaw-zone" id="jigsaw-pool" style="min-height:60px;padding:.8rem;background:var(--bg2);border:1px solid var(--border);border-radius:12px;display:flex;flex-wrap:wrap;gap:.4rem;align-items:flex-start"></div>
+      <div id="jigsaw-author" style="text-align:center;font-family:var(--ff-u);font-size:.8rem;color:var(--gold);margin-top:1rem;letter-spacing:.08em"></div>
+      <div id="jigsaw-feedback" style="display:none;text-align:center;margin:1rem auto;max-width:560px"></div>
+      <div style="text-align:center;margin-top:1rem;display:flex;gap:.6rem;justify-content:center;flex-wrap:wrap">
+        <button class="btn btn-primary" id="jigsaw-check" onclick="checkJigsaw()">✓ Sprawdź</button>
+        <button class="btn btn-ghost" onclick="jigsawReset()">↩️ Wyczyść</button>
+        <button class="btn btn-ghost" onclick="jigsawGiveUp()">😔 Poddaję się</button>
+        <button class="btn btn-primary" id="jigsaw-next" onclick="startJigsaw()" style="display:none">➡️ Następny</button>
+      </div>
+    </div>
+    <div class="empty-state" id="jigsaw-empty">
+      <div class="empty-icon">🧩</div>
+      <div>Sentence Jigsaw — układanka zdania</div>
+      <div style="color:var(--text3);font-size:.78rem;max-width:480px">System pomiesza słowa cytatu — Ty układasz je w poprawnej kolejności. Świetne ćwiczenie składni i szyku wyrazów.</div>
+    </div>
+  </div>
+
+  <!-- Reverse Translation Challenge -->
+  <div class="learn-panel" id="learn-reverse" style="display:none">
+    <div class="cloze-toolbar">
+      <label style="margin:0">Z języka:</label>
+      <select id="rev-from"></select>
+      <label style="margin:0">Na język:</label>
+      <select id="rev-to"></select>
+      <button class="btn btn-primary" onclick="startReverse()">🔄 Losuj cytat</button>
+      <div class="vocab-stats" style="margin:0;margin-left:auto" id="rev-stats"></div>
+    </div>
+    <div id="rev-session" style="display:none">
+      <div style="font-family:var(--ff-u);font-size:.75rem;color:var(--text3);text-align:center;margin-bottom:.5rem;letter-spacing:.08em">PRZETŁUMACZ TEN CYTAT</div>
+      <div class="cloze-quote" id="rev-source"></div>
+      <div class="cloze-author" id="rev-source-author"></div>
+      <div style="font-family:var(--ff-u);font-size:.75rem;color:var(--text3);text-align:center;margin:1.2rem 0 .4rem;letter-spacing:.08em">TWOJE TŁUMACZENIE</div>
+      <textarea id="rev-input" style="width:100%;min-height:100px;font-family:var(--ff-d);font-style:italic;font-size:1.1rem;padding:1rem" placeholder="Wpisz tłumaczenie…"></textarea>
+      <div style="text-align:center;margin-top:1rem;display:flex;gap:.6rem;justify-content:center;flex-wrap:wrap">
+        <button class="btn btn-primary" onclick="checkReverse()">✓ Sprawdź</button>
+        <button class="btn btn-ghost" onclick="revGiveUp()">😔 Poddaję się</button>
+        <button class="btn btn-primary" id="rev-next" onclick="startReverse()" style="display:none">➡️ Następny</button>
+      </div>
+      <div id="rev-result" style="display:none;margin-top:1.5rem"></div>
+    </div>
+    <div class="empty-state" id="rev-empty">
+      <div class="empty-icon">🔄</div>
+      <div>Reverse Translation Challenge</div>
+      <div style="color:var(--text3);font-size:.78rem;max-width:480px">Pokażemy cytat w jednym języku — Ty wpisujesz tłumaczenie. System porówna z oryginalnym tłumaczeniem z bazy i pokaże procent zgodności.</div>
+    </div>
+  </div>
+
+  <!-- Shadowing -->
+  <div class="learn-panel" id="learn-shadowing" style="display:none">
+    <div class="cloze-toolbar">
+      <select id="shadow-lang">
+        <option value="pl">🇵🇱 Polski</option>
+        <option value="en">🇬🇧 English</option>
+        <option value="de">🇩🇪 Deutsch</option>
+        <option value="fr">🇫🇷 Français</option>
+        <option value="es">🇪🇸 Español</option>
+        <option value="ru">🇷🇺 Русский</option>
+      </select>
+      <button class="btn btn-primary" onclick="startShadowing()">👥 Losuj cytat</button>
+      <div class="vocab-stats" style="margin:0;margin-left:auto" id="shadow-stats"></div>
+    </div>
+    <div id="shadow-session" style="display:none">
+      <div class="cloze-quote" id="shadow-quote"></div>
+      <div class="cloze-author" id="shadow-author"></div>
+      <div style="display:flex;gap:.6rem;justify-content:center;flex-wrap:wrap;margin:1.5rem 0">
+        <button class="btn btn-ghost" onclick="shadowPlayOriginal()">🔊 Posłuchaj wzorca</button>
+        <button class="btn btn-primary" id="shadow-record-btn" onclick="shadowToggleRecord()">🎙️ Nagraj swoją wersję</button>
+        <button class="btn btn-ghost" id="shadow-play-mine" onclick="shadowPlayMine()" style="display:none">▶️ Odtwórz moje</button>
+      </div>
+      <div id="shadow-status" style="text-align:center;font-family:var(--ff-u);font-size:.85rem;color:var(--text3);min-height:1.5rem"></div>
+      <div id="shadow-compare" style="display:none;margin-top:1.5rem;padding:1rem;background:var(--bg3);border-radius:12px">
+        <div style="font-family:var(--ff-u);font-size:.78rem;color:var(--gold);text-align:center;margin-bottom:.8rem;letter-spacing:.1em">PORÓWNANIE A/B</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:.7rem;text-align:center">
+          <button class="btn btn-ghost" onclick="shadowPlayOriginal()" style="padding:.8rem">🎓 Wzorzec</button>
+          <button class="btn btn-ghost" onclick="shadowPlayMine()" style="padding:.8rem">🎤 Twoja wersja</button>
+        </div>
+      </div>
+      <div style="text-align:center;margin-top:1.5rem">
+        <button class="btn btn-primary" onclick="startShadowing()">➡️ Następny cytat</button>
+      </div>
+    </div>
+    <div class="empty-state" id="shadow-empty">
+      <div class="empty-icon">👥</div>
+      <div>Shadowing — najbardziej skuteczna technika akcentu</div>
+      <div style="color:var(--text3);font-size:.78rem;max-width:480px">1. Słuchasz wzorca (Google neural voice). 2. Nagrywasz siebie powtarzającego cytat. 3. Porównujesz A/B obok siebie. Wymaga dostępu do mikrofonu.</div>
     </div>
   </div>
 
@@ -938,6 +1064,6 @@
   </div>
 </div>
 
-<script src="script.js?v=11"></script>
+<script src="script.js?v=12"></script>
 </body>
 </html>
