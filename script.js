@@ -4907,6 +4907,73 @@ function dictEditKey(w,l){return w.toLowerCase()+"|"+l}
 function getDictEdits(w,l){return dictEdits[dictEditKey(w,l)]||null}
 function hasDictEdits(w,l){return !!dictEdits[dictEditKey(w,l)]}
 
+// === IPA (transkrypcja fonetyczna) ===
+var ipaStore=JSON.parse(localStorage.getItem("ql_ipa")||"{}");
+function saveIpa(){localStorage.setItem("ql_ipa",JSON.stringify(ipaStore))}
+function ipaKey(w,l){return w.toLowerCase()+"|"+l}
+function getIpa(w,l){return ipaStore[ipaKey(w,l)]||null}
+function setIpa(w,l,ipa){
+  var k=ipaKey(w,l);
+  if(ipa&&ipa.trim()){ipaStore[k]=ipa.trim();saveIpa()}
+  else{delete ipaStore[k];saveIpa()}
+}
+
+function displayIpa(){
+  if(!dictCurrent.word)return;
+  var ipa=getIpa(dictCurrent.word,dictCurrent.lang);
+  var row=document.getElementById("dict-ipa-row");
+  var addBtn=document.getElementById("dict-ipa-add");
+  if(ipa){
+    document.getElementById("dict-ipa-value").textContent="/ "+ipa+" /";
+    row.style.display="";
+    addBtn.style.display="none";
+  } else {
+    row.style.display="none";
+    addBtn.style.display="";
+    // Spróbuj automatycznie pobrać z Wiktionary REST API (best-effort, działa głównie dla EN/DE/FR)
+    fetchIpaFromWiktionary(dictCurrent.word,dictCurrent.lang);
+  }
+}
+
+function fetchIpaFromWiktionary(word,lang){
+  // Mapowanie kodów języka na sekcje Wiktionary
+  var sectionMap={pl:"Polish",en:"English",de:"German",fr:"French",es:"Spanish",ru:"Russian"};
+  var section=sectionMap[lang];
+  if(!section)return;
+  var url="https://en.wiktionary.org/api/rest_v1/page/definition/"+encodeURIComponent(word.toLowerCase());
+  fetch(url).then(function(r){if(!r.ok)throw new Error("not found");return r.json()}).then(function(data){
+    if(!data||!data[section]||!data[section][0])return;
+    // Wyciąg IPA z parsed wikitext (jeśli jest w description)
+    var html=JSON.stringify(data[section]);
+    var m=html.match(/\/([^\/]+?)\//);
+    if(m&&m[1]&&m[1].length<60&&/[ɪʊəɛɔæʌθðʃʒŋ]/.test(m[1])){
+      // Heurystyka: znaleziono coś co wygląda na IPA
+      var ipa=m[1].replace(/\\u[\da-fA-F]{4}/g,function(s){return String.fromCharCode(parseInt(s.replace("\\u",""),16))});
+      // Auto-zapisz jako sugestię, ale tylko pokazujemy bez zapisu — user musi potwierdzić
+      var addBtn=document.getElementById("dict-ipa-add");
+      if(addBtn&&document.getElementById("dict-ipa-row").style.display==="none"){
+        addBtn.innerHTML='🗣️ Sugestia z Wiktionary: <strong style="color:var(--gold2)">/'+ipa+'/</strong> — kliknij, aby zapisać';
+        addBtn.onclick=function(){setIpa(dictCurrent.word,dictCurrent.lang,ipa);displayIpa();showToast("✓ IPA zapisana")};
+      }
+    }
+  }).catch(function(){});
+}
+
+function editIpa(){
+  if(!dictCurrent.word)return;
+  var curr=getIpa(dictCurrent.word,dictCurrent.lang)||"";
+  var ipa=prompt("Wpisz transkrypcję IPA dla „"+dictCurrent.word+"” (np. əˈbʌv, wstaw bez ukośników):",curr);
+  if(ipa===null)return;
+  setIpa(dictCurrent.word,dictCurrent.lang,ipa);
+  displayIpa();
+  showToast(ipa?"✓ IPA zapisana":"Usunięto IPA");
+}
+
+function speakDictWord(){
+  if(!dictCurrent.word)return;
+  speakText(dictCurrent.word,dictCurrent.lang,null);
+}
+
 function renderDict(){
   // pierwszy raz: pokaż empty state
   if(!document.getElementById("dict-content").style.display||document.getElementById("dict-content").style.display==="none"){
@@ -4934,6 +5001,7 @@ function openDictionary(word,sourceLang){
   var L=getLang(sourceLang);
   document.getElementById("dict-source-lang").textContent="Język źródłowy: "+(L?L.flag+" "+L.label:sourceLang);
   dictRefreshStarBtn();
+  displayIpa();
   fetchTranslations(word,sourceLang);
   showQuotesWithWord(word);
 }

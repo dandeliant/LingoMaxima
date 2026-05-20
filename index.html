@@ -38,7 +38,7 @@
 </script>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <script src="https://code.responsivevoice.org/responsivevoice.js?key=FREE"></script>
-<link rel="stylesheet" href="styles.css?v=12">
+<link rel="stylesheet" href="styles.css?v=13">
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#c9a84c">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -235,6 +235,14 @@
   <div id="dict-content" style="display:none">
     <div class="dict-word-header">
       <div class="dict-word" id="dict-word">—</div>
+      <div id="dict-ipa-row" style="display:none;font-family:'Charis SIL','Doulos SIL','Gentium Plus','Lucida Sans Unicode',serif;font-size:1.4rem;color:var(--gold2);margin-top:.3rem;letter-spacing:.05em">
+        <span id="dict-ipa-value"></span>
+        <button class="icon-btn" onclick="speakDictWord()" title="Posłuchaj wymowy" style="margin-left:.4rem;font-size:.95rem">🔊</button>
+        <button class="icon-btn" onclick="editIpa()" title="Edytuj transkrypcję IPA" style="font-size:.85rem">✎</button>
+      </div>
+      <div id="dict-ipa-add" style="margin-top:.4rem">
+        <button class="btn btn-ghost" onclick="editIpa()" style="font-size:.75rem;padding:.3rem .7rem">🗣️ Dodaj transkrypcję IPA</button>
+      </div>
       <div class="dict-source-lang" id="dict-source-lang"></div>
       <div style="margin-top:1rem">
         <button class="star-btn" id="dict-star-btn" onclick="dictToggleStar()" title="Dodaj do listy 'Do nauki'">⭐ Dodaj do nauki</button>
@@ -1064,6 +1072,6 @@
   </div>
 </div>
 
-<script src="script.js?v=12"></script>
+<script src="script.js?v=13"></script>
 </body>
 </html>
