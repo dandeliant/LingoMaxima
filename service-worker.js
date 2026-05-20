@@ -1,6 +1,6 @@
 // LingoMaxima Service Worker — network-first dla głównych plików,
 // cache-first dla statyki. Bumpuj CACHE_VERSION przy każdej istotnej zmianie.
-var CACHE_VERSION="v4";
+var CACHE_VERSION="v5";
 var CACHE_NAME="lingomaxima-"+CACHE_VERSION;
 var CORE_ASSETS=[
   "./",

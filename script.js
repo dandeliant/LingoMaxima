@@ -2703,7 +2703,8 @@ function openSingleQuote(q){
     modal.innerHTML='<div class="modal" style="width:600px;max-width:90vw">'
       +'<div id="sq-content"></div>'
       +'<div class="modal-actions">'
-      +'<button class="btn btn-primary" onclick="shareQuote(currentSingleQuoteId)" data-i18n="btn_share">📤 Udostępnij</button>'
+      +'<button class="btn btn-primary" onclick="previewQuoteImage(currentSingleQuoteId)">📸 Obrazek</button>'
+      +'<button class="btn btn-ghost" onclick="shareQuote(currentSingleQuoteId)" data-i18n="btn_share">📤 Udostępnij</button>'
       +'<button class="btn btn-ghost" onclick="copyQuoteLink(currentSingleQuoteId)" data-i18n="btn_copy_link">🔗 Skopiuj link</button>'
       +'<button class="btn btn-ghost" onclick="closeSingleQuote()">Zamknij</button>'
       +'</div>'
@@ -2771,6 +2772,142 @@ function fallbackCopy(text){
 window.addEventListener("hashchange",function(){
   openQuoteByUrl();
 });
+
+// =================== SHAREABLE IMAGES (Canvas) ===================
+// Generuje obrazek 1080×1080 (Instagram-friendly) z cytatem do udostępniania
+function generateQuoteImage(id){
+  var q=quotes.find(function(x){return x.id===id});
+  if(!q){showToast("⚠️ Cytat nie znaleziony");return}
+  var canvas=document.createElement("canvas");
+  canvas.width=1080;canvas.height=1080;
+  var ctx=canvas.getContext("2d");
+  // Tło - gradient złoto-czarny
+  var grad=ctx.createLinearGradient(0,0,1080,1080);
+  grad.addColorStop(0,"#1a1612");
+  grad.addColorStop(0.5,"#2a1f15");
+  grad.addColorStop(1,"#1a1612");
+  ctx.fillStyle=grad;
+  ctx.fillRect(0,0,1080,1080);
+  // Ozdobna ramka
+  ctx.strokeStyle="#c9a84c";
+  ctx.lineWidth=4;
+  ctx.strokeRect(40,40,1000,1000);
+  ctx.lineWidth=1;
+  ctx.strokeRect(60,60,960,960);
+  // Logo na górze
+  ctx.fillStyle="#c9a84c";
+  ctx.font="bold 36px 'Cormorant Garamond', serif";
+  ctx.textAlign="center";
+  ctx.fillText("LingoMaxima",540,140);
+  // Flaga języka
+  var L=getLang(q.lang);
+  ctx.font="40px sans-serif";
+  ctx.fillText(L.flag,540,200);
+  // Cytat - text wrapping
+  ctx.fillStyle="#f4eccd";
+  ctx.font="italic 48px 'Cormorant Garamond', serif";
+  ctx.textAlign="center";
+  var lines=wrapText(ctx,'"'+q.text+'"',900);
+  var lineHeight=72;
+  var startY=540-(lines.length*lineHeight)/2;
+  // Jeśli za długi cytat - zmniejsz font
+  if(lines.length>8){
+    ctx.font="italic 36px 'Cormorant Garamond', serif";
+    lines=wrapText(ctx,'"'+q.text+'"',900);
+    lineHeight=54;
+    startY=540-(lines.length*lineHeight)/2;
+  }
+  lines.forEach(function(ln,i){ctx.fillText(ln,540,startY+i*lineHeight)});
+  // Autor
+  ctx.fillStyle="#c9a84c";
+  ctx.font="32px 'Cormorant Garamond', serif";
+  ctx.fillText("— "+q.author,540,900);
+  // Kategoria + poziom
+  ctx.fillStyle="#8a7a4a";
+  ctx.font="24px sans-serif";
+  var meta=getCatEmoji(q.cat)+" "+q.cat+(q.level?" · "+q.level:"");
+  ctx.fillText(meta,540,950);
+  // URL na dole
+  ctx.fillStyle="#6a5a3a";
+  ctx.font="20px sans-serif";
+  ctx.fillText("lingomaxima.app",540,1010);
+  return canvas;
+}
+
+function wrapText(ctx,text,maxWidth){
+  var words=text.split(" "),lines=[],cur="";
+  words.forEach(function(w){
+    var test=cur?cur+" "+w:w;
+    if(ctx.measureText(test).width>maxWidth&&cur){lines.push(cur);cur=w}
+    else{cur=test}
+  });
+  if(cur)lines.push(cur);
+  return lines;
+}
+
+function downloadQuoteImage(id){
+  var canvas=generateQuoteImage(id);
+  if(!canvas)return;
+  canvas.toBlob(function(blob){
+    var url=URL.createObjectURL(blob);
+    var a=document.createElement("a");
+    a.href=url;
+    a.download="lingomaxima-cytat-"+id+".png";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    setTimeout(function(){URL.revokeObjectURL(url)},1000);
+    showToast("📸 Obrazek pobrany!");
+  },"image/png");
+}
+
+function previewQuoteImage(id){
+  var canvas=generateQuoteImage(id);
+  if(!canvas)return;
+  var modal=document.getElementById("img-preview-modal");
+  if(!modal){
+    modal=document.createElement("div");
+    modal.id="img-preview-modal";
+    modal.className="modal-overlay";
+    modal.innerHTML='<div class="modal" style="width:auto;max-width:95vw">'
+      +'<div id="img-preview-container" style="text-align:center"></div>'
+      +'<div class="modal-actions">'
+      +'<button class="btn btn-primary" id="img-download-btn">⬇️ Pobierz PNG</button>'
+      +'<button class="btn btn-ghost" id="img-share-btn">📤 Udostępnij</button>'
+      +'<button class="btn btn-ghost" onclick="document.getElementById(\'img-preview-modal\').classList.remove(\'open\')">Zamknij</button>'
+      +'</div></div>';
+    document.body.appendChild(modal);
+  }
+  var container=document.getElementById("img-preview-container");
+  container.innerHTML="";
+  canvas.style.maxWidth="min(500px,80vw)";
+  canvas.style.height="auto";
+  canvas.style.borderRadius="12px";
+  canvas.style.boxShadow="0 8px 32px rgba(0,0,0,.5)";
+  container.appendChild(canvas);
+  document.getElementById("img-download-btn").onclick=function(){downloadQuoteImage(id)};
+  document.getElementById("img-share-btn").onclick=function(){shareQuoteImage(id)};
+  modal.classList.add("open");
+}
+
+function shareQuoteImage(id){
+  var canvas=generateQuoteImage(id);
+  if(!canvas)return;
+  var q=quotes.find(function(x){return x.id===id});
+  canvas.toBlob(function(blob){
+    var file=new File([blob],"cytat.png",{type:"image/png"});
+    if(navigator.canShare&&navigator.canShare({files:[file]})){
+      navigator.share({
+        title:"LingoMaxima",
+        text:'„'+q.text+'” — '+q.author,
+        files:[file]
+      }).catch(function(){});
+    } else {
+      // Fallback: pobierz
+      downloadQuoteImage(id);
+    }
+  },"image/png");
+}
 
 // =================== HAMBURGER NAV ===================
 function toggleNav(){
@@ -3599,6 +3736,7 @@ function buildBrowseCard(q,delay){
     +'<div class="card-actions">'
     +trBtn
     +'<button class="icon-btn" title="Skopiuj link" onclick="event.stopPropagation();copyQuoteLink('+q.id+')">🔗</button>'
+    +'<button class="icon-btn" title="Obrazek do udostępniania" onclick="event.stopPropagation();previewQuoteImage('+q.id+')">📸</button>'
     +'<button class="icon-btn" onclick="speakBrowse('+q.id+',this)">🔊</button>'
     +'<button class="icon-btn'+(isFav?' fav-on':'')+'" onclick="toggleBrowseFav('+q.id+',this)">♥</button>'
     +'</div></div>'
