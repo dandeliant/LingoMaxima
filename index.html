@@ -38,7 +38,7 @@
 </script>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <script src="https://code.responsivevoice.org/responsivevoice.js?key=FREE"></script>
-<link rel="stylesheet" href="styles.css?v=8">
+<link rel="stylesheet" href="styles.css?v=9">
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#c9a84c">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -122,6 +122,18 @@
     <div class="settings-body" id="settings-body">
       <div class="lang-toggles" id="lang-toggles"></div>
       <div class="settings-hint">Kliknij język, aby go włączyć lub wyłączyć. Wyłączone języki znikają ze strony głównej i nie biorą udziału w losowaniu.</div>
+      <div style="margin-top:1.4rem;padding-top:1.2rem;border-top:1px dashed var(--border)">
+        <div style="font-family:var(--ff-u);font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;color:var(--gold);margin-bottom:.6rem">🔊 Głos czytający (TTS)</div>
+        <div style="display:flex;gap:.6rem;flex-wrap:wrap;align-items:center">
+          <select id="tts-pref-select" onchange="setTTSPref(this.value);showToast('🔊 Preferencja zapisana')" style="background:var(--bg3);color:var(--cream);border:1px solid var(--border);border-radius:6px;padding:.4rem .7rem;font-family:var(--ff-u);font-size:.8rem">
+            <option value="google">⭐ Auto (Google neural / Natural — najlepsza jakość)</option>
+            <option value="responsivevoice">ResponsiveVoice (chmura)</option>
+            <option value="system">Tylko systemowy głos przeglądarki</option>
+          </select>
+          <button class="btn btn-ghost" onclick="showVoiceInfo()" style="font-size:.78rem;padding:.4rem .8rem">ℹ️ Jakie głosy mam dostępne?</button>
+        </div>
+        <div style="font-family:var(--ff-u);font-size:.7rem;color:var(--text3);margin-top:.5rem;line-height:1.5">Na Chrome i Edge dostępne są neuralne głosy Google/Microsoft — brzmią znacznie naturalniej. Aplikacja automatycznie wybiera najlepszy.</div>
+      </div>
     </div>
   </div>
 </div>
@@ -923,6 +935,6 @@
   </div>
 </div>
 
-<script src="script.js?v=8"></script>
+<script src="script.js?v=9"></script>
 </body>
 </html>

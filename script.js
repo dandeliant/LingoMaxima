@@ -3786,42 +3786,175 @@ function speakCard(code,btn){
   if(q)speakText(q.text,q.lang,btn);
 }
 
+// =================== TTS: PREFERUJ GOOGLE NEURAL VOICES ===================
+// Cache najlepszego głosu per locale (np. "pl-PL"), żeby nie skanować przy każdym kliknięciu
+var bestVoiceCache={};
+// Preferencja użytkownika: "google" (domyślnie) / "responsivevoice" / "system"
+function getTTSPref(){return localStorage.getItem("ql_tts_pref")||"google"}
+function setTTSPref(v){localStorage.setItem("ql_tts_pref",v);bestVoiceCache={}}
+
+// Scoring głosu — wyższy = lepszy
+function scoreVoice(v,langCode){
+  var name=(v.name||"").toLowerCase();
+  var s=0;
+  // Google neural (Chrome/Android) — najlepsze, darmowe, naturalne
+  if(name.indexOf("google")===0||/\bgoogle\b/.test(name))s+=100;
+  // Microsoft Natural / Neural (Edge) — bardzo dobre
+  if(name.indexOf("natural")!==-1)s+=85;
+  if(name.indexOf("neural")!==-1)s+=85;
+  // Apple Premium / Enhanced (macOS, iOS)
+  if(name.indexOf("premium")!==-1)s+=70;
+  if(name.indexOf("enhanced")!==-1)s+=60;
+  // Cloud voices (lepsza jakość)
+  if(v.localService===false)s+=30;
+  // Dokładny match locale (pl-PL > pl)
+  if(v.lang===langCode)s+=15;
+  // Preferuj kobiece głosy (zwykle bardziej naturalne dla cytatów)
+  if(/female|kobieta|женский|femme|frau|mujer/.test(name))s+=5;
+  if(v.default)s+=1;
+  return s;
+}
+
+function findBestVoice(langCode){
+  if(!window.speechSynthesis)return null;
+  if(bestVoiceCache[langCode]!==undefined)return bestVoiceCache[langCode];
+  var voices=window.speechSynthesis.getVoices();
+  if(!voices.length){bestVoiceCache[langCode]=null;return null}
+  var prefix=langCode.split("-")[0];
+  var matches=voices.filter(function(v){
+    return v.lang===langCode||v.lang.indexOf(prefix+"-")===0||v.lang===prefix||v.lang.replace("_","-").indexOf(prefix)===0;
+  });
+  if(!matches.length){bestVoiceCache[langCode]=null;return null}
+  matches.sort(function(a,b){return scoreVoice(b,langCode)-scoreVoice(a,langCode)});
+  bestVoiceCache[langCode]=matches[0];
+  return matches[0];
+}
+
 function speakText(text,lang,btn){
   var L=getLang(lang);
   if(!L)return;
-  // Zatrzymaj jeśli coś gra
-  if(window.responsiveVoice&&responsiveVoice.isPlaying()){
-    responsiveVoice.cancel();
-    if(window._rvBtn)window._rvBtn.classList.remove("speaking");
-    if(window._rvBtn===btn){isSpeaking=false;window._rvBtn=null;return}
+  // Zatrzymaj wszystko co aktualnie gra
+  if(window.responsiveVoice&&responsiveVoice.isPlaying())responsiveVoice.cancel();
+  if(window.speechSynthesis&&window.speechSynthesis.speaking)window.speechSynthesis.cancel();
+  if(window._ttsBtn){window._ttsBtn.classList.remove("speaking");if(window._ttsBtn===btn){isSpeaking=false;window._ttsBtn=null;return}window._ttsBtn=null}
+  isSpeaking=false;
+
+  var pref=getTTSPref();
+  var bestVoice=findBestVoice(L.voice);
+  // Decyzja: jeśli mamy Google/Natural/Neural i pref="google" → speechSynthesis
+  // Jeśli nie, próbujemy ResponsiveVoice, potem system fallback
+  var useNative=false;
+  if(pref==="system"||pref==="google"){
+    if(bestVoice){
+      var sc=scoreVoice(bestVoice,L.voice);
+      // Tylko jeśli głos jest "premium" (>=50) — czyli Google/Neural/Natural/Premium
+      // Inaczej wolimy ResponsiveVoice (zwykle lepsze od Microsoft Paulina itp.)
+      if(pref==="system"||sc>=50)useNative=true;
+    }
   }
-  if(window.responsiveVoice){
-    // ResponsiveVoice = Google TTS — naturalny głos
+  if(pref==="responsivevoice")useNative=false;
+
+  if(useNative&&bestVoice){
     isSpeaking=true;
-    window._rvBtn=btn||null;
+    window._ttsBtn=btn||null;
+    if(btn)btn.classList.add("speaking");
+    var u=new SpeechSynthesisUtterance(text);
+    u.voice=bestVoice;
+    u.lang=bestVoice.lang;
+    u.rate=0.92;
+    u.pitch=1;
+    var done=function(){isSpeaking=false;if(btn)btn.classList.remove("speaking");window._ttsBtn=null};
+    u.onend=done;
+    u.onerror=function(e){done();console.warn("TTS error:",e)};
+    window.speechSynthesis.speak(u);
+    // Chrome bug: utterances >~200 znaków bywają ucinane — keepalive
+    if(text.length>200&&window._ttsKeepAlive)clearInterval(window._ttsKeepAlive);
+    if(text.length>200){
+      window._ttsKeepAlive=setInterval(function(){
+        if(!window.speechSynthesis.speaking){clearInterval(window._ttsKeepAlive);window._ttsKeepAlive=null;return}
+        window.speechSynthesis.pause();window.speechSynthesis.resume();
+      },10000);
+    }
+  } else if(window.responsiveVoice){
+    isSpeaking=true;
+    window._ttsBtn=btn||null;
     if(btn)btn.classList.add("speaking");
     responsiveVoice.speak(text,L.rvVoice,{
       rate:0.92,
-      onend:function(){isSpeaking=false;if(btn)btn.classList.remove("speaking");window._rvBtn=null},
-      onerror:function(){isSpeaking=false;if(btn)btn.classList.remove("speaking");window._rvBtn=null;showToast("⚠️ Błąd TTS — sprawdź połączenie")}
+      onend:function(){isSpeaking=false;if(btn)btn.classList.remove("speaking");window._ttsBtn=null},
+      onerror:function(){isSpeaking=false;if(btn)btn.classList.remove("speaking");window._ttsBtn=null;showToast("⚠️ Błąd TTS — sprawdź połączenie")}
     });
-  } else {
-    // Fallback: głosy wbudowane w przeglądarkę
-    if(!window.speechSynthesis){showToast("Brak obsługi TTS");return}
-    if(isSpeaking)window.speechSynthesis.cancel();
-    var u=new SpeechSynthesisUtterance(text);
-    u.lang=L.voice;u.rate=0.9;
-    var voices=window.speechSynthesis.getVoices();
-    var v=voices.find(function(v){return v.lang===L.voice})||voices.find(function(v){return v.lang.startsWith(lang)});
-    if(v)u.voice=v;
-    if(btn){
-      btn.classList.add("speaking");
-      var done=function(){isSpeaking=false;btn.classList.remove("speaking")};
-      u.onend=done;u.onerror=done;
-    }
+  } else if(window.speechSynthesis){
+    // Ostateczny fallback — jakikolwiek głos systemowy
     isSpeaking=true;
-    window.speechSynthesis.speak(u);
+    window._ttsBtn=btn||null;
+    if(btn)btn.classList.add("speaking");
+    var u2=new SpeechSynthesisUtterance(text);
+    u2.lang=L.voice;u2.rate=0.9;
+    if(bestVoice)u2.voice=bestVoice;
+    u2.onend=u2.onerror=function(){isSpeaking=false;if(btn)btn.classList.remove("speaking");window._ttsBtn=null};
+    window.speechSynthesis.speak(u2);
+  } else {
+    showToast("Brak obsługi TTS w tej przeglądarce");
   }
+}
+
+// Debug: pokaż listę dostępnych głosów (admin może wywołać z konsoli)
+function listAvailableVoices(){
+  if(!window.speechSynthesis)return [];
+  var voices=window.speechSynthesis.getVoices();
+  return voices.map(function(v){
+    return {name:v.name,lang:v.lang,local:v.localService,score_pl:scoreVoice(v,"pl-PL")};
+  }).sort(function(a,b){return b.score_pl-a.score_pl});
+}
+
+// Modal pokazujący jakie głosy aplikacja wybiera dla każdego z 6 języków
+function showVoiceInfo(){
+  var modal=document.getElementById("voice-info-modal");
+  if(!modal){
+    modal=document.createElement("div");
+    modal.id="voice-info-modal";
+    modal.className="modal-overlay";
+    modal.innerHTML='<div class="modal" style="width:600px;max-width:95vw">'
+      +'<div class="modal-title">🔊 Dostępne głosy TTS</div>'
+      +'<div id="voice-info-body" style="font-family:var(--ff-u);font-size:.85rem;color:var(--text);max-height:60vh;overflow-y:auto"></div>'
+      +'<div class="modal-actions"><button class="btn btn-primary" onclick="document.getElementById(\'voice-info-modal\').classList.remove(\'open\')">Zamknij</button></div>'
+      +'</div>';
+    document.body.appendChild(modal);
+  }
+  var body=document.getElementById("voice-info-body");
+  body.innerHTML="";
+  if(!window.speechSynthesis){body.innerHTML='<div style="padding:1rem;color:var(--text3)">Twoja przeglądarka nie obsługuje Web Speech API.</div>';modal.classList.add("open");return}
+  var voices=window.speechSynthesis.getVoices();
+  if(!voices.length){
+    body.innerHTML='<div style="padding:1rem;color:var(--text3)">Brak załadowanych głosów. Spróbuj odświeżyć stronę.</div>';
+    modal.classList.add("open");
+    return;
+  }
+  var html='<p style="color:var(--text2);margin:0 0 1rem">Dla każdego języka pokazujemy <strong style="color:var(--gold)">wybrany głos</strong>. Im wyższy score, tym lepsza jakość.</p>';
+  LANGS.forEach(function(L){
+    var best=findBestVoice(L.voice);
+    html+='<div style="background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:.7rem 1rem;margin-bottom:.5rem">';
+    html+='<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.3rem">';
+    html+='<strong style="color:'+L.color+';font-size:.95rem">'+L.flag+' '+L.label+' <span style="color:var(--text3);font-size:.75rem;font-weight:normal">('+L.voice+')</span></strong>';
+    if(best){
+      var sc=scoreVoice(best,L.voice);
+      var badge=sc>=100?'⭐ Google':sc>=85?'⭐ Natural':sc>=70?'✦ Premium':sc>=50?'✦ Enhanced':'⚪ Standard';
+      html+='<span style="font-size:.72rem;color:'+(sc>=70?"var(--gold)":"var(--text3)")+'">'+badge+' · score '+sc+'</span>';
+    }
+    html+='</div>';
+    if(best){
+      html+='<div style="color:var(--cream);font-size:.85rem">'+best.name+'</div>';
+      html+='<div style="color:var(--text3);font-size:.7rem;margin-top:.2rem">'+best.lang+(best.localService?' · lokalny':' · z chmury')+'</div>';
+    } else {
+      html+='<div style="color:var(--text3)">⚠️ Brak głosu dla tego języka</div>';
+    }
+    html+='</div>';
+  });
+  // Pokaż ile w sumie
+  html+='<div style="margin-top:.8rem;font-size:.75rem;color:var(--text3);text-align:center">Łącznie dostępnych głosów: '+voices.length+' · Google neural: '+voices.filter(function(v){return /google/i.test(v.name)}).length+'</div>';
+  body.innerHTML=html;
+  modal.classList.add("open");
 }
 
 function toggleFavorite(id){
@@ -5286,9 +5419,16 @@ window.addEventListener("load",function(){
   var eqTid=document.getElementById("eq-tid");
   if(eqTid)eqTid.addEventListener("input",function(){updateTidHint("eq-tid-hint",this.value)});
   if(window.speechSynthesis){
-    window.speechSynthesis.onvoiceschanged=function(){};
+    // Chrome ładuje listę głosów async — trigger + listener na zmiany
     window.speechSynthesis.getVoices();
+    window.speechSynthesis.onvoiceschanged=function(){
+      bestVoiceCache={}; // Refresh cache po dynamicznym załadowaniu Google voices
+      window.speechSynthesis.getVoices();
+    };
   }
+  // Załaduj preferencję TTS do selecta
+  var ttsSel=document.getElementById("tts-pref-select");
+  if(ttsSel)ttsSel.value=getTTSPref();
   if(!localStorage.getItem("ql_promo")){
     setTimeout(function(){
       document.getElementById("promo-modal").classList.add("open");
