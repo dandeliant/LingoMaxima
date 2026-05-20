@@ -3587,16 +3587,32 @@ function getLang(code){return LANGS.find(function(l){return l.code===code})}
 
 function rollAll(animate){
   if(animate===undefined)animate=true;
-  activeLangs.forEach(function(code){rollLang(code,animate)});
+  if(!quotes||!quotes.length){showToast("⚠️ Baza cytatów jeszcze się ładuje…");return}
+  if(!activeLangs||!activeLangs.length){showToast("⚠️ Włącz przynajmniej jeden język w ustawieniach");return}
+  var rolled=0;
+  activeLangs.forEach(function(code){if(rollLang(code,animate))rolled++});
+  // Odśwież także cytat dnia (jeśli był ukryty — przywróć)
+  localStorage.removeItem("ql_daily_dismissed");
+  if(typeof renderDailyQuote==="function")renderDailyQuote();
+  if(rolled===0)showToast("⚠️ Brak cytatów dla aktywnych języków");
 }
 
 function rollLang(code,animate){
   if(animate===undefined)animate=true;
   var pool=quotes.filter(function(q){return q.lang===code});
-  if(!pool.length)return;
-  var q=pool[Math.floor(Math.random()*pool.length)];
+  if(!pool.length)return false;
+  // Wymuszaj inny cytat niż obecnie pokazywany (jeśli pula >1)
+  var prevId=currentQuotePerLang[code];
+  var q;
+  if(pool.length>1&&prevId){
+    var tries=0;
+    do{q=pool[Math.floor(Math.random()*pool.length)];tries++}while(q.id===prevId&&tries<10);
+  } else {
+    q=pool[Math.floor(Math.random()*pool.length)];
+  }
   currentQuotePerLang[code]=q.id;
   updateLangCard(code,q,animate);
+  return true;
 }
 
 function updateLangCard(code,q,animate){
@@ -5319,13 +5335,18 @@ function renderDailyQuote(){
   // Sprawdź, czy user nie zamknął cytatu dziś
   var today=srsDueDates();
   var dismissed=localStorage.getItem("ql_daily_dismissed");
-  if(dismissed===today)return;
+  if(dismissed===today){
+    // Pokaż dyskretny przycisk przywrócenia
+    box.style.display="block";
+    box.innerHTML='<div style="text-align:center;padding:.6rem"><button class="btn btn-ghost" onclick="restoreDailyQuote()" style="font-size:.78rem">✦ Pokaż cytat dnia</button></div>';
+    return;
+  }
   var q=pickDailyQuote();
   var L=getLang(q.lang);
   box.style.display="block";
   box.innerHTML=
     '<div class="daily-quote-card">'+
-      '<button class="daily-quote-close" onclick="dismissDailyQuote()" title="Ukryj na dzisiaj">×</button>'+
+      '<button class="daily-quote-close" onclick="dismissDailyQuote()" title="Ukryj na dzisiaj (możesz przywrócić poniżej)">×</button>'+
       '<div class="daily-quote-label">✦ Cytat dnia ✦</div>'+
       '<div class="daily-quote-text">"'+q.text+'"</div>'+
       '<div class="daily-quote-author">— '+q.author+'</div>'+
@@ -5335,8 +5356,12 @@ function renderDailyQuote(){
 
 function dismissDailyQuote(){
   localStorage.setItem("ql_daily_dismissed",srsDueDates());
-  var box=document.getElementById("daily-quote-box");
-  if(box)box.style.display="none";
+  renderDailyQuote();
+}
+
+function restoreDailyQuote(){
+  localStorage.removeItem("ql_daily_dismissed");
+  renderDailyQuote();
 }
 
 function setupDailyNotification(){
