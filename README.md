@@ -43,6 +43,16 @@
 - **Działa offline** dzięki Service Worker
 - **Powiadomienia push** — cytat dnia o 8:00 rano
 
+### 🌍 Społeczność i udostępnianie
+- **🌐 Wielojęzyczny UI** — interfejs w 6 językach (PL/EN/DE/FR/ES/RU), auto-detekcja
+- **💫 Sytuacje życiowe** — wybierz nastrój (Motywacja, Smutek, Miłość, Strata, Rodzina, Sukces, Czas, Mądrość, Wątpliwości, Nadzieja, Przyjaźń, Odwaga) → odpowiednie cytaty
+- **🔗 URL per cytat** — `#/q/123` deep linking, każdy cytat ma własny link
+- **📸 Obrazki PNG 1080×1080** — generator obrazków cytatów (Instagram-ready) przez Canvas API
+- **📤 Web Share API** — natywne udostępnianie pliku + tekstu na mobile
+- **✍️ Propozycje cytatów** — użytkownicy mogą zgłaszać własne cytaty przez formularz
+- **🗳️ Moderacja** — admin pobiera propozycje z GitHub Issues, zatwierdza/odrzuca jednym klikiem
+- **🔍 SEO** — meta tags, Open Graph, Twitter Card, JSON-LD (Quotation schema) per cytat
+
 ### ⚙️ Admin
 - **Konto: Daniel / Cytaty17!** (SHA-256, kod nie zawiera jawnego hasła)
 - Dodawanie, edycja, usuwanie cytatów
@@ -78,6 +88,8 @@ Aplikacja jest **w pełni client-side** — działa po otwarciu `index.html` bez
 - `ql_daily_dismissed` — czy zamknąłeś cytat dnia dziś
 - `ql_db_seed_version` — wersja seedu bazy (do migracji)
 - `ql_seen` — przeczytane cytaty (dla odznaki „Odkrywca")
+- `ql_ui_lang` — wybrany język interfejsu (pl/en/de/fr/es/ru)
+- `ql_submissions` — propozycje cytatów od użytkowników (pending/approved/rejected)
 
 ## 🛠️ Tech stack
 
@@ -88,7 +100,12 @@ Aplikacja jest **w pełni client-side** — działa po otwarciu `index.html` bez
 - SpeechSynthesis + ResponsiveVoice (TTS)
 - MyMemory API (tłumaczenia w słowniku)
 - Notification API (powiadomienia push)
-- Service Worker (offline + cache)
+- Service Worker (offline + cache, network-first)
+- Canvas API (generowanie obrazków cytatów PNG 1080×1080)
+- Web Share API (natywne udostępnianie z plikiem)
+- GitHub Issues API (kolejka propozycji od użytkowników)
+- Open Graph + Twitter Card + JSON-LD (SEO i preview na social)
+- Hash-based routing (`#/q/ID`) dla deep linkingu cytatów
 - `@media print` z 5 trybami druku
 
 ## 🚀 Live
