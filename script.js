@@ -2617,6 +2617,161 @@ function makeClickableWords(text,lang,container){
   });
 }
 
+// =================== URL ROUTING + SEO META ===================
+// Hash-based routing dla cytatów: #/q/123 otwiera cytat 123
+// Aktualizuje meta tagi (OG, Twitter Card) dla ładnego preview przy udostępnianiu
+
+function quoteUrl(quoteId){
+  var base=window.location.origin+window.location.pathname;
+  return base+"#/q/"+quoteId;
+}
+
+function updateMetaForQuote(q){
+  if(!q)return resetMeta();
+  var L=getLang(q.lang);
+  var langName=L?L.label:q.lang;
+  var title="„"+q.text.substring(0,80)+(q.text.length>80?"…":"")+"” — "+q.author+" · LingoMaxima";
+  var desc=q.text+" — "+q.author+" ("+langName+", LingoMaxima)";
+  document.title=title;
+  setMeta("description",desc);
+  setMeta("og:title",title,"property");
+  setMeta("og:description",desc,"property");
+  setMeta("og:url",quoteUrl(q.id),"property");
+  setMeta("og:type","article","property");
+  setMeta("twitter:title",title);
+  setMeta("twitter:description",desc);
+  // Dodaj JSON-LD per cytat
+  var schema={
+    "@context":"https://schema.org",
+    "@type":"Quotation",
+    "text":q.text,
+    "creator":{"@type":"Person","name":q.author},
+    "inLanguage":q.lang,
+    "url":quoteUrl(q.id)
+  };
+  var script=document.getElementById("quote-schema");
+  if(!script){
+    script=document.createElement("script");
+    script.type="application/ld+json";
+    script.id="quote-schema";
+    document.head.appendChild(script);
+  }
+  script.textContent=JSON.stringify(schema);
+}
+
+function resetMeta(){
+  document.title="LingoMaxima — Cytaty świata w 6 językach";
+  setMeta("description","Ponad 1700 cytatów w 6 językach (polski, angielski, niemiecki, francuski, hiszpański, rosyjski). Nauka języków przez sentencje wielkich myślicieli.");
+  setMeta("og:title","LingoMaxima — Cytaty świata w 6 językach","property");
+  setMeta("og:description","Najsłynniejsze cytaty świata w 6 językach.","property");
+  setMeta("og:url",window.location.origin+window.location.pathname,"property");
+  setMeta("og:type","website","property");
+  var sch=document.getElementById("quote-schema");
+  if(sch)sch.remove();
+}
+
+function setMeta(name,content,attr){
+  attr=attr||"name";
+  var el=document.querySelector("meta["+attr+"='"+name+"']");
+  if(!el){
+    el=document.createElement("meta");
+    el.setAttribute(attr,name);
+    document.head.appendChild(el);
+  }
+  el.setAttribute("content",content);
+}
+
+function openQuoteByUrl(){
+  var hash=window.location.hash||"";
+  var match=hash.match(/^#\/q\/(\d+)/);
+  if(!match){resetMeta();return}
+  var id=parseInt(match[1],10);
+  var q=quotes.find(function(x){return x.id===id});
+  if(!q){showToast("⚠️ Cytat nie znaleziony");return}
+  // Otwórz modal/widok pojedynczego cytatu
+  openSingleQuote(q);
+}
+
+function openSingleQuote(q){
+  updateMetaForQuote(q);
+  // Pokaż modal z dedykowanym cytatem
+  var modal=document.getElementById("single-quote-modal");
+  if(!modal){
+    modal=document.createElement("div");
+    modal.id="single-quote-modal";
+    modal.className="modal-overlay";
+    modal.innerHTML='<div class="modal" style="width:600px;max-width:90vw">'
+      +'<div id="sq-content"></div>'
+      +'<div class="modal-actions">'
+      +'<button class="btn btn-primary" onclick="shareQuote(currentSingleQuoteId)" data-i18n="btn_share">📤 Udostępnij</button>'
+      +'<button class="btn btn-ghost" onclick="copyQuoteLink(currentSingleQuoteId)" data-i18n="btn_copy_link">🔗 Skopiuj link</button>'
+      +'<button class="btn btn-ghost" onclick="closeSingleQuote()">Zamknij</button>'
+      +'</div>'
+      +'</div>';
+    document.body.appendChild(modal);
+  }
+  window.currentSingleQuoteId=q.id;
+  var L=getLang(q.lang);
+  var trCount=q.tid?quotes.filter(function(x){return x.tid===q.tid}).length:1;
+  var trBtn=trCount>1?'<button class="btn btn-ghost" style="margin-top:1rem" onclick="openTranslationsModal('+q.id+');closeSingleQuote()">🌐 Zobacz '+trCount+' tłumaczeń</button>':'';
+  document.getElementById("sq-content").innerHTML=
+    '<div style="text-align:center;margin-bottom:1rem">'
+      +'<div style="font-family:var(--ff-u);font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;color:'+L.color+'">'+L.flag+' '+L.label+'</div>'
+    +'</div>'
+    +'<div style="font-family:var(--ff-d);font-style:italic;font-size:1.4rem;color:var(--cream);line-height:1.6;text-align:center;padding:1.2rem 0">"'+q.text+'"</div>'
+    +'<div style="text-align:center;font-family:var(--ff-u);font-size:.85rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-top:.5rem">— '+q.author+'</div>'
+    +'<div style="text-align:center;margin-top:.6rem">'+getCatEmoji(q.cat)+' '+q.cat+(q.level?' · <span class="cefr-badge cefr-'+q.level.toLowerCase()+'">'+q.level+'</span>':'')+'</div>'
+    +trBtn;
+  modal.classList.add("open");
+}
+
+function closeSingleQuote(){
+  var modal=document.getElementById("single-quote-modal");
+  if(modal)modal.classList.remove("open");
+  resetMeta();
+  // Wyczyść hash bez przeładowania strony
+  if(window.history&&window.history.replaceState){
+    window.history.replaceState(null,"",window.location.pathname);
+  }
+}
+
+function shareQuote(id){
+  var q=quotes.find(function(x){return x.id===id});
+  if(!q)return;
+  var url=quoteUrl(id);
+  var text='„'+q.text+'” — '+q.author;
+  if(navigator.share){
+    navigator.share({title:"LingoMaxima",text:text,url:url}).catch(function(){});
+  } else {
+    copyQuoteLink(id);
+  }
+}
+
+function copyQuoteLink(id){
+  var url=quoteUrl(id);
+  if(navigator.clipboard){
+    navigator.clipboard.writeText(url).then(function(){
+      showToast("🔗 Link skopiowany!");
+    }).catch(function(){
+      fallbackCopy(url);
+    });
+  } else {
+    fallbackCopy(url);
+  }
+}
+
+function fallbackCopy(text){
+  var ta=document.createElement("textarea");
+  ta.value=text;document.body.appendChild(ta);ta.select();
+  try{document.execCommand("copy");showToast("🔗 Link skopiowany!")}
+  catch(e){showToast("ℹ️ Skopiuj ręcznie: "+text)}
+  document.body.removeChild(ta);
+}
+
+window.addEventListener("hashchange",function(){
+  openQuoteByUrl();
+});
+
 // =================== HAMBURGER NAV ===================
 function toggleNav(){
   var links=document.getElementById("nav-links");
@@ -3443,6 +3598,7 @@ function buildBrowseCard(q,delay){
     +'<div class="card-lang" style="color:'+L.color+'">'+L.flag+' '+L.label+levelBadge+'</div>'
     +'<div class="card-actions">'
     +trBtn
+    +'<button class="icon-btn" title="Skopiuj link" onclick="event.stopPropagation();copyQuoteLink('+q.id+')">🔗</button>'
     +'<button class="icon-btn" onclick="speakBrowse('+q.id+',this)">🔊</button>'
     +'<button class="icon-btn'+(isFav?' fav-on':'')+'" onclick="toggleBrowseFav('+q.id+',this)">♥</button>'
     +'</div></div>'
@@ -4797,5 +4953,9 @@ window.addEventListener("load",function(){
       document.getElementById("promo-modal").classList.add("open");
       localStorage.setItem("ql_promo","1");
     },35000);
+  }
+  // Otwórz pojedynczy cytat jeśli URL zawiera #/q/ID (deep linking)
+  if(window.location.hash&&window.location.hash.indexOf("#/q/")===0){
+    setTimeout(function(){openQuoteByUrl()},100);
   }
 });
