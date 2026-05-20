@@ -2909,6 +2909,55 @@ function shareQuoteImage(id){
   },"image/png");
 }
 
+// =================== USER SUBMISSIONS ===================
+// Lokalna kolejka propozycji + pre-fill GitHub Issue dla łatwego pull requestu
+var GITHUB_REPO="dandeliant/LingoMaxima";
+
+function openSubmitModal(){
+  var m=document.getElementById("submit-modal");
+  if(m)m.classList.add("open");
+}
+
+function submitQuoteProposal(){
+  var text=document.getElementById("sub-text").value.trim();
+  var author=document.getElementById("sub-author").value.trim();
+  var lang=document.getElementById("sub-lang").value;
+  var cat=document.getElementById("sub-cat").value;
+  var email=document.getElementById("sub-email").value.trim();
+  if(!text||!author){showToast("⚠️ Treść i autor są wymagane");return}
+  if(text.length<10){showToast("⚠️ Cytat za krótki (min. 10 znaków)");return}
+  if(text.length>500){showToast("⚠️ Cytat za długi (max. 500 znaków)");return}
+  // Zapisz lokalnie (dla moderacji w panelu admina)
+  var subs=JSON.parse(localStorage.getItem("ql_submissions")||"[]");
+  var submission={
+    id:Date.now(),
+    text:text,
+    author:author,
+    lang:lang,
+    cat:cat,
+    email:email,
+    createdAt:new Date().toISOString(),
+    status:"pending" // pending / approved / rejected
+  };
+  subs.push(submission);
+  localStorage.setItem("ql_submissions",JSON.stringify(subs));
+  // Pre-fill GitHub Issue (otwórz w nowej karcie)
+  var issueTitle="Cytat: "+author+" ("+lang+")";
+  var issueBody="**Cytat:**\n"+text+"\n\n**Autor:** "+author+"\n**Język:** "+lang+"\n**Kategoria:** "+cat;
+  if(email)issueBody+="\n**Email proponenta:** "+email;
+  issueBody+="\n\n---\n_Zgłoszone przez formularz w aplikacji LingoMaxima_";
+  var issueUrl="https://github.com/"+GITHUB_REPO+"/issues/new?title="+encodeURIComponent(issueTitle)+"&body="+encodeURIComponent(issueBody)+"&labels=user-submission";
+  window.open(issueUrl,"_blank");
+  // Wyczyść form i zamknij modal
+  document.getElementById("sub-text").value="";
+  document.getElementById("sub-author").value="";
+  document.getElementById("sub-email").value="";
+  document.getElementById("submit-modal").classList.remove("open");
+  showToast("✅ Dziękujemy! Propozycja zapisana — GitHub Issue otwarty w nowej karcie.");
+  // Sprawdź odznakę "First submission"
+  if(subs.length===1)unlockAchievement&&unlockAchievement("first_submission");
+}
+
 // =================== HAMBURGER NAV ===================
 function toggleNav(){
   var links=document.getElementById("nav-links");

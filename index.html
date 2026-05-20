@@ -38,7 +38,7 @@
 </script>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <script src="https://code.responsivevoice.org/responsivevoice.js?key=FREE"></script>
-<link rel="stylesheet" href="styles.css?v=5">
+<link rel="stylesheet" href="styles.css?v=6">
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#c9a84c">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -94,6 +94,7 @@
       </button>
       <button class="btn btn-ghost" id="install-btn" onclick="installPWA()" style="display:none" data-i18n="btn_install">📱 Zainstaluj apkę</button>
       <button class="btn btn-ghost" id="notif-btn" onclick="setupDailyNotification()" data-i18n="btn_notifications">🔔 Cytat dnia (powiadomienia)</button>
+      <button class="btn btn-ghost" onclick="openSubmitModal()" data-i18n="btn_submit_quote">✍️ Zaproponuj cytat</button>
     </div>
   </div>
 
@@ -855,6 +856,44 @@
   </div>
 </div>
 
+<!-- SUBMIT QUOTE MODAL -->
+<div class="modal-overlay" id="submit-modal">
+  <div class="modal" style="width:560px;max-width:92vw">
+    <div class="modal-title" data-i18n="submit_title">✍️ Zaproponuj cytat</div>
+    <p style="font-family:var(--ff-u);font-size:.83rem;color:var(--text2);line-height:1.6" data-i18n="submit_desc">Twoja propozycja trafi do moderacji. Po akceptacji pojawi się w bibliotece LingoMaxima.</p>
+    <div style="display:flex;flex-direction:column;gap:.8rem;margin-top:1rem">
+      <label style="font-family:var(--ff-u);font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;color:var(--text3)" data-i18n="submit_text_label">Treść cytatu *</label>
+      <textarea id="sub-text" rows="3" placeholder="„Treść cytatu...”" style="width:100%;padding:.7rem;background:var(--bg3);border:1px solid var(--border);border-radius:8px;color:var(--cream);font-family:var(--ff-d);font-style:italic;font-size:1rem"></textarea>
+      <label style="font-family:var(--ff-u);font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;color:var(--text3)" data-i18n="submit_author_label">Autor *</label>
+      <input id="sub-author" type="text" placeholder="Imię i nazwisko" style="width:100%;padding:.7rem;background:var(--bg3);border:1px solid var(--border);border-radius:8px;color:var(--cream)">
+      <label style="font-family:var(--ff-u);font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;color:var(--text3)" data-i18n="submit_lang_label">Język *</label>
+      <select id="sub-lang" style="width:100%;padding:.7rem;background:var(--bg3);border:1px solid var(--border);border-radius:8px;color:var(--cream)">
+        <option value="pl">🇵🇱 Polski</option>
+        <option value="en">🇬🇧 English</option>
+        <option value="de">🇩🇪 Deutsch</option>
+        <option value="fr">🇫🇷 Français</option>
+        <option value="es">🇪🇸 Español</option>
+        <option value="ru">🇷🇺 Русский</option>
+      </select>
+      <label style="font-family:var(--ff-u);font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;color:var(--text3)" data-i18n="submit_cat_label">Kategoria</label>
+      <select id="sub-cat" style="width:100%;padding:.7rem;background:var(--bg3);border:1px solid var(--border);border-radius:8px;color:var(--cream)">
+        <option value="Filozofia">🧠 Filozofia</option>
+        <option value="Miłość">❤️ Miłość</option>
+        <option value="Życie">🌿 Życie</option>
+        <option value="Sukces">🏆 Sukces</option>
+        <option value="Motywacja">⚡ Motywacja</option>
+        <option value="Mądrość">✨ Mądrość</option>
+      </select>
+      <label style="font-family:var(--ff-u);font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;color:var(--text3)" data-i18n="submit_email_label">Twój email (opcjonalnie, na info o akceptacji)</label>
+      <input id="sub-email" type="email" placeholder="ty@example.com" style="width:100%;padding:.7rem;background:var(--bg3);border:1px solid var(--border);border-radius:8px;color:var(--cream)">
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-primary" onclick="submitQuoteProposal()" data-i18n="submit_send">📤 Wyślij propozycję</button>
+      <button class="btn btn-ghost" onclick="document.getElementById('submit-modal').classList.remove('open')" data-i18n="submit_cancel">Anuluj</button>
+    </div>
+  </div>
+</div>
+
 <!-- PROMO MODAL -->
 <div class="modal-overlay" id="promo-modal">
   <div class="modal">
@@ -874,6 +913,6 @@
   </div>
 </div>
 
-<script src="script.js?v=5"></script>
+<script src="script.js?v=6"></script>
 </body>
 </html>
