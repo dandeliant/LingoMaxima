@@ -3729,6 +3729,8 @@ function clearMoodFilter(){
 function buildLangCards(){
   var grid=document.getElementById("lang-cards-grid");
   grid.innerHTML="";
+  // Klasa "single" dla wyśrodkowania jednej karty
+  grid.classList.toggle("single",activeLangs.length===1);
   var delay=0;
   LANGS.forEach(function(L){
     if(activeLangs.indexOf(L.code)===-1)return;
@@ -3745,6 +3747,8 @@ function buildLangCards(){
       +'<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>'
       +'</button>'
       +'<button class="icon-btn tr-btn" title="Tłumaczenia" onclick="openTranslationsForCard(\''+L.code+'\')" style="display:none">🌐<span class="tr-badge"></span></button>'
+      +'<button class="icon-btn" title="Skopiuj link" onclick="copyCardLink(\''+L.code+'\')">🔗</button>'
+      +'<button class="icon-btn" title="Obrazek do udostępniania" onclick="previewCardImage(\''+L.code+'\')">📸</button>'
       +'<button class="icon-btn" title="Odsłuchaj" onclick="speakCard(\''+L.code+'\',this)">🔊</button>'
       +'<button class="icon-btn fav-btn" title="Ulubione" onclick="toggleCardFav(\''+L.code+'\',this)">♥</button>'
       +'</div></div>'
@@ -3753,6 +3757,16 @@ function buildLangCards(){
     grid.appendChild(card);
     rollLang(L.code,false);
   });
+}
+
+// Helpers — pobierają aktualny cytat z karty i przekazują do globalnych funkcji
+function copyCardLink(code){
+  var id=currentQuotePerLang[code];
+  if(id)copyQuoteLink(id);else showToast("⚠️ Brak cytatu");
+}
+function previewCardImage(code){
+  var id=currentQuotePerLang[code];
+  if(id)previewQuoteImage(id);else showToast("⚠️ Brak cytatu");
 }
 
 function buildLangToggles(){
@@ -5343,6 +5357,9 @@ function renderDailyQuote(){
   }
   var q=pickDailyQuote();
   var L=getLang(q.lang);
+  var isFav=favorites.indexOf(q.id)!==-1;
+  var trCount=q.tid?quotes.filter(function(x){return x.tid===q.tid}).length:1;
+  var trBtn=trCount>1?'<button class="icon-btn tr-btn" title="Tłumaczenia ('+trCount+' jęz.)" onclick="openTranslationsModal('+q.id+')">🌐<span class="tr-badge">'+trCount+'</span></button>':'';
   box.style.display="block";
   box.innerHTML=
     '<div class="daily-quote-card">'+
@@ -5351,7 +5368,24 @@ function renderDailyQuote(){
       '<div class="daily-quote-text">"'+q.text+'"</div>'+
       '<div class="daily-quote-author">— '+q.author+'</div>'+
       '<div class="daily-quote-lang">'+L.flag+' '+L.label+'</div>'+
+      '<div class="daily-quote-actions">'+
+        trBtn+
+        '<button class="icon-btn" title="Skopiuj link" onclick="copyQuoteLink('+q.id+')">🔗</button>'+
+        '<button class="icon-btn" title="Obrazek do udostępniania" onclick="previewQuoteImage('+q.id+')">📸</button>'+
+        '<button class="icon-btn" title="Odsłuchaj" onclick="speakQuoteById('+q.id+',this)">🔊</button>'+
+        '<button class="icon-btn'+(isFav?' fav-on':'')+'" title="Ulubione" onclick="toggleDailyFav('+q.id+',this)">♥</button>'+
+      '</div>'+
     '</div>';
+}
+
+function speakQuoteById(id,btn){
+  var q=quotes.find(function(x){return x.id===id});
+  if(q)speakText(q.text,q.lang,btn);
+}
+
+function toggleDailyFav(id,btn){
+  toggleFavorite(id);
+  btn.classList.toggle("fav-on",favorites.indexOf(id)!==-1);
 }
 
 function dismissDailyQuote(){
