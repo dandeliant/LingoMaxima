@@ -2958,6 +2958,159 @@ function submitQuoteProposal(){
   if(subs.length===1)unlockAchievement&&unlockAchievement("first_submission");
 }
 
+// =================== COMMUNITY MODERATION (admin) ===================
+// Renderuje propozycje z lokalnego storage + pobiera z GitHub Issues
+function renderSubmissions(){
+  var list=document.getElementById("submissions-list");
+  if(!list)return;
+  var subs=JSON.parse(localStorage.getItem("ql_submissions")||"[]");
+  // Filtruj tylko pending
+  var pending=subs.filter(function(s){return s.status==="pending"});
+  document.getElementById("sub-count").textContent="("+pending.length+")";
+  if(pending.length===0){
+    list.innerHTML='<div style="font-family:var(--ff-u);font-size:.85rem;color:var(--text3);padding:1rem;background:var(--bg3);border:1px dashed var(--border);border-radius:8px;text-align:center">📭 Brak nowych propozycji</div>';
+    return;
+  }
+  list.innerHTML="";
+  pending.forEach(function(s){
+    var L=getLang(s.lang);
+    var card=document.createElement("div");
+    card.style.cssText="background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:1rem;margin-bottom:.7rem";
+    var src=s.source==="github"?'<span style="background:#0d1117;color:#c9d1d9;padding:.15rem .5rem;border-radius:4px;font-size:.7rem">⚡ GitHub #'+s.issueNumber+'</span>':'<span style="background:var(--bg2);color:var(--text3);padding:.15rem .5rem;border-radius:4px;font-size:.7rem">📝 Lokalne</span>';
+    var emailLine=s.email?'<div style="font-size:.75rem;color:var(--text3);margin-top:.3rem">📧 '+s.email+'</div>':'';
+    card.innerHTML=
+      '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.5rem;flex-wrap:wrap;gap:.5rem">'
+        +'<div style="display:flex;gap:.5rem;align-items:center">'
+          +'<span style="color:'+L.color+';font-size:.85rem">'+L.flag+' '+L.label+'</span>'
+          +'<span style="color:var(--text3);font-size:.75rem">·</span>'
+          +'<span style="color:var(--text3);font-size:.75rem">'+getCatEmoji(s.cat)+' '+s.cat+'</span>'
+        +'</div>'
+        +src
+      +'</div>'
+      +'<div style="font-family:var(--ff-d);font-style:italic;color:var(--cream);line-height:1.5;margin:.5rem 0">"'+escapeHtml(s.text)+'"</div>'
+      +'<div style="font-family:var(--ff-u);font-size:.78rem;letter-spacing:.08em;color:var(--gold)">— '+escapeHtml(s.author)+'</div>'
+      +emailLine
+      +'<div style="display:flex;gap:.5rem;margin-top:.8rem;flex-wrap:wrap">'
+        +'<button class="btn btn-primary" style="font-size:.78rem;padding:.4rem .9rem" onclick="approveSubmission('+s.id+')">✅ Zatwierdź → dodaj do bazy</button>'
+        +'<button class="btn btn-ghost" style="font-size:.78rem;padding:.4rem .9rem" onclick="rejectSubmission('+s.id+')">❌ Odrzuć</button>'
+        +'<button class="btn btn-ghost" style="font-size:.78rem;padding:.4rem .9rem" onclick="editSubmissionBeforeApprove('+s.id+')">✏️ Edytuj i zatwierdź</button>'
+      +'</div>';
+    list.appendChild(card);
+  });
+}
+
+function escapeHtml(s){return String(s).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]})}
+
+function approveSubmission(id){
+  var subs=JSON.parse(localStorage.getItem("ql_submissions")||"[]");
+  var s=subs.find(function(x){return x.id===id});
+  if(!s){showToast("⚠️ Propozycja nie znaleziona");return}
+  // Dodaj do bazy
+  var maxId=quotes.reduce(function(m,q){return q.id>m?q.id:m},0);
+  var newQuote={
+    id:maxId+1,
+    text:s.text,
+    author:s.author,
+    lang:s.lang,
+    cat:s.cat
+  };
+  quotes.push(newQuote);
+  saveQuotes&&saveQuotes();
+  // Oznacz jako approved
+  s.status="approved";
+  s.approvedAt=new Date().toISOString();
+  s.quoteId=newQuote.id;
+  localStorage.setItem("ql_submissions",JSON.stringify(subs));
+  showToast("✅ Cytat dodany do bazy (ID: "+newQuote.id+")");
+  renderSubmissions();
+  renderAdminList&&renderAdminList();
+}
+
+function rejectSubmission(id){
+  if(!confirm("Odrzucić tę propozycję?"))return;
+  var subs=JSON.parse(localStorage.getItem("ql_submissions")||"[]");
+  var s=subs.find(function(x){return x.id===id});
+  if(!s)return;
+  s.status="rejected";
+  s.rejectedAt=new Date().toISOString();
+  localStorage.setItem("ql_submissions",JSON.stringify(subs));
+  showToast("❌ Propozycja odrzucona");
+  renderSubmissions();
+}
+
+function editSubmissionBeforeApprove(id){
+  var subs=JSON.parse(localStorage.getItem("ql_submissions")||"[]");
+  var s=subs.find(function(x){return x.id===id});
+  if(!s)return;
+  // Wypełnij formularz dodawania cytatu propozycją
+  document.getElementById("nq-text").value=s.text;
+  document.getElementById("nq-author").value=s.author;
+  document.getElementById("nq-lang").value=s.lang;
+  document.getElementById("nq-cat").value=s.cat;
+  // Oznacz jako approved (admin dokończy ręcznie)
+  s.status="approved";
+  s.approvedAt=new Date().toISOString();
+  localStorage.setItem("ql_submissions",JSON.stringify(subs));
+  document.getElementById("nq-text").scrollIntoView({behavior:"smooth",block:"center"});
+  showToast("✏️ Propozycja w formularzu — popraw i kliknij Dodaj");
+  renderSubmissions();
+}
+
+function fetchGitHubSubmissions(){
+  showToast("🔄 Pobieram propozycje z GitHub…");
+  var url="https://api.github.com/repos/"+GITHUB_REPO+"/issues?labels=user-submission&state=open";
+  fetch(url).then(function(r){
+    if(!r.ok)throw new Error("GitHub API error: "+r.status);
+    return r.json();
+  }).then(function(issues){
+    if(!issues.length){showToast("ℹ️ Brak otwartych propozycji na GitHub");return}
+    var subs=JSON.parse(localStorage.getItem("ql_submissions")||"[]");
+    var added=0;
+    issues.forEach(function(issue){
+      // Sprawdź czy już mamy
+      var existing=subs.find(function(s){return s.issueNumber===issue.number});
+      if(existing)return;
+      // Parsuj body issue
+      var parsed=parseIssueBody(issue.body||"");
+      subs.push({
+        id:Date.now()+issue.number,
+        text:parsed.text||issue.title,
+        author:parsed.author||"(nieznany)",
+        lang:parsed.lang||"pl",
+        cat:parsed.cat||"Mądrość",
+        email:parsed.email||"",
+        source:"github",
+        issueNumber:issue.number,
+        issueUrl:issue.html_url,
+        createdAt:issue.created_at,
+        status:"pending"
+      });
+      added++;
+    });
+    localStorage.setItem("ql_submissions",JSON.stringify(subs));
+    showToast("✅ Pobrano "+added+" nowych propozycji z GitHub");
+    renderSubmissions();
+  }).catch(function(err){
+    showToast("❌ Błąd: "+err.message);
+  });
+}
+
+function parseIssueBody(body){
+  var result={};
+  // Wyciągnij **Cytat:** ... do następnej linii pustej lub kolejnego pola
+  var textMatch=body.match(/\*\*Cytat:\*\*\s*\n([\s\S]*?)(?=\n\*\*|\n---|\n$)/);
+  if(textMatch)result.text=textMatch[1].trim();
+  var authorMatch=body.match(/\*\*Autor:\*\*\s*(.+)/);
+  if(authorMatch)result.author=authorMatch[1].trim();
+  var langMatch=body.match(/\*\*Język:\*\*\s*(\w+)/);
+  if(langMatch)result.lang=langMatch[1].trim();
+  var catMatch=body.match(/\*\*Kategoria:\*\*\s*(.+)/);
+  if(catMatch)result.cat=catMatch[1].trim();
+  var emailMatch=body.match(/\*\*Email proponenta:\*\*\s*(.+)/);
+  if(emailMatch)result.email=emailMatch[1].trim();
+  return result;
+}
+
 // =================== HAMBURGER NAV ===================
 function toggleNav(){
   var links=document.getElementById("nav-links");
@@ -3913,6 +4066,7 @@ function adminLogin(){
       document.getElementById("admin-login").style.display="none";
       document.getElementById("admin-panel").style.display="block";
       renderAdminList();
+      renderSubmissions();
     } else {
       showToast("❌ Nieprawidłowy login lub hasło");
       document.getElementById("admin-pass").value="";

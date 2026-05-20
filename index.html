@@ -38,7 +38,7 @@
 </script>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <script src="https://code.responsivevoice.org/responsivevoice.js?key=FREE"></script>
-<link rel="stylesheet" href="styles.css?v=6">
+<link rel="stylesheet" href="styles.css?v=7">
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#c9a84c">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -662,6 +662,16 @@
       <div id="admin-list"></div>
     </div>
     <div style="margin-top:2rem;padding-top:1.5rem;border-top:1px solid var(--border)">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.9rem">
+        <div style="font-family:var(--ff-u);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--text3)">🗳️ Propozycje od użytkowników <span id="sub-count" style="color:var(--gold)">(0)</span></div>
+        <div style="display:flex;gap:.5rem">
+          <button class="btn btn-ghost" onclick="fetchGitHubSubmissions()" style="font-size:.78rem;padding:.4rem .9rem">🔄 Pobierz z GitHub</button>
+          <button class="btn btn-ghost" onclick="renderSubmissions()" style="font-size:.78rem;padding:.4rem .9rem">🔁 Odśwież lokalne</button>
+        </div>
+      </div>
+      <div id="submissions-list" style="margin-bottom:1.5rem"></div>
+    </div>
+    <div style="margin-top:2rem;padding-top:1.5rem;border-top:1px solid var(--border)">
       <div style="font-family:var(--ff-u);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);margin-bottom:.9rem">📦 Baza danych</div>
       <div style="display:flex;gap:.7rem;flex-wrap:wrap">
         <button class="btn btn-ghost" onclick="adminExportJson()">⬇️ Eksport JSON</button>
@@ -913,6 +923,6 @@
   </div>
 </div>
 
-<script src="script.js?v=6"></script>
+<script src="script.js?v=7"></script>
 </body>
 </html>
