@@ -21,13 +21,24 @@
 <nav>
   <div class="logo" onclick="showView('home')">Lingo<span>Maxima</span></div>
   <ul class="nav-links" id="nav-links">
-    <li><a id="nav-home" class="active" onclick="showView('home');closeNav()">Strona główna</a></li>
-    <li><a id="nav-browse" onclick="showView('browse');closeNav()">Przeglądaj</a></li>
-    <li><a id="nav-favorites" onclick="showView('favorites');closeNav()">Ulubione</a></li>
-    <li><a id="nav-dict" onclick="showView('dict');closeNav()">Słownik</a></li>
-    <li><a id="nav-parallel" onclick="showView('parallel');closeNav()">Czytanie</a></li>
-    <li><a id="nav-learn" onclick="showView('learn');closeNav()">Nauka</a></li>
-    <li><a id="nav-admin" onclick="showView('admin');closeNav()">Admin</a></li>
+    <li><a id="nav-home" class="active" onclick="showView('home');closeNav()" data-i18n="nav_home">Strona główna</a></li>
+    <li><a id="nav-browse" onclick="showView('browse');closeNav()" data-i18n="nav_browse">Przeglądaj</a></li>
+    <li><a id="nav-favorites" onclick="showView('favorites');closeNav()" data-i18n="nav_favorites">Ulubione</a></li>
+    <li><a id="nav-dict" onclick="showView('dict');closeNav()" data-i18n="nav_dict">Słownik</a></li>
+    <li><a id="nav-parallel" onclick="showView('parallel');closeNav()" data-i18n="nav_parallel">Czytanie</a></li>
+    <li><a id="nav-learn" onclick="showView('learn');closeNav()" data-i18n="nav_learn">Nauka</a></li>
+    <li><a id="nav-admin" onclick="showView('admin');closeNav()" data-i18n="nav_admin">Admin</a></li>
+    <li class="ui-lang-li">
+      <label style="display:block;font-family:var(--ff-u);font-size:.7rem;letter-spacing:.1em;color:var(--text3);text-transform:uppercase;padding:1rem 1.2rem .3rem"><span data-i18n="ui_lang_label">🌐 Język interfejsu</span></label>
+      <select id="ui-lang-select" onchange="setUiLang(this.value)" style="margin:0 1.2rem;width:calc(100% - 2.4rem)">
+        <option value="pl">🇵🇱 Polski</option>
+        <option value="en">🇬🇧 English</option>
+        <option value="de">🇩🇪 Deutsch</option>
+        <option value="fr">🇫🇷 Français</option>
+        <option value="es">🇪🇸 Español</option>
+        <option value="ru">🇷🇺 Русский</option>
+      </select>
+    </li>
   </ul>
   <div class="nav-right">
     <div class="streak-pill" id="streak-pill" onclick="showAchievements()" title="Twoja seria dni z aplikacją">🔥 <span id="streak-num">0</span></div>
@@ -44,20 +55,29 @@
 <!-- HOME -->
 <div class="view active" id="home">
   <div class="home-top">
-    <div class="home-eyebrow">✦ Słynne słowa · Nauka przez cytaty ✦</div>
-    <div class="home-heading">Cytat dnia</div>
-    <div class="home-sub">Ten sam losowy zestaw — w każdym aktywnym języku jednocześnie.</div>
+    <div class="home-eyebrow" data-i18n="home_eyebrow">✦ Słynne słowa · Nauka przez cytaty ✦</div>
+    <div class="home-heading" data-i18n="home_heading">Cytat dnia</div>
+    <div class="home-sub" data-i18n="home_sub">Ten sam losowy zestaw — w każdym aktywnym języku jednocześnie.</div>
     <div style="display:flex;gap:.7rem;flex-wrap:wrap;justify-content:center;align-items:center">
       <button class="roll-btn" onclick="rollAll()">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
-        Losuj wszystkie cytaty
+        <span data-i18n="btn_roll_all">Losuj wszystkie cytaty</span>
       </button>
-      <button class="btn btn-ghost" id="install-btn" onclick="installPWA()" style="display:none">📱 Zainstaluj apkę</button>
-      <button class="btn btn-ghost" id="notif-btn" onclick="setupDailyNotification()">🔔 Cytat dnia (powiadomienia)</button>
+      <button class="btn btn-ghost" id="install-btn" onclick="installPWA()" style="display:none" data-i18n="btn_install">📱 Zainstaluj apkę</button>
+      <button class="btn btn-ghost" id="notif-btn" onclick="setupDailyNotification()" data-i18n="btn_notifications">🔔 Cytat dnia (powiadomienia)</button>
     </div>
   </div>
 
   <div id="daily-quote-box" style="margin:0 2.5rem 1.5rem;display:none"></div>
+
+  <!-- MOOD-BASED DISCOVERY -->
+  <div class="mood-section">
+    <div class="mood-heading">
+      <div class="mood-title" data-i18n="mood_title">💫 Na co Ci dziś potrzeba?</div>
+      <div class="mood-sub" data-i18n="mood_sub">Wybierz nastrój lub życiową sytuację — pokażemy odpowiednie cytaty</div>
+    </div>
+    <div class="mood-grid" id="mood-grid"></div>
+  </div>
 
   <div class="lang-cards-grid" id="lang-cards-grid"></div>
 

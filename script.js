@@ -2191,6 +2191,299 @@ var isSpeaking=false;
 // Wpis: {word, lang, status:"learning"|"known", trs:{en:"life",...}, addedAt, stats:{ok,bad}}
 var vocab=JSON.parse(localStorage.getItem("ql_vocab")||"[]");
 
+// =================== I18N — WIELOJĘZYCZNY UI ===================
+var i18n={
+  pl:{
+    nav_home:"Strona główna",nav_browse:"Przeglądaj",nav_favorites:"Ulubione",
+    nav_dict:"Słownik",nav_parallel:"Czytanie",nav_learn:"Nauka",nav_admin:"Admin",
+    fav_count_label:" ulubionych",
+    home_eyebrow:"✦ Słynne słowa · Nauka przez cytaty ✦",
+    home_heading:"Cytat dnia",
+    home_sub:"Ten sam losowy zestaw — w każdym aktywnym języku jednocześnie.",
+    btn_roll_all:"Losuj wszystkie cytaty",
+    btn_install:"📱 Zainstaluj apkę",
+    btn_notifications:"🔔 Cytat dnia (powiadomienia)",
+    daily_label:"✦ Cytat dnia ✦",
+    settings_title:"⚙️ Ustawienia języków — wybierz, które mają się losować",
+    settings_hint:"Kliknij język, aby go włączyć lub wyłączyć. Wyłączone języki znikają ze strony głównej i nie biorą udziału w losowaniu.",
+    mood_title:"💫 Na co Ci dziś potrzeba?",
+    mood_sub:"Wybierz nastrój lub życiową sytuację — pokażemy odpowiednie cytaty",
+    mood_motivation:"Motywacja",mood_sadness:"Smutek",mood_love:"Miłość",
+    mood_loss:"Strata",mood_family:"Rodzina",mood_success:"Sukces",
+    mood_time:"Czas",mood_wisdom:"Mądrość",mood_doubt:"Wątpliwości",
+    mood_hope:"Nadzieja",mood_friendship:"Przyjaźń",mood_courage:"Odwaga",
+    browse_title:"Biblioteka cytatów",
+    browse_search:"Szukaj cytatu lub autora…",
+    fav_title:"Twoje ulubione",fav_sub:"Cytaty, które Cię poruszyły",
+    fav_empty_text:"Brak ulubionych cytatów",
+    fav_empty_hint:"Kliknij ♥ na karcie, aby dodać do kolekcji",
+    btn_print:"🖨️ Drukuj",btn_export_settings:"📥 Eksport ustawień",
+    btn_import_settings:"📤 Import ustawień",btn_back:"← Powrót",
+    btn_share:"📤 Udostępnij",btn_copy_link:"🔗 Skopiuj link",
+    btn_submit_quote:"✍️ Zaproponuj cytat",
+    ui_lang_label:"🌐 Język interfejsu",
+    submit_modal_title:"✍️ Zaproponuj cytat",
+    submit_modal_intro:"Masz cytat, który warto dodać do bazy? Wypełnij formularz — propozycja trafi do moderacji autora przez GitHub Issues.",
+    submit_text_label:"Treść cytatu",
+    submit_author_label:"Autor",
+    submit_lang_label:"Język",
+    submit_cat_label:"Kategoria",
+    submit_source_label:"Źródło (opcjonalne)",
+    submit_source_placeholder:"np. książka, mowa, rok…",
+    submit_your_name_label:"Twoje imię (opcjonalne)",
+    submit_your_name_placeholder:"Podpis pod propozycją",
+    submit_btn:"Wyślij propozycję",
+    cat_Filozofia:"🧠 Filozofia",cat_Miłość:"❤️ Miłość",cat_Życie:"🌿 Życie",
+    cat_Sukces:"🏆 Sukces",cat_Motywacja:"⚡ Motywacja",cat_Mądrość:"✨ Mądrość"
+  },
+  en:{
+    nav_home:"Home",nav_browse:"Browse",nav_favorites:"Favorites",
+    nav_dict:"Dictionary",nav_parallel:"Reading",nav_learn:"Learn",nav_admin:"Admin",
+    fav_count_label:" favorites",
+    home_eyebrow:"✦ Famous words · Learning through quotes ✦",
+    home_heading:"Quote of the Day",
+    home_sub:"The same random set — in every active language at once.",
+    btn_roll_all:"Roll all quotes",
+    btn_install:"📱 Install app",
+    btn_notifications:"🔔 Quote of the day (notifications)",
+    daily_label:"✦ Quote of the day ✦",
+    settings_title:"⚙️ Language settings — choose which to roll",
+    settings_hint:"Click a language to toggle. Disabled languages disappear from the homepage and won't be drawn.",
+    mood_title:"💫 What do you need today?",
+    mood_sub:"Pick a mood or life situation — we'll show you the right quotes",
+    mood_motivation:"Motivation",mood_sadness:"Sadness",mood_love:"Love",
+    mood_loss:"Loss",mood_family:"Family",mood_success:"Success",
+    mood_time:"Time",mood_wisdom:"Wisdom",mood_doubt:"Doubts",
+    mood_hope:"Hope",mood_friendship:"Friendship",mood_courage:"Courage",
+    browse_title:"Quote Library",
+    browse_search:"Search quote or author…",
+    fav_title:"Your favorites",fav_sub:"Quotes that moved you",
+    fav_empty_text:"No favorite quotes yet",
+    fav_empty_hint:"Click ♥ on a card to add to collection",
+    btn_print:"🖨️ Print",btn_export_settings:"📥 Export settings",
+    btn_import_settings:"📤 Import settings",btn_back:"← Back",
+    btn_share:"📤 Share",btn_copy_link:"🔗 Copy link",
+    btn_submit_quote:"✍️ Suggest a quote",
+    ui_lang_label:"🌐 UI language",
+    submit_modal_title:"✍️ Suggest a quote",
+    submit_modal_intro:"Have a quote worth adding? Fill out the form — it'll be sent to the author for moderation via GitHub Issues.",
+    submit_text_label:"Quote text",
+    submit_author_label:"Author",
+    submit_lang_label:"Language",
+    submit_cat_label:"Category",
+    submit_source_label:"Source (optional)",
+    submit_source_placeholder:"e.g. book, speech, year…",
+    submit_your_name_label:"Your name (optional)",
+    submit_your_name_placeholder:"Credit under proposal",
+    submit_btn:"Send suggestion",
+    cat_Filozofia:"🧠 Philosophy",cat_Miłość:"❤️ Love",cat_Życie:"🌿 Life",
+    cat_Sukces:"🏆 Success",cat_Motywacja:"⚡ Motivation",cat_Mądrość:"✨ Wisdom"
+  },
+  de:{
+    nav_home:"Startseite",nav_browse:"Durchstöbern",nav_favorites:"Favoriten",
+    nav_dict:"Wörterbuch",nav_parallel:"Lesen",nav_learn:"Lernen",nav_admin:"Admin",
+    fav_count_label:" Favoriten",
+    home_eyebrow:"✦ Berühmte Worte · Lernen durch Zitate ✦",
+    home_heading:"Zitat des Tages",
+    home_sub:"Derselbe zufällige Satz — in jeder aktiven Sprache gleichzeitig.",
+    btn_roll_all:"Alle Zitate würfeln",
+    btn_install:"📱 App installieren",
+    btn_notifications:"🔔 Zitat des Tages (Benachrichtigungen)",
+    daily_label:"✦ Zitat des Tages ✦",
+    settings_title:"⚙️ Spracheinstellungen — wähle, welche gewürfelt werden",
+    settings_hint:"Klicke eine Sprache, um sie ein-/auszuschalten.",
+    mood_title:"💫 Was brauchst du heute?",
+    mood_sub:"Wähle eine Stimmung — wir zeigen passende Zitate",
+    mood_motivation:"Motivation",mood_sadness:"Traurigkeit",mood_love:"Liebe",
+    mood_loss:"Verlust",mood_family:"Familie",mood_success:"Erfolg",
+    mood_time:"Zeit",mood_wisdom:"Weisheit",mood_doubt:"Zweifel",
+    mood_hope:"Hoffnung",mood_friendship:"Freundschaft",mood_courage:"Mut",
+    browse_title:"Zitate-Bibliothek",
+    browse_search:"Zitat oder Autor suchen…",
+    fav_title:"Deine Favoriten",fav_sub:"Zitate, die dich berührt haben",
+    fav_empty_text:"Noch keine Favoriten",
+    fav_empty_hint:"Klicke ♥ auf einer Karte, um sie hinzuzufügen",
+    btn_print:"🖨️ Drucken",btn_export_settings:"📥 Einstellungen exportieren",
+    btn_import_settings:"📤 Einstellungen importieren",btn_back:"← Zurück",
+    btn_share:"📤 Teilen",btn_copy_link:"🔗 Link kopieren",
+    btn_submit_quote:"✍️ Zitat vorschlagen",
+    ui_lang_label:"🌐 UI-Sprache",
+    submit_modal_title:"✍️ Zitat vorschlagen",
+    submit_modal_intro:"Hast du ein Zitat, das hinzugefügt werden sollte? Fülle das Formular aus.",
+    submit_text_label:"Zitat-Text",
+    submit_author_label:"Autor",
+    submit_lang_label:"Sprache",
+    submit_cat_label:"Kategorie",
+    submit_source_label:"Quelle (optional)",
+    submit_source_placeholder:"z.B. Buch, Rede, Jahr…",
+    submit_your_name_label:"Dein Name (optional)",
+    submit_your_name_placeholder:"Credit unter dem Vorschlag",
+    submit_btn:"Vorschlag senden",
+    cat_Filozofia:"🧠 Philosophie",cat_Miłość:"❤️ Liebe",cat_Życie:"🌿 Leben",
+    cat_Sukces:"🏆 Erfolg",cat_Motywacja:"⚡ Motivation",cat_Mądrość:"✨ Weisheit"
+  },
+  fr:{
+    nav_home:"Accueil",nav_browse:"Parcourir",nav_favorites:"Favoris",
+    nav_dict:"Dictionnaire",nav_parallel:"Lecture",nav_learn:"Apprendre",nav_admin:"Admin",
+    fav_count_label:" favoris",
+    home_eyebrow:"✦ Mots célèbres · Apprendre par les citations ✦",
+    home_heading:"Citation du jour",
+    home_sub:"Le même ensemble aléatoire — dans chaque langue active à la fois.",
+    btn_roll_all:"Tirer toutes les citations",
+    btn_install:"📱 Installer l'application",
+    btn_notifications:"🔔 Citation du jour (notifications)",
+    daily_label:"✦ Citation du jour ✦",
+    settings_title:"⚙️ Paramètres de langues",
+    settings_hint:"Cliquez sur une langue pour l'activer/désactiver.",
+    mood_title:"💫 De quoi as-tu besoin aujourd'hui ?",
+    mood_sub:"Choisis une humeur — nous montrerons les citations adaptées",
+    mood_motivation:"Motivation",mood_sadness:"Tristesse",mood_love:"Amour",
+    mood_loss:"Perte",mood_family:"Famille",mood_success:"Succès",
+    mood_time:"Temps",mood_wisdom:"Sagesse",mood_doubt:"Doutes",
+    mood_hope:"Espoir",mood_friendship:"Amitié",mood_courage:"Courage",
+    browse_title:"Bibliothèque de citations",
+    browse_search:"Rechercher citation ou auteur…",
+    fav_title:"Tes favoris",fav_sub:"Citations qui t'ont touché",
+    fav_empty_text:"Aucun favori",
+    fav_empty_hint:"Clique ♥ pour ajouter à la collection",
+    btn_print:"🖨️ Imprimer",btn_export_settings:"📥 Exporter paramètres",
+    btn_import_settings:"📤 Importer paramètres",btn_back:"← Retour",
+    btn_share:"📤 Partager",btn_copy_link:"🔗 Copier le lien",
+    btn_submit_quote:"✍️ Proposer une citation",
+    ui_lang_label:"🌐 Langue UI",
+    submit_modal_title:"✍️ Proposer une citation",
+    submit_modal_intro:"As-tu une citation à ajouter ? Remplis le formulaire.",
+    submit_text_label:"Texte de la citation",
+    submit_author_label:"Auteur",
+    submit_lang_label:"Langue",
+    submit_cat_label:"Catégorie",
+    submit_source_label:"Source (facultatif)",
+    submit_source_placeholder:"ex. livre, discours, année…",
+    submit_your_name_label:"Ton nom (facultatif)",
+    submit_your_name_placeholder:"Crédit sous la proposition",
+    submit_btn:"Envoyer la proposition",
+    cat_Filozofia:"🧠 Philosophie",cat_Miłość:"❤️ Amour",cat_Życie:"🌿 Vie",
+    cat_Sukces:"🏆 Succès",cat_Motywacja:"⚡ Motivation",cat_Mądrość:"✨ Sagesse"
+  },
+  es:{
+    nav_home:"Inicio",nav_browse:"Explorar",nav_favorites:"Favoritos",
+    nav_dict:"Diccionario",nav_parallel:"Lectura",nav_learn:"Aprender",nav_admin:"Admin",
+    fav_count_label:" favoritos",
+    home_eyebrow:"✦ Palabras famosas · Aprender mediante citas ✦",
+    home_heading:"Cita del día",
+    home_sub:"El mismo conjunto aleatorio — en todos los idiomas activos a la vez.",
+    btn_roll_all:"Lanzar todas las citas",
+    btn_install:"📱 Instalar app",
+    btn_notifications:"🔔 Cita del día (notificaciones)",
+    daily_label:"✦ Cita del día ✦",
+    settings_title:"⚙️ Configuración de idiomas",
+    settings_hint:"Haz clic en un idioma para activarlo/desactivarlo.",
+    mood_title:"💫 ¿Qué necesitas hoy?",
+    mood_sub:"Elige un estado de ánimo — te mostraremos las citas adecuadas",
+    mood_motivation:"Motivación",mood_sadness:"Tristeza",mood_love:"Amor",
+    mood_loss:"Pérdida",mood_family:"Familia",mood_success:"Éxito",
+    mood_time:"Tiempo",mood_wisdom:"Sabiduría",mood_doubt:"Dudas",
+    mood_hope:"Esperanza",mood_friendship:"Amistad",mood_courage:"Coraje",
+    browse_title:"Biblioteca de citas",
+    browse_search:"Buscar cita o autor…",
+    fav_title:"Tus favoritos",fav_sub:"Citas que te conmovieron",
+    fav_empty_text:"Sin favoritos",
+    fav_empty_hint:"Haz clic en ♥ para añadir a la colección",
+    btn_print:"🖨️ Imprimir",btn_export_settings:"📥 Exportar config.",
+    btn_import_settings:"📤 Importar config.",btn_back:"← Atrás",
+    btn_share:"📤 Compartir",btn_copy_link:"🔗 Copiar enlace",
+    btn_submit_quote:"✍️ Proponer cita",
+    ui_lang_label:"🌐 Idioma de UI",
+    submit_modal_title:"✍️ Proponer cita",
+    submit_modal_intro:"¿Tienes una cita para añadir? Rellena el formulario.",
+    submit_text_label:"Texto de la cita",
+    submit_author_label:"Autor",
+    submit_lang_label:"Idioma",
+    submit_cat_label:"Categoría",
+    submit_source_label:"Fuente (opcional)",
+    submit_source_placeholder:"ej. libro, discurso, año…",
+    submit_your_name_label:"Tu nombre (opcional)",
+    submit_your_name_placeholder:"Crédito bajo la propuesta",
+    submit_btn:"Enviar propuesta",
+    cat_Filozofia:"🧠 Filosofía",cat_Miłość:"❤️ Amor",cat_Życie:"🌿 Vida",
+    cat_Sukces:"🏆 Éxito",cat_Motywacja:"⚡ Motivación",cat_Mądrość:"✨ Sabiduría"
+  },
+  ru:{
+    nav_home:"Главная",nav_browse:"Просмотр",nav_favorites:"Избранное",
+    nav_dict:"Словарь",nav_parallel:"Чтение",nav_learn:"Учёба",nav_admin:"Админ",
+    fav_count_label:" избранных",
+    home_eyebrow:"✦ Знаменитые слова · Учёба через цитаты ✦",
+    home_heading:"Цитата дня",
+    home_sub:"Один и тот же случайный набор — в каждом активном языке.",
+    btn_roll_all:"Случайные цитаты",
+    btn_install:"📱 Установить",
+    btn_notifications:"🔔 Цитата дня (уведомления)",
+    daily_label:"✦ Цитата дня ✦",
+    settings_title:"⚙️ Настройки языков",
+    settings_hint:"Нажмите на язык, чтобы включить/выключить.",
+    mood_title:"💫 Что тебе нужно сегодня?",
+    mood_sub:"Выбери настроение — мы покажем подходящие цитаты",
+    mood_motivation:"Мотивация",mood_sadness:"Грусть",mood_love:"Любовь",
+    mood_loss:"Потеря",mood_family:"Семья",mood_success:"Успех",
+    mood_time:"Время",mood_wisdom:"Мудрость",mood_doubt:"Сомнения",
+    mood_hope:"Надежда",mood_friendship:"Дружба",mood_courage:"Смелость",
+    browse_title:"Библиотека цитат",
+    browse_search:"Искать цитату или автора…",
+    fav_title:"Избранное",fav_sub:"Цитаты, которые тронули тебя",
+    fav_empty_text:"Нет избранных",
+    fav_empty_hint:"Нажмите ♥ для добавления",
+    btn_print:"🖨️ Печать",btn_export_settings:"📥 Экспорт настроек",
+    btn_import_settings:"📤 Импорт настроек",btn_back:"← Назад",
+    btn_share:"📤 Поделиться",btn_copy_link:"🔗 Скопировать ссылку",
+    btn_submit_quote:"✍️ Предложить цитату",
+    ui_lang_label:"🌐 Язык интерфейса",
+    submit_modal_title:"✍️ Предложить цитату",
+    submit_modal_intro:"Есть цитата для добавления? Заполните форму.",
+    submit_text_label:"Текст цитаты",
+    submit_author_label:"Автор",
+    submit_lang_label:"Язык",
+    submit_cat_label:"Категория",
+    submit_source_label:"Источник (необязательно)",
+    submit_source_placeholder:"книга, речь, год…",
+    submit_your_name_label:"Ваше имя (необязательно)",
+    submit_your_name_placeholder:"Подпись под предложением",
+    submit_btn:"Отправить",
+    cat_Filozofia:"🧠 Философия",cat_Miłość:"❤️ Любовь",cat_Życie:"🌿 Жизнь",
+    cat_Sukces:"🏆 Успех",cat_Motywacja:"⚡ Мотивация",cat_Mądrość:"✨ Мудрость"
+  }
+};
+var uiLang=localStorage.getItem("ql_ui_lang")||(navigator.language||"pl").split("-")[0];
+if(!i18n[uiLang])uiLang="pl";
+
+function t(key){
+  return (i18n[uiLang]&&i18n[uiLang][key])||i18n.pl[key]||key;
+}
+
+function setUiLang(lang){
+  if(!i18n[lang])return;
+  uiLang=lang;
+  localStorage.setItem("ql_ui_lang",lang);
+  applyI18n();
+  // Aktualizuj selektor jeśli istnieje
+  var sel=document.getElementById("ui-lang-select");
+  if(sel)sel.value=lang;
+  // Refresh lokalizowanych komponentów
+  if(typeof renderMoodGrid==="function")renderMoodGrid();
+}
+
+function applyI18n(){
+  document.querySelectorAll("[data-i18n]").forEach(function(el){
+    el.textContent=t(el.getAttribute("data-i18n"));
+  });
+  document.querySelectorAll("[data-i18n-placeholder]").forEach(function(el){
+    el.placeholder=t(el.getAttribute("data-i18n-placeholder"));
+  });
+  document.querySelectorAll("[data-i18n-title]").forEach(function(el){
+    el.title=t(el.getAttribute("data-i18n-title"));
+  });
+  document.documentElement.lang=uiLang;
+}
+
 // === STAŁE NAUKI ===
 var CEFR_LEVELS=["A1","A2","B1","B2","C1","C2"];
 var CEFR_LABELS={A1:"Początkujący",A2:"Podstawowy",B1:"Średniozaawansowany",B2:"Średnio-wyższy",C1:"Zaawansowany",C2:"Biegły"};
@@ -2843,6 +3136,86 @@ function openTranslationsForCard(code){
   if(id)openTranslationsModal(id);
 }
 
+// =================== MOOD-BASED DISCOVERY ===================
+// Mapuje nastroje/sytuacje życiowe na filtry bazy.
+// Każdy mood ma: emoji, klucz i18n (etykieta), kategorie i słowa kluczowe (do dopasowania).
+var MOODS=[
+  {key:"motivation",emoji:"⚡",cats:["Motywacja","Sukces"],keywords:["motywacj","sukces","działanie","cel","odwaga","wytrwałość","успех"]},
+  {key:"sadness",emoji:"😢",cats:[],keywords:["smutek","łzy","ból","strata","cierpien","samotno","grief","tears","tristesse"]},
+  {key:"love",emoji:"❤️",cats:["Miłość"],keywords:["miłość","kochać","serce","amor","love","liebe"]},
+  {key:"loss",emoji:"💔",cats:[],keywords:["śmierć","odejść","strata","żałob","death","loss","verlust"]},
+  {key:"family",emoji:"👨‍👩‍👧",cats:[],keywords:["rodzina","matka","ojciec","dziec","family","famille","familia"]},
+  {key:"success",emoji:"🏆",cats:["Sukces"],keywords:["sukces","zwycięstwo","osiągnięcie","success","sieg","triunfo"]},
+  {key:"time",emoji:"⏳",cats:[],keywords:["czas","czasu","time","temps","tiempo","zeit","время"]},
+  {key:"wisdom",emoji:"🧠",cats:["Mądrość","Filozofia"],keywords:["mądroś","wisdom","sagesse","sabiduría","weisheit","мудрость"]},
+  {key:"doubt",emoji:"🤔",cats:[],keywords:["wątpliwoś","strach","lęk","fear","peur","miedo","angst","сомнен"]},
+  {key:"hope",emoji:"🌅",cats:["Motywacja"],keywords:["nadziej","hope","espoir","esperanza","hoffnung","надежд"]},
+  {key:"friendship",emoji:"🤝",cats:[],keywords:["przyjaźń","przyjaciel","friend","ami","amigo","freund","друг"]},
+  {key:"courage",emoji:"🦁",cats:["Motywacja"],keywords:["odwag","courage","mut","valor","valentía","смелость","храбро"]}
+];
+
+function moodMatchesQuote(mood,q){
+  // 1. Kategoria pasuje
+  if(mood.cats.indexOf(q.cat)!==-1)return true;
+  // 2. Słowa kluczowe w treści (case-insensitive, partial match)
+  var text=(q.text||"").toLowerCase();
+  for(var i=0;i<mood.keywords.length;i++){
+    if(text.indexOf(mood.keywords[i].toLowerCase())!==-1)return true;
+  }
+  // 3. Tagi cytatu pasują do klucza moodu lub jego słów
+  if(q.tags&&q.tags.length){
+    for(var j=0;j<q.tags.length;j++){
+      var tagL=q.tags[j].toLowerCase();
+      if(tagL===mood.key)return true;
+      for(var k=0;k<mood.keywords.length;k++){
+        if(tagL.indexOf(mood.keywords[k].toLowerCase())!==-1)return true;
+      }
+    }
+  }
+  return false;
+}
+
+function countMoodMatches(mood){
+  return quotes.filter(function(q){return moodMatchesQuote(mood,q)}).length;
+}
+
+function renderMoodGrid(){
+  var grid=document.getElementById("mood-grid");
+  if(!grid)return;
+  grid.innerHTML="";
+  MOODS.forEach(function(m){
+    var count=countMoodMatches(m);
+    var btn=document.createElement("button");
+    btn.className="mood-btn";
+    btn.innerHTML='<div class="mood-btn-emoji">'+m.emoji+'</div>'
+      +'<div class="mood-btn-label">'+t("mood_"+m.key)+'</div>'
+      +'<div class="mood-btn-count">'+count+' cytatów</div>';
+    btn.onclick=function(){filterByMood(m.key)};
+    grid.appendChild(btn);
+  });
+}
+
+var activeMood=null;
+
+function filterByMood(moodKey){
+  activeMood=MOODS.find(function(m){return m.key===moodKey});
+  if(!activeMood)return;
+  showView("browse");
+  // Resetuj filtry języka/kategorii/poziomu — ten filtr jest „nadrzędny"
+  browseFilt={lang:"all",cat:"all",level:"all",mood:moodKey};
+  // Reset chipów wizualnie
+  document.querySelectorAll("[data-fl]").forEach(function(c){c.classList.toggle("active",c.getAttribute("data-fl")==="all")});
+  document.querySelectorAll("[data-fc]").forEach(function(c){c.classList.toggle("active",c.getAttribute("data-fc")==="all")});
+  document.querySelectorAll("[data-flevel]").forEach(function(c){c.classList.toggle("active",c.getAttribute("data-flevel")==="all")});
+  renderBrowse();
+}
+
+function clearMoodFilter(){
+  activeMood=null;
+  if(browseFilt)delete browseFilt.mood;
+  renderBrowse();
+}
+
 function buildLangCards(){
   var grid=document.getElementById("lang-cards-grid");
   grid.innerHTML="";
@@ -3024,9 +3397,27 @@ function renderBrowse(){
     if(browseFilt.lang!=="all"&&q.lang!==browseFilt.lang)return false;
     if(browseFilt.cat!=="all"&&q.cat!==browseFilt.cat)return false;
     if(browseFilt.level&&browseFilt.level!=="all"&&q.level!==browseFilt.level)return false;
+    if(browseFilt.mood){
+      var mood=MOODS.find(function(m){return m.key===browseFilt.mood});
+      if(mood&&!moodMatchesQuote(mood,q))return false;
+    }
     if(search&&q.text.toLowerCase().indexOf(search)===-1&&q.author.toLowerCase().indexOf(search)===-1&&!(q.tags&&q.tags.some(function(t){return t.toLowerCase().indexOf(search)!==-1})))return false;
     return true;
   });
+  // Banner aktywnego nastroju nad gridem
+  var existingBanner=document.getElementById("mood-banner");
+  if(existingBanner)existingBanner.remove();
+  if(browseFilt.mood){
+    var mood=MOODS.find(function(m){return m.key===browseFilt.mood});
+    if(mood){
+      var banner=document.createElement("div");
+      banner.id="mood-banner";
+      banner.style.cssText="margin:1rem 2.5rem;padding:.8rem 1.2rem;background:rgba(201,168,76,.08);border:1px solid var(--gold);border-radius:10px;display:flex;justify-content:space-between;align-items:center;font-family:var(--ff-u);font-size:.85rem;color:var(--text)";
+      banner.innerHTML='<span><span style="font-size:1.4rem;vertical-align:middle">'+mood.emoji+'</span> Filtr nastroju: <strong style="color:var(--gold)">'+t("mood_"+mood.key)+'</strong></span>'
+        +'<button style="background:none;border:1px solid var(--border);color:var(--text2);padding:4px 12px;border-radius:6px;cursor:pointer;font-family:var(--ff-u);font-size:.78rem" onclick="clearMoodFilter()">✕ Wyczyść</button>';
+      grid.parentNode.insertBefore(banner,grid);
+    }
+  }
   filtered.forEach(function(q,i){grid.appendChild(buildBrowseCard(q,i))});
   var sb=document.getElementById("stats-bar");
   sb.innerHTML='<div class="stat-item"><div class="stat-num">'+quotes.length+'</div><div class="stat-lbl">Cytatów łącznie</div></div>'
@@ -4379,6 +4770,9 @@ function showDailyNotification(){
 }
 
 window.addEventListener("load",function(){
+  applyI18n();
+  var sel=document.getElementById("ui-lang-select");
+  if(sel)sel.value=uiLang;
   updateFavCount();
   updateStreak();
   updateStreakUI();
@@ -4386,6 +4780,7 @@ window.addEventListener("load",function(){
   setupPWA();
   buildLangToggles();
   buildLangCards();
+  renderMoodGrid();
   renderDailyQuote();
   if(Notification&&Notification.permission==="granted")scheduleDailyNotification();
   // Podpowiedzi przy polach tid w panelu admina
