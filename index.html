@@ -38,7 +38,7 @@
 </script>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <script src="https://code.responsivevoice.org/responsivevoice.js?key=FREE"></script>
-<link rel="stylesheet" href="styles.css?v=15">
+<link rel="stylesheet" href="styles.css?v=16">
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#c9a84c">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -53,6 +53,7 @@
     <li><a id="nav-home" class="active" onclick="showView('home');closeNav()" data-i18n="nav_home">Strona główna</a></li>
     <li><a id="nav-browse" onclick="showView('browse');closeNav()" data-i18n="nav_browse">Przeglądaj</a></li>
     <li><a id="nav-swipe" onclick="showView('swipe');closeNav()">🔥 Swipe</a></li>
+    <li><a id="nav-chains" onclick="showView('chains');closeNav()">📖 Historie</a></li>
     <li><a id="nav-favorites" onclick="showView('favorites');closeNav()" data-i18n="nav_favorites">Ulubione</a></li>
     <li><a id="nav-dict" onclick="showView('dict');closeNav()" data-i18n="nav_dict">Słownik</a></li>
     <li><a id="nav-parallel" onclick="showView('parallel');closeNav()" data-i18n="nav_parallel">Czytanie</a></li>
@@ -181,6 +182,26 @@
     <button class="filter-chip" data-flevel="C2" onclick="setFilter('level','C2',this)" title="Biegły">🔴 C2</button>
   </div>
   <div class="quotes-grid" id="quotes-grid"></div>
+</div>
+
+<!-- CHAINS — Tematyczne historie z cytatów -->
+<div class="view" id="chains">
+  <div style="padding:2rem 2.5rem 1rem">
+    <div class="page-title">📖 Tematyczne historie z cytatów</div>
+    <div class="section-sub">Curated chains — przejdź przez sekwencję cytatów ułożoną wokół jednego tematu</div>
+    <div style="margin-top:1rem">
+      <select id="chains-lang" onchange="renderChainsList()" style="background:var(--bg3);color:var(--cream);border:1px solid var(--border);border-radius:6px;padding:.4rem .7rem">
+        <option value="pl">🇵🇱 Polski</option>
+        <option value="en">🇬🇧 English</option>
+        <option value="de">🇩🇪 Deutsch</option>
+        <option value="fr">🇫🇷 Français</option>
+        <option value="es">🇪🇸 Español</option>
+        <option value="ru">🇷🇺 Русский</option>
+      </select>
+    </div>
+  </div>
+  <div id="chains-list" class="chains-list" style="padding:0 2.5rem 2rem"></div>
+  <div id="chains-reader" style="display:none"></div>
 </div>
 
 <!-- SWIPE — Tinder dla cytatów -->
@@ -1108,6 +1129,6 @@
   </div>
 </div>
 
-<script src="script.js?v=15"></script>
+<script src="script.js?v=16"></script>
 </body>
 </html>

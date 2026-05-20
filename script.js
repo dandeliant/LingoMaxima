@@ -3161,6 +3161,207 @@ function showView(name){
   if(name==="learn")renderLearn();
   if(name==="parallel")renderParallel();
   if(name==="swipe")initSwipe();
+  if(name==="chains")renderChainsList();
+}
+
+// =================== QUOTE CHAINS — tematyczne historie ===================
+// Definicje 6 chainów — każdy używa funkcji filter() która dynamicznie wybiera cytaty z bazy
+var DEFAULT_CHAINS=[
+  {
+    id:"fear-to-courage",
+    emoji:"⚔️",
+    title:"Od strachu do odwagi",
+    desc:"7 cytatów o drodze od lęku do męstwa — od starożytności po dzisiaj.",
+    accent:"#e07070",
+    limit:7,
+    filter:function(q){
+      var s=((q.tags||[]).join(" ")+" "+q.text).toLowerCase();
+      return /strach|lęk|odwag|męstw|fear|courage|brave|coward|trwog|angst|mut|peur|miedo|trus/.test(s);
+    }
+  },
+  {
+    id:"stoics-loss",
+    emoji:"🏛️",
+    title:"Co Stoicy wiedzieli o stracie",
+    desc:"Marek Aureliusz, Seneka, Epiktet — o akceptacji tego, co odeszło.",
+    accent:"#a08068",
+    limit:8,
+    filter:function(q){
+      var stoics=["Marek Aureliusz","Marcus Aurelius","Seneka","Seneca","Epiktet","Epictetus","Марк Аврелий"];
+      return stoics.indexOf(q.author)!==-1;
+    }
+  },
+  {
+    id:"time-currency",
+    emoji:"⏳",
+    title:"Czas — najcenniejsza waluta",
+    desc:"Filozofowie i pisarze o ulotności momentu.",
+    accent:"#e8c97a",
+    limit:8,
+    filter:function(q){
+      var s=((q.tags||[]).join(" ")+" "+q.text).toLowerCase();
+      return /czas |время |zeit |time |temps |tiempo |chwil|moment|wieczność|wieczność/.test(" "+s+" ");
+    }
+  },
+  {
+    id:"love-seven",
+    emoji:"💖",
+    title:"Miłość w siedmiu odsłonach",
+    desc:"Od pierwszego wejrzenia, przez burzę, do dojrzałej tęsknoty.",
+    accent:"#e63946",
+    limit:7,
+    filter:function(q){return q.cat==="Miłość"}
+  },
+  {
+    id:"success-failure",
+    emoji:"🚀",
+    title:"Sukces nie istnieje bez porażki",
+    desc:"Edison, Mandela, Jobs — o tym, jak upadek prowadzi do wzlotu.",
+    accent:"#9dca6f",
+    limit:8,
+    filter:function(q){
+      var s=((q.tags||[]).join(" ")+" "+q.text).toLowerCase();
+      return /poraż|błąd|upad|sukces|failure|mistake|fail|success|fall/.test(s);
+    }
+  },
+  {
+    id:"silence-wisdom",
+    emoji:"🤫",
+    title:"Mądrość milczenia",
+    desc:"Tao, Lao Tzu i ci, którzy wiedzieli kiedy nie mówić.",
+    accent:"#c77dff",
+    limit:7,
+    filter:function(q){
+      var s=((q.tags||[]).join(" ")+" "+q.text).toLowerCase();
+      if(q.author==="Laozi"||q.author==="Lao Tzu"||q.author==="Lao-cy")return true;
+      return /milczen|cisza|mądroś|silence|silent|quiet|wisdom|молчан/.test(s);
+    }
+  }
+];
+
+var activeChain=null;
+var chainQuotes=[];
+var chainIdx=0;
+
+function selectChainQuotes(chain,lang){
+  // Filtruj bazę, weź pierwszych N cytatów w danym języku
+  var matching=quotes.filter(function(q){return q.lang===lang&&chain.filter(q)});
+  // Deduplikacja po tid (jeden cytat z grupy tłumaczeń)
+  var seen={};
+  var unique=[];
+  matching.forEach(function(q){
+    var key=q.tid||("q-"+q.id);
+    if(!seen[key]){seen[key]=true;unique.push(q)}
+  });
+  // Stabilna kolejność: po id (rosnąco)
+  unique.sort(function(a,b){return a.id-b.id});
+  return unique.slice(0,chain.limit);
+}
+
+function renderChainsList(){
+  var list=document.getElementById("chains-list");
+  if(!list)return;
+  var lang=(document.getElementById("chains-lang")||{}).value||"pl";
+  document.getElementById("chains-reader").style.display="none";
+  list.style.display="grid";
+  list.innerHTML="";
+  // Stan progressu z localStorage
+  var progress=JSON.parse(localStorage.getItem("ql_chains_progress")||"{}");
+  DEFAULT_CHAINS.forEach(function(chain){
+    var qs=selectChainQuotes(chain,lang);
+    var card=document.createElement("div");
+    card.className="chain-card";
+    card.style.setProperty("--accent",chain.accent);
+    var done=progress[chain.id]||0;
+    var pct=qs.length?Math.round(done/qs.length*100):0;
+    card.innerHTML=
+      '<span class="chain-emoji">'+chain.emoji+'</span>'+
+      '<div class="chain-title">'+chain.title+'</div>'+
+      '<div class="chain-desc">'+chain.desc+'</div>'+
+      '<div class="chain-meta">'+
+        '<span>'+qs.length+' cytatów</span>'+
+        (done>0?'<span class="chain-progress">'+done+'/'+qs.length+' · '+pct+'%</span>':'<span class="chain-progress">▶ Start</span>')+
+      '</div>';
+    card.onclick=function(){openChain(chain.id)};
+    list.appendChild(card);
+  });
+  // Jeśli brak żadnych cytatów dla wybranego języka — informacja
+  var hasAny=DEFAULT_CHAINS.some(function(c){return selectChainQuotes(c,lang).length>0});
+  if(!hasAny){
+    list.innerHTML='<div class="empty-state" style="grid-column:1/-1"><div class="empty-icon">📖</div><div>Brak historii w tym języku</div><div style="color:var(--text3);font-size:.78rem">Spróbuj zmienić język lub dodaj więcej cytatów z odpowiednimi tagami</div></div>';
+  }
+}
+
+function openChain(chainId){
+  var chain=DEFAULT_CHAINS.find(function(c){return c.id===chainId});
+  if(!chain)return;
+  var lang=document.getElementById("chains-lang").value||"pl";
+  var qs=selectChainQuotes(chain,lang);
+  if(!qs.length){showToast("⚠️ Brak cytatów dla tej historii w "+getLang(lang).label);return}
+  activeChain=chain;
+  chainQuotes=qs;
+  // Wznów z miejsca gdzie skończyłeś
+  var progress=JSON.parse(localStorage.getItem("ql_chains_progress")||"{}");
+  chainIdx=Math.min(progress[chain.id]||0,qs.length-1);
+  renderChainReader();
+}
+
+function renderChainReader(){
+  document.getElementById("chains-list").style.display="none";
+  var wrap=document.getElementById("chains-reader");
+  wrap.style.display="block";
+  var q=chainQuotes[chainIdx];
+  if(!q){closeChain();return}
+  var L=getLang(q.lang);
+  var pct=Math.round((chainIdx+1)/chainQuotes.length*100);
+  var isFav=favorites.indexOf(q.id)!==-1;
+  var trCount=q.tid?quotes.filter(function(x){return x.tid===q.tid}).length:1;
+  var trBtn=trCount>1?'<button class="icon-btn tr-btn" title="Tłumaczenia ('+trCount+' jęz.)" onclick="openTranslationsModal('+q.id+')">🌐<span class="tr-badge">'+trCount+'</span></button>':'';
+  wrap.innerHTML=
+    '<div class="chain-reader-wrap">'+
+      '<div class="chain-reader-head">'+
+        '<button class="btn btn-ghost" onclick="closeChain()">← Wróć do historii</button>'+
+        '<div style="font-family:var(--ff-u);font-size:.78rem;color:var(--gold);letter-spacing:.1em">'+activeChain.emoji+' '+activeChain.title+'</div>'+
+      '</div>'+
+      '<div style="font-family:var(--ff-u);font-size:.72rem;color:var(--text3);text-align:center;margin-bottom:.5rem;letter-spacing:.08em">CZĘŚĆ '+(chainIdx+1)+' Z '+chainQuotes.length+'</div>'+
+      '<div class="chain-progress-bar"><div class="chain-progress-bar-fill" style="width:'+pct+'%;background:'+activeChain.accent+'"></div></div>'+
+      '<div class="chain-reader-card" style="border-color:'+activeChain.accent+'">'+
+        '<div style="font-family:var(--ff-u);font-size:.7rem;color:'+L.color+';letter-spacing:.12em;margin-bottom:1rem">'+L.flag+' '+L.label+'</div>'+
+        '<div class="chain-reader-text">"'+escapeHtml(q.text)+'"</div>'+
+        '<div class="chain-reader-author">— '+escapeHtml(q.author)+'</div>'+
+        '<div style="font-family:var(--ff-u);font-size:.72rem;color:var(--text3);margin-top:.4rem">'+getCatEmoji(q.cat)+' '+q.cat+(q.level?' · '+q.level:'')+'</div>'+
+      '</div>'+
+      '<div class="chain-reader-actions">'+
+        trBtn+
+        '<button class="icon-btn" title="Skopiuj link" onclick="copyQuoteLink('+q.id+')">🔗</button>'+
+        '<button class="icon-btn" title="Obrazek" onclick="previewQuoteImage('+q.id+')">📸</button>'+
+        '<button class="icon-btn" title="Odsłuchaj" onclick="speakQuoteById('+q.id+',this)">🔊</button>'+
+        '<button class="icon-btn'+(isFav?' fav-on':'')+'" title="Ulubione" onclick="toggleChainFav('+q.id+',this)">♥</button>'+
+      '</div>'+
+      '<div class="chain-reader-nav">'+
+        '<button class="btn btn-ghost" onclick="chainPrev()" '+(chainIdx===0?'disabled':'')+'>← Poprzedni</button>'+
+        (chainIdx===chainQuotes.length-1?'<button class="btn btn-primary" onclick="chainFinish()">🎉 Zakończ historię</button>':'<button class="btn btn-primary" onclick="chainNext()">Następny →</button>')+
+      '</div>'+
+    '</div>';
+  // Zaktualizuj progress
+  var progress=JSON.parse(localStorage.getItem("ql_chains_progress")||"{}");
+  progress[activeChain.id]=Math.max(progress[activeChain.id]||0,chainIdx+1);
+  localStorage.setItem("ql_chains_progress",JSON.stringify(progress));
+}
+
+function chainNext(){if(chainIdx<chainQuotes.length-1){chainIdx++;renderChainReader()}}
+function chainPrev(){if(chainIdx>0){chainIdx--;renderChainReader()}}
+function chainFinish(){
+  showToast("🎉 Brawo! Ukończyłeś historię „"+activeChain.title+"”");
+  closeChain();
+}
+function closeChain(){
+  activeChain=null;
+  renderChainsList();
+}
+function toggleChainFav(id,btn){
+  toggleFavorite(id);
+  btn.classList.toggle("fav-on",favorites.indexOf(id)!==-1);
 }
 
 // =================== SWIPE (Tinder dla cytatów) ===================
